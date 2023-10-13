@@ -71,6 +71,8 @@ public class BulletObjectPool : MonoBehaviour
         {
             // 풀링오브젝트를 새로 생성해준다.
             objInstance = Instantiate(select.prefab, select.container.transform);
+            // TEST : SJ_231013 
+            pool.Push(objInstance);
         }
 
         // 담긴 오브젝트 반환
@@ -82,7 +84,6 @@ public class BulletObjectPool : MonoBehaviour
     {
         PoolInfo select = GetPoolByType(type);
         obj.SetActive(false);
-        obj.transform.position = select.container.transform.position;
         Stack<GameObject> pool = select.poolObj;
 
         if(pool.Contains(obj) == false)
@@ -103,10 +104,10 @@ public class BulletObjectPool : MonoBehaviour
 
             // 인스턴스화 시킨 오브젝트 담아넣기
             tempObj = Instantiate(poolInfo.prefab, poolInfo.container.transform);
-
+            poolInfo.poolObj.Push(tempObj);
             // 생성한 오브젝트 비활성화, 위치 초기화, 메모리 할당하기
             tempObj.SetActive(false);
-            tempObj.transform.position = poolInfo.container.transform.position;
+            tempObj.transform.position = Vector3.zero;
         }
     }
 

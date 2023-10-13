@@ -23,7 +23,7 @@ public class GunLazerPointer : MonoBehaviour
         if (isLeftHand)
         {
             // 왼쪽 컨트롤러 기준으로 Ray를 만든다.
-            Ray ray = new Ray(ARAVRInput.LHandPosition, ARAVRInput.LHandDirection);
+            Ray ray = new Ray(BSJVRInput.LHandPosition, BSJVRInput.LHandDirection);
             RaycastHit hitInfo;
 
             // 충돌이 있다면?
@@ -38,14 +38,14 @@ public class GunLazerPointer : MonoBehaviour
             else
             {
                 lineRenderer.SetPosition(0, ray.origin);
-                lineRenderer.SetPosition(1, ray.origin + ARAVRInput.LHandDirection * lrMaxDistance);
+                lineRenderer.SetPosition(1, ray.origin + BSJVRInput.LHandDirection * lrMaxDistance);
             }
         }       // if : 왼쪽 핸드 기준으로 레이저 포인터 만들기
 
         else
         {
             // 오른쪽 컨트롤러 기준으로 Ray를 만든다.
-            Ray ray = new Ray(ARAVRInput.RHandPosition, ARAVRInput.RHandDirection);
+            Ray ray = new Ray(BSJVRInput.RHandPosition, BSJVRInput.RHandDirection);
             RaycastHit hitInfo;
 
             // 충돌이 있다면?
@@ -60,7 +60,7 @@ public class GunLazerPointer : MonoBehaviour
             else
             {
                 lineRenderer.SetPosition(0, ray.origin);
-                lineRenderer.SetPosition(1, ray.origin + ARAVRInput.RHandDirection * lrMaxDistance);
+                lineRenderer.SetPosition(1, ray.origin + BSJVRInput.RHandDirection * lrMaxDistance);
             }
         }       // else : 오른쪽 핸드 기준으로 레이저 포인터 만들기
     }
