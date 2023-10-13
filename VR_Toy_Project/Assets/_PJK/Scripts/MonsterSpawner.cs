@@ -9,47 +9,79 @@ public class MonsterSpawner : MonoBehaviour
     public GameObject Monsterlv1 = default;
     public GameObject Monsterlv2 = default;
     public GameObject Monsterlv3 = default;
+
+    private float spawnTime = 5f;
+    
+
     void Start()
     {
-        _monsterSpawner = GetComponent<GameObject>();
+        _monsterSpawner = gameObject;
     }
 
     private void Update()
     {
-        if(BossManager.instance.currentTime / 5 == 0)
+        
+        Debug.Log(BossManager.instance.gametime);
+        if(BossManager.instance.gametime > spawnTime)
         {
-            if(BossManager.instance.currentTime < 300f)
-            {
-                FirstWave();
-            }
-            else if (300f < BossManager.instance.currentTime && BossManager.instance.currentTime < 600f)
-            {
-                SecondWave();
-            }
-            else if (600f < BossManager.instance.currentTime && BossManager.instance.currentTime < 900f)
-            {
-                ThirdWave();
-            }
-
-
+            CreateMonster();
+            BossManager.instance.gametime = 0f;
         }
     }
 
+    private void CreateMonster()
+    {
+
+            if (BossManager.instance.currentTime < 300f)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    FirstWave();
+
+                }
+            }
+            else if (300f < BossManager.instance.currentTime && BossManager.instance.currentTime < 600f)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    SecondWave();
+
+                }
+            }
+            else if (600f < BossManager.instance.currentTime && BossManager.instance.currentTime < 900f)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    ThirdWave();
+
+                }
+            }
+    }
+
+        
+    
+
+
+
     void FirstWave()
     {
-        GameObject Mon1 = Instantiate(Monsterlv1, _monsterSpawner.transform);
-        Monsterlv1.transform.position = _monsterSpawner.transform.position;
+        int spawnx=Random.Range(-500, 500);
+
+        GameObject Mon1 = Instantiate(Monsterlv1, _monsterSpawner.transform.position, Quaternion.identity);
+        Mon1.transform.position = new Vector3(spawnx, _monsterSpawner.transform.position.y, _monsterSpawner.transform.position.z);
     }
 
     void SecondWave()
     {
+        int spawnx = Random.Range(-500, 500); 
         GameObject Mon2 = Instantiate(Monsterlv2, _monsterSpawner.transform);
-        Monsterlv2.transform.position = _monsterSpawner.transform.position;
+        Mon2.transform.position = new Vector3(spawnx, _monsterSpawner.transform.position.y, _monsterSpawner.transform.position.z);
     }
     void ThirdWave()
     {
+        int spawnx = Random.Range(-500, 500);
         GameObject Mon3 = Instantiate(Monsterlv3, _monsterSpawner.transform);
-        Monsterlv3.transform.position = _monsterSpawner.transform.position;
+        Mon3.transform.position = new Vector3(spawnx, _monsterSpawner.transform.position.y, _monsterSpawner.transform.position.z);
     }
 
 }

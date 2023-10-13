@@ -5,17 +5,17 @@ using UnityEngine;
 public class MonsterLv3 : MonoBehaviour
 {
     public GameObject lv3 = default;
-    public GameObject player = default;
-    public GameObject[] monsterSpawner = default;
+    private GameObject player = default;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(_fasterMove());
+        player = GameObject.Find("Player");
+        StartCoroutine(thirdwave());
     }
 
-    private IEnumerator _fasterMove()
+    private IEnumerator thirdwave()
     {
         Vector3 startLocation = lv3.transform.position;
         Vector3 targetLocation = player.transform.position;
