@@ -21,7 +21,6 @@ public class MonsterSpawner : MonoBehaviour
     private void Update()
     {
         
-        Debug.Log(BossManager.instance.gametime);
         if(BossManager.instance.gametime > spawnTime)
         {
             CreateMonster();

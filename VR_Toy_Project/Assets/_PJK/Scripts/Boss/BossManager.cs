@@ -15,6 +15,8 @@ public class BossManager : MonoBehaviour
     }
     private void Update()
     {
+        
         gametime += Time.deltaTime;
+        Debug.Log(gametime);
     }
 }
