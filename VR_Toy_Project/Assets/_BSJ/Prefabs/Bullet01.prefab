@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6313207100312081358}
   - component: {fileID: 6147348151095717778}
   - component: {fileID: 6145182664537402846}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4893,7 +4893,7 @@ GameObject:
   - component: {fileID: 6313454904523638300}
   - component: {fileID: 6146459500476420354}
   - component: {fileID: 6147076893801284520}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9726,7 +9726,7 @@ GameObject:
   - component: {fileID: 6313267033777803070}
   - component: {fileID: 6147198886758009362}
   - component: {fileID: 6146211151940254120}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14608,7 +14608,7 @@ GameObject:
   - component: {fileID: 6306117124173818376}
   - component: {fileID: 6138985553128140804}
   - component: {fileID: 6145446938621288800}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19494,7 +19494,7 @@ GameObject:
   - component: {fileID: 6227371262210800840}
   - component: {fileID: 243544972465376656}
   - component: {fileID: 3214345245744855928}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24444,6 +24444,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe907f518e75e44489615fbec1be994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vFXPoolObjType: 0
+  bulletType: 0
   bulletSpeed: 30
   bulletDamage: 10
