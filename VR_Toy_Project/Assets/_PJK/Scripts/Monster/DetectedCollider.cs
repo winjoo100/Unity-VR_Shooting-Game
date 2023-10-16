@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class DetectedCollider : MonoBehaviour
 {
-    private MonsterLv1 monsterLv1;
+    private Monsters monsters;
     private GameObject monster;
 
     private void Awake()
     {
-        monsterLv1 = GetComponentInParent<MonsterLv1>();
+        monsters = GetComponentInParent<Monsters>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other);
         if (other.CompareTag("Turret"))
         {
-            monsterLv1.turret = other.gameObject;
-            monsterLv1.isFindTurret = true;
+            monsters.turret = other.gameObject;
+            monsters.isFindTurret = true;
         }
 
     }
@@ -27,8 +26,8 @@ public class DetectedCollider : MonoBehaviour
     {
         if(other.CompareTag("Turret"))
         {
-            monsterLv1.turret = null;
-            monsterLv1.isFindTurret = false;
+            monsters.turret = null;
+            monsters.isFindTurret = false;
         }
     }
 }
