@@ -21,10 +21,10 @@ public class MonsterSpawner : MonoBehaviour
     private void Update()
     {
         
-        if(BossManager.instance.gametime > spawnTime)
+        if(BossManager.instance.spawn > spawnTime)
         {
             CreateMonster();
-            BossManager.instance.gametime = 0f;
+            BossManager.instance.spawn = 0f;
         }
     }
 

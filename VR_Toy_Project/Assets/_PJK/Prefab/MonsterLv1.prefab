@@ -227,7 +227,7 @@ MonoBehaviour:
   attackdistance: 2
   distanceToTurret: 0
   detectCollider: {fileID: 3351061256072875355}
-  moveSpeed: 5
+  moveSpeed: 50
   isFindTurret: 0
   isAttackTurret: 0
 --- !u!54 &-8039378715705275072

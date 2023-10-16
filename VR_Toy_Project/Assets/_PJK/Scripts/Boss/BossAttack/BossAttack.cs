@@ -13,8 +13,8 @@ public class BossAttack : MonoBehaviour
 
     private void Awake()
     {
-        boss = GetComponent<GameObject>();
-        bm = GetComponent<BossManager>();
+        boss = this.gameObject;
+       
 
     }
 
@@ -23,7 +23,9 @@ public class BossAttack : MonoBehaviour
     void Update()
     {
        Collider[] colliders= Physics.OverlapSphere(boss.transform.position, 100f, Turret);
-       
+
+
+        Debug.Log(bm.gametime);
         if (bm.gametime == 20)
         {
             attack();
