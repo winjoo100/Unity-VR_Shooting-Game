@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,21 +10,33 @@ public class BossManager : MonoBehaviour
     public float gametime = default;
     public float spawn = default;
 
+    //보스 hp
     public float BossHp = 10000;
+    //게임이 종료되는 시간
     public float EndGame = 1500;
-    public float BossAttackDamage = 100;
+
+    /// <summary>
+    /// 보스 원거리 관련
+    /// </summary>
+    //보스 플레이어공격력
+    public float BossAttackPlayer = 100;
+    //보스 포탑 공격력
+    public float BossAttackTurret = 200;
 
 
-
-
-    public float Lv1MonsterHp = 10;
+    /// <summary>
+    /// 몬스터관련
+    /// </summary>
+    public float Lv1MonsterHp = 100;
     public float Lv1MonsterDamage = 10;
 
-    public float Lv2MonsterHp = 20;
+    public float Lv2MonsterHp = 200;
     public float Lv2MonsterDamage = 20;
 
-    public float Lv3MonsterHp = 20;
+    public float Lv3MonsterHp = 300;
     public float Lv3MonsterDamage = 30;
+
+
 
     private void Awake()
     {
