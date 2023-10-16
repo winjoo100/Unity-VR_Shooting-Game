@@ -15,10 +15,20 @@ public class DetectedCollider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other);
-        if(other.CompareTag("Turret"))
+        if (other.CompareTag("Turret"))
         {
             monsterLv1.turret = other.gameObject;
             monsterLv1.isFindTurret = true;
+        }
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Turret"))
+        {
+            monsterLv1.turret = null;
+            monsterLv1.isFindTurret = false;
         }
     }
 }

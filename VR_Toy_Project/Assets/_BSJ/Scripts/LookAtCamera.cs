@@ -8,8 +8,12 @@ public class LookAtCamera : MonoBehaviour
     {
         if (Camera.main != null)
         {
-            transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.back, Camera.main.transform.rotation * Vector3.up);
+            // REGACY:
+            // transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.back, Camera.main.transform.rotation * Vector3.up);
 
+            // TEST:
+            Quaternion newRotation = Quaternion.LookRotation(Camera.main.transform.forward, Vector3.up);
+            transform.rotation = newRotation;
         }
     }
 }

@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Shot_BSJ : MonoBehaviour
 {
+    // 공격속도 배율
+    public float attackSpeedOffset = 0.8f;
+
     // 동일 공격속도
     [SerializeField]
-    private float attackSpeed = 1f;
-
-    // 공격속도 배율
-    [SerializeField]
-    private float attackSpeedOffset = 1f;
+    private float attackSpeed = 0.5f;
 
     // 공격 후 딜레이 시간
     [SerializeField]
@@ -20,13 +19,28 @@ public class Shot_BSJ : MonoBehaviour
     [SerializeField]
     private bool isAttack = true;
 
-    private void Start()
-    {
-        // 총알 FX(Effect) 파티클 시스템 컴포넌트 가져오기
-        // bulletEffect = bulletImpact.GetComponent<ParticleSystem>();
+    // 총알 타입
+    PoolObjType bulletType;
 
-        // 총알 FX 오디오 소스 컴포넌트 가져오기
-        // bulletAudio = bulletImpact.GetComponent<AudioSource>();
+    // 진폭 조정
+    private float handAmplitude = 0f;
+
+    private PlayerStatus playerStat;
+
+    private void Awake()
+    {
+        playerStat = GetComponent<PlayerStatus>();
+
+        // 현재 탄환 타입
+        bulletType = (PoolObjType)playerStat.playerWeapon;
+
+        // 공격 속도 조정
+        if (bulletType == PoolObjType.Bullet01) { attackSpeedOffset = 0.7f; }
+        else if (bulletType == PoolObjType.Bullet02) { attackSpeedOffset = 1f; }
+
+        // 진폭 조정
+        if (bulletType == PoolObjType.Bullet01 ) { handAmplitude = 2f; }
+        else if(bulletType == PoolObjType.Bullet02 ) { handAmplitude = 10f; }
     }
 
     private void Update()
@@ -48,10 +62,10 @@ public class Shot_BSJ : MonoBehaviour
         if (BSJVRInput.Get(BSJVRInput.Button.IndexTrigger) && isAttack == true)
         {
             // 컨트롤러의 진동 재생
-            BSJVRInput.PlayVibration(0.1f, 1f, 2f, BSJVRInput.Controller.RTouch);
+            BSJVRInput.PlayVibration(0.2f, 1f, handAmplitude, BSJVRInput.Controller.RTouch);
 
             // 총알 발싸~
-            GameObject bulletObj = BulletObjectPool.instance.GetPoolObj(PoolObjType.Bullet01);
+            GameObject bulletObj = BulletObjectPool.instance.GetPoolObj(bulletType);
             bulletObj.SetActive(true);
 
             bulletObj.transform.position = BSJVRInput.RHand.position;

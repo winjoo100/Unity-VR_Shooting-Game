@@ -1,22 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static GrabObject;
 
 public class BossMoving : MonoBehaviour
 {
-    
-    public GameObject boss =default;
-    public GameObject player =default;
 
+    public GameObject boss = default;
+    public GameObject player = default;
+    public GameObject Turret = default;
+    // 터렛을 타겟중인지 체크
+    public bool isFindTurret = false;
+
+    // 터렛을 공격중인지 체크
+    public bool isAttackTurret = false;
+    private Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
-        
+
         StartCoroutine(_BossMove());
-        
+
     }
 
     private IEnumerator _BossMove()
@@ -45,6 +47,23 @@ public class BossMoving : MonoBehaviour
             boss.transform.position = newPosition;
             yield return null;
         }
+
+    }
+
+    private void Update()
+    {
+        if (isFindTurret == true)
+        {
+            if (isAttackTurret == true)
+            {
+                //AttackTurret();
+                rb.velocity = Vector3.zero;
+            }
+
+        }
+
+
+
 
     }
 

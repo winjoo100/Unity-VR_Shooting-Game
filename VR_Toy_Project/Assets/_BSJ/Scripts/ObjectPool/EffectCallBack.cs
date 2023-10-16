@@ -24,8 +24,8 @@ public class EffectCallBack : MonoBehaviour
         if (startTime > bulletReturnTime)
         {
             // 오브젝트 풀로 반환
-            VFXObjectPool.instance.CoolObj(gameObject, effectType);
             startTime = 0f;
+            VFXObjectPool.instance.CoolObj(gameObject, effectType);
         }
     }
 
