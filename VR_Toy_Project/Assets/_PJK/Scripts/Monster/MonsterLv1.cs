@@ -1,7 +1,3 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class MonsterLv1 : MonoBehaviour
@@ -13,13 +9,13 @@ public class MonsterLv1 : MonoBehaviour
     //터렛
     public GameObject turret = default;
     // 사정거리
-    public float attackdistance = 50f;
-    // 터렛과의 사정거리
-    public float distanceToTurret = 0f;
+    public float attackdistance = 20f;
+    // 터렛과의 거리
+    public float distanceToTurret = default;
     //감지 콜라이더
     public Collider detectCollider = default;
     // 이동 속도
-    public float moveSpeed = 5.0f;
+    public float moveSpeed = 50.0f;
 
     // 터렛을 타겟중인지 체크
     public bool isFindTurret = false;
@@ -44,48 +40,45 @@ public class MonsterLv1 : MonoBehaviour
             // 플레이어 추격
             MoveTowardsTarget(player.transform.position);
         }
-
-        else if(isFindTurret == true)
-        {
-            if (distanceToTurret > 25)
+        // 터렛을 콜라이더에서 발견하면
+        else if (isFindTurret == true)
+        {    //터렛을 공격중이 아니라면
+            if (isAttackTurret == false)
             {
+                // 터렛 추격
+                Vector3 targetPosition = turret.transform.position;
 
 
-                if (isAttackTurret == false)
+                // 현재 위치에서 타겟 방향과 거리 계산
+                Vector3 toTarget = targetPosition - transform.position;
+
+                if (toTarget.magnitude > attackdistance)
                 {
-                    // 터렛 추격
-                    Vector3 targetPosition = turret.transform.position;
-
-
-                    // 현재 위치에서 타겟 방향과 거리 계산
-                    Vector3 toTarget = targetPosition - transform.position;
-
-                    if (toTarget.magnitude > attackdistance)
-                    {
-                        // 이동
-                        MoveTowardsTarget(targetPosition);
-                    }
-
-
-                    // 터렛과의 거리 비교
-                    distanceToTurret = Vector3.Distance(transform.position, turret.transform.position);
-
-                    // 터렛이 사정거리 안에 들어왔다면,
-                    if (distanceToTurret < attackdistance)
-                    {
-
-                        // 터렛 공격
-                        isAttackTurret = true;
-                    }
+                    // 이동
+                    MoveTowardsTarget(targetPosition);
                 }
-            }
-            else
-            {
 
-                AttackTurret();
+
+                // 터렛과의 거리 비교
+                distanceToTurret = Vector3.Distance(transform.position, turret.transform.position);
+
+                // 터렛이 사정거리 안에 들어왔다면,
+                if (distanceToTurret < attackdistance)
+                {
+
+                    // 터렛 공격
+                    isAttackTurret = true;
+                }
+
             }
-            
+            else if(isAttackTurret == true)
+            {
+                //AttackTurret();
+                rb.velocity = Vector3.zero;
+            }
+
         }
+
 
 
 
@@ -105,12 +98,12 @@ public class MonsterLv1 : MonoBehaviour
         // 멈춤
         rb.velocity = Vector3.zero;
         //터렛 공격 함수
-        
-    }
-        
-    
 
-    
+    }
+
+
+
+
 }
 
 
