@@ -9,9 +9,12 @@ public class BossMoving : MonoBehaviour
     public GameObject Turret = default;
     // 터렛을 타겟중인지 체크
     public bool isFindTurret = false;
-
     // 터렛을 공격중인지 체크
     public bool isAttackTurret = false;
+    // 약점포인트 공격당했는지 체크
+    public bool isAttackedWeakPoint = false;
+    // 죽었는지 체크
+    public bool isDead = false;
     private Rigidbody rb;
     // Start is called before the first frame update
     void Start()
@@ -30,7 +33,7 @@ public class BossMoving : MonoBehaviour
         //시작하는시간
         BossManager.instance.currentTime = 0f;
         //도착하는데 도달하는 시간(초)
-        float finishTime = 900f;
+        float finishTime = BossManager.instance.EndGame;
         // 경과율
         BossManager.instance.elapsedRate = BossManager.instance.currentTime / finishTime;
         while (BossManager.instance.elapsedRate < 1)
@@ -67,4 +70,14 @@ public class BossMoving : MonoBehaviour
 
     }
 
+    private void AttackedWeakPoint()
+    {
+        isAttackedWeakPoint = true;
+    }
+
+
+    private void Death()
+    {
+        isDead = true;
+    }
 }

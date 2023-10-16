@@ -25,7 +25,6 @@ public class BossAttack : MonoBehaviour
        Collider[] colliders= Physics.OverlapSphere(boss.transform.position, 100f, Turret);
 
 
-        Debug.Log(bm.gametime);
         if (bm.gametime == 20)
         {
             attack();
