@@ -27,21 +27,30 @@ public class Gun : MonoBehaviour
     private void Update()
     {
         // 크로스 헤어 표시
-        //ARAVRInput.DrawCrosshair(crosshair);
+        //BSJVRInput.DrawCrosshair(crosshair);
 
         // 사용자가 IndexTrigger 버튼을 누르면
-        if(ARAVRInput.GetDown(ARAVRInput.Button.IndexTrigger))
+        if(BSJVRInput.GetDown(BSJVRInput.Button.IndexTrigger))
         {
             // 컨트롤러의 진동 재생
-            ARAVRInput.PlayVibration(0.06f, 1f, 2f, ARAVRInput.Controller.RTouch);
+            BSJVRInput.PlayVibration(0.1f, 1f, 2f, BSJVRInput.Controller.RTouch);
 
+            // 총알 발싸~
+            GameObject bulletObj = bulletObjPool.GetPoolObj(PoolObjType.Bullet01);
+            bulletObj.SetActive(true);
+
+            bulletObj.transform.position = BSJVRInput.RHand.position;
+            bulletObj.transform.rotation = BSJVRInput.RHand.rotation;
+
+
+            // REGACY:
             //// { 총알 오디오 재생
             //bulletAudio.Stop();
             //bulletAudio.Play();
             //// } 총알 오디오 재생
 
             //// Ray를 카메라의 위치로부터 나가도록 만든다.
-            //Ray ray = new Ray(ARAVRInput.RHandPosition, ARAVRInput.RHandDirection);
+            //Ray ray = new Ray(BSJVRInput.RHandPosition, BSJVRInput.RHandDirection);
 
             //// Ray의 충돌 정보를 저장하기 위한 변수 지정
             //RaycastHit hitInfo = default;
@@ -67,11 +76,6 @@ public class Gun : MonoBehaviour
             //    bulletImpact.forward = hitInfo.normal;
             //}
 
-            // 총알 발싸~
-            GameObject bulletObj = bulletObjPool.GetPoolObj(PoolObjType.Bullet01);
-            bulletObj.SetActive(true);
-            bulletObj.transform.position = ARAVRInput.RHand.position;
-            bulletObj.transform.rotation = ARAVRInput.RHand.rotation;
         }
     }
 }
