@@ -935,6 +935,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a00410dba93f84b9247d57667bf248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStart: 0
+  isEnd: 0
 --- !u!4 &739658713
 Transform:
   m_ObjectHideFlags: 0
@@ -1910,7 +1912,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
-  startBtn: {fileID: 0}
+  timerTxt: {fileID: 0}
+  goldTxt: {fileID: 0}
 --- !u!1 &1683952765
 GameObject:
   m_ObjectHideFlags: 0

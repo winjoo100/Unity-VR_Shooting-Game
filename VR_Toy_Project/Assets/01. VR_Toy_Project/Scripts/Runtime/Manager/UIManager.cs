@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
 
         timerTxt = HUDCanvas.GetChildObj("TimerTxt");
         goldTxt = HUDCanvas.GetChildObj("GoldTxt");
+
     }
 
     // Update is called once per frame
