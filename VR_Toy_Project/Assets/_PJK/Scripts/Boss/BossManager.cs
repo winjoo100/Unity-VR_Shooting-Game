@@ -10,6 +10,23 @@ public class BossManager : MonoBehaviour
     public float currentTime = default;
     public float gametime = default;
     public float spawn = default;
+
+    public float BossHp = 10000;
+    public float EndGame = 1500;
+    public float BossAttackDamage = 100;
+
+
+
+
+    public float Lv1MonsterHp = 10;
+    public float Lv1MonsterDamage = 10;
+
+    public float Lv2MonsterHp = 20;
+    public float Lv2MonsterDamage = 20;
+
+    public float Lv3MonsterHp = 20;
+    public float Lv3MonsterDamage = 30;
+
     private void Awake()
     {
         instance = this;
