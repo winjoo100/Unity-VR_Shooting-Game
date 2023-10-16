@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Bullet : MonoBehaviour
 {
@@ -21,18 +22,18 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float bulletDamage = 10f;
 
-    private void Awake()
+    private void Start()
     {
         // { 총알 타입에 따른 총알 조정
-        if(bulletType == PoolObjType.Bullet01) 
-        { 
+        if (bulletType == PoolObjType.Bullet01)
+        {
             vfxType = VFXPoolObjType.Bullet01_HitVFX;
             textType = TextPoolObjType.DamageText01;
             bulletDamage = 10f;
         }
-        else if(bulletType == PoolObjType.Bullet02) 
-        { 
-            vfxType = VFXPoolObjType.Bullet02_HitVFX; 
+        else if (bulletType == PoolObjType.Bullet02)
+        {
+            vfxType = VFXPoolObjType.Bullet02_HitVFX;
             textType = TextPoolObjType.DamageText01;
             bulletDamage = 20f;
         }
@@ -55,10 +56,15 @@ public class Bullet : MonoBehaviour
             hitVFX.SetActive(true);
             hitVFX.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
 
-            // 타격 데미지 텍스트 콜
+            // { 타격 데미지 텍스트 콜
             GameObject damageText = TextObjectPool.instance.GetPoolObj(textType);
+
+            // 총알 데미지 텍스트 변경
+            damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", bulletDamage);
+
             damageText.SetActive(true);
             damageText.transform.position = new Vector3(transform.position.x + Random.Range(-0.25f, 0.25f), transform.position.y + Random.Range(-0.25f, 0.25f), transform.position.z - 1f);
+            // } 타격 데미지 텍스트 콜
 
             // 탄환은 오브젝트 풀로 반환
             BulletObjectPool.instance.CoolObj(gameObject, bulletType);

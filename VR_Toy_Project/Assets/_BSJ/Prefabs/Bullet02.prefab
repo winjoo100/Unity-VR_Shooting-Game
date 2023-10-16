@@ -14748,7 +14748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9228f1a3e50f8c43b024cf1a8a03c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletType: 0
+  bulletType: 1
   bulletReturnTime: 10
   startTime: 0
 --- !u!114 &1524792122113162961
@@ -14763,7 +14763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe907f518e75e44489615fbec1be994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vFXPoolObjType: 1
+  bulletType: 1
   bulletSpeed: 30
   bulletDamage: 10
 --- !u!65 &6329621320342524290
