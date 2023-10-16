@@ -8,6 +8,8 @@ public class TurretUnit : MonoBehaviour
     // { 터렛 유닛이 가지고 있어야 하는 변수들
     // 터렛 이름
     protected string myName = default;
+    // ID
+    protected int unitID = default;
     // 터렛 최대 체력
     protected int healthMax = default;
     // 터렛 현재 체력
@@ -39,10 +41,11 @@ public class TurretUnit : MonoBehaviour
 
 
     //! 터렛 자신의 정보 초기화
-    public virtual void Init(string name_, int health_, int cost_, int limit_, int range_, float interval_, int bulletID_)
+    public virtual void Init(string name_, int unitID_, int health_, int cost_, int limit_, int range_, float interval_, int bulletID_)
     {
         // TODO: 변수 초기화 추가 
         myName = name_;
+        unitID = unitID_;
         healthMax = health_;
         health = healthMax;
         cost = cost_;
