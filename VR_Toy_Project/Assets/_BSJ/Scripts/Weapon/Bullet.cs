@@ -22,6 +22,17 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float bulletDamage = 10f;
 
+    // 치명타 확률
+    [SerializeField]
+    private float criticalPercent = 0f;
+
+    // 치명타 배율
+    [SerializeField]
+    private float criticalRate = 1.0f;
+
+    // 치명타가 발생했는지 여부
+    private bool isCrit = false;
+
     private void Start()
     {
         // { 총알 타입에 따른 총알 조정
@@ -29,15 +40,58 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet01_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletDamage = 10f;
+            bulletDamage = 100f;
+            criticalPercent = 0.5f;
+            criticalRate = 1.5f;
         }
         else if (bulletType == PoolObjType.Bullet02)
         {
             vfxType = VFXPoolObjType.Bullet02_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletDamage = 20f;
+            bulletDamage = 120f;
+            criticalPercent = 0.5f;
+            criticalRate = 1.6f;
+        }
+        else if (bulletType == PoolObjType.Bullet03)
+        {
+            vfxType = VFXPoolObjType.Bullet02_HitVFX;
+            textType = TextPoolObjType.DamageText01;
+            bulletDamage = 150f;
+            criticalPercent = 0.5f;
+            criticalRate = 1.7f;
+        }
+        else if (bulletType == PoolObjType.Bullet04)
+        {
+            vfxType = VFXPoolObjType.Bullet02_HitVFX;
+            textType = TextPoolObjType.DamageText01;
+            bulletDamage = 170f;
+            criticalPercent = 0.5f;
+            criticalRate = 1.8f;
+        }
+        else if (bulletType == PoolObjType.Bullet05)
+        {
+            vfxType = VFXPoolObjType.Bullet02_HitVFX;
+            textType = TextPoolObjType.DamageText01;
+            bulletDamage = 200f;
+            criticalPercent = 0.7f;
+            criticalRate = 2.0f;
         }
         // } 총알 타입에 따른 총알 조정
+    }
+
+    private void OnEnable()
+    {
+        // 치명타 확률 계산하여 치명타 발생했는지 체크
+        float _critCheck = Random.Range(0.0f, 1.0f);
+
+        if(_critCheck < criticalPercent) 
+        {
+            isCrit = true;
+        }
+        else
+        {
+            isCrit = false;
+        }
     }
 
     void Update()
@@ -59,9 +113,19 @@ public class Bullet : MonoBehaviour
             // { 타격 데미지 텍스트 콜
             GameObject damageText = TextObjectPool.instance.GetPoolObj(textType);
 
-            // 총알 데미지 텍스트 변경
-            damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", bulletDamage /* 추후 치명타율 치명타배율 추가공격력 계산 식 추가 예정 */);
-
+            // 치명타 성공 시
+            if (isCrit)
+            {
+                // 총알 데미지 텍스트 변경
+                damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", (int)(bulletDamage * criticalRate));
+            }
+            // 치명타 실패 시
+            else
+            {
+                // 총알 데미지 텍스트 변경
+                damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", bulletDamage);
+            }
+            
             damageText.SetActive(true);
             damageText.transform.position = new Vector3(transform.position.x + Random.Range(-0.25f, 0.25f), transform.position.y + Random.Range(-0.25f, 0.25f), transform.position.z - 1f);
             // } 타격 데미지 텍스트 콜
