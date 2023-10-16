@@ -12,7 +12,7 @@ public class PlaceUnit : MonoBehaviour
     private LineRenderer lineRenderer = default;
 
     // 최초 유닛 배치 UI의 크기
-    private Vector3 originScale = Vector3.one * 0.2f;
+    //private Vector3 originScale = Vector3.one * 0.2f;
 
 
     private void Awake()
@@ -44,7 +44,7 @@ public class PlaceUnit : MonoBehaviour
             if (placeUnitUI.gameObject.activeSelf)
             {
                 // 유닛 배치 UI 위치에 유닛 생성
-                SpawnUnit(placeUnitUI.transform);
+                SpawnUnit();
             }
 
             // 유닛 배치 UI 비활성화
@@ -54,42 +54,42 @@ public class PlaceUnit : MonoBehaviour
         else if (ARAVRInput.Get(ARAVRInput.Button.One, ARAVRInput.Controller.LTouch))
         {
             // 왼쪽 컨트롤러를 기준으로 Ray를 만든다
-            Ray ray = new Ray(ARAVRInput.LHandPosition, ARAVRInput.LHandDirection);
-            RaycastHit hitInfo = default;
-            int layer = 1 << LayerMask.NameToLayer("Terrain");
+            Ray ray_ = new Ray(ARAVRInput.LHandPosition, ARAVRInput.LHandDirection);
+            RaycastHit hitInfo_ = default;
+            int layer_ = 1 << LayerMask.NameToLayer("Terrain");
 
             // Terrain만 Ray 충돌 검출
-            if (Physics.Raycast(ray, out hitInfo, 200f, layer))
+            if (Physics.Raycast(ray_, out hitInfo_, 200f, layer_))
             {
                 // Ray가 부딪힌 지점에 라인 그리기
-                lineRenderer.SetPosition(0, ray.origin);
-                lineRenderer.SetPosition(1, hitInfo.point);
+                lineRenderer.SetPosition(0, ray_.origin);
+                lineRenderer.SetPosition(1, hitInfo_.point);
                 // Ray가 부딪힌 지점에 유닛 배치 UI 표시
                 placeUnitUI.gameObject.SetActive(true);
-                placeUnitUI.position = hitInfo.point;
+                placeUnitUI.position = hitInfo_.point;
                 // 유닛 배치 UI의 Head가 위로 향하도록 방향 설정
-                placeUnitUI.up = hitInfo.normal;
+                placeUnitUI.up = hitInfo_.normal;
                 // 유닛 배치 UI의 크기가 거리에 따라 보정되도록 설정
-                placeUnitUI.localScale = originScale * Mathf.Max(1, hitInfo.distance);
+                //placeUnitUI.localScale = originScale * Mathf.Max(1, hitInfo.distance);
             }
             else
             {
                 // Ray 충돌이 발생하지 않으면 선이 Ray 방향으로 그려지도록 처리
-                lineRenderer.SetPosition(0, ray.origin);
-                lineRenderer.SetPosition(1, ray.origin + ARAVRInput.LHandDirection * 200f);
+                lineRenderer.SetPosition(0, ray_.origin);
+                lineRenderer.SetPosition(1, ray_.origin + ARAVRInput.LHandDirection * 200f);
                 // 유닛 배치 UI는 화면에서 비활성화
                 placeUnitUI.gameObject.SetActive(false);
             }
         }
     }       // Update()
 
-    private void SpawnUnit(Transform placeUnitUI)
+    private void SpawnUnit()
     {
         // 유닛 소환
-        Transform unit = Instantiate(PlaceUnitPrefab).transform;
+        Transform unit_ = Instantiate(PlaceUnitPrefab).transform;
 
-        unit.position = placeUnitUI.position;
-        unit.rotation = placeUnitUI.rotation;
-        unit.localScale = placeUnitUI.localScale;
+        unit_.position = placeUnitUI.position;
+        unit_.rotation = placeUnitUI.rotation;
+        unit_.localScale = placeUnitUI.localScale;
     }
 }
