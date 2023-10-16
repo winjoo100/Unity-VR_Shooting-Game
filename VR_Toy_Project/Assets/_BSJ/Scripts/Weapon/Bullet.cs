@@ -60,7 +60,7 @@ public class Bullet : MonoBehaviour
             GameObject damageText = TextObjectPool.instance.GetPoolObj(textType);
 
             // 총알 데미지 텍스트 변경
-            damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", bulletDamage);
+            damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", bulletDamage /* 추후 치명타율 치명타배율 추가공격력 계산 식 추가 예정 */);
 
             damageText.SetActive(true);
             damageText.transform.position = new Vector3(transform.position.x + Random.Range(-0.25f, 0.25f), transform.position.y + Random.Range(-0.25f, 0.25f), transform.position.z - 1f);

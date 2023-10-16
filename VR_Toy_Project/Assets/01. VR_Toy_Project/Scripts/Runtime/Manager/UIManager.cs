@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canvas = GFunc.GetRootObj("Canvas");
+        canvas = GFunc.GetRootObj("PlayerHUDCanvas");
         //startBtn = canvas.GetChildObj("StartBtn");
         timerTxt = canvas.GetChildObj("TimerTxt");
         goldTxt = canvas.GetChildObj("GoldTxt");

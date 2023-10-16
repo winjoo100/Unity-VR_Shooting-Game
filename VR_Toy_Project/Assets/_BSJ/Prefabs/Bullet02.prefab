@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6120114668791656704}
   - component: {fileID: 6206332807491172542}
   - component: {fileID: 6207342936926108772}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6119981522705888842}
   m_RootOrder: 2
@@ -4899,7 +4899,7 @@ GameObject:
   - component: {fileID: 6120839121183557190}
   - component: {fileID: 6207068029256735244}
   - component: {fileID: 6207449472073262266}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Spiral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4916,7 +4916,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6119981522705888842}
   m_RootOrder: 1
@@ -9841,10 +9841,10 @@ GameObject:
   - component: {fileID: 6223506166261074394}
   - component: {fileID: 6207590476735297920}
   - component: {fileID: 6061942770410665546}
+  - component: {fileID: 1696282835806878334}
   - component: {fileID: 4650392681069301222}
   - component: {fileID: 1524792122113162961}
-  - component: {fileID: 6329621320342524290}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14736,6 +14736,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!135 &1696282835806878334
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6117845985236440142}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4650392681069301222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14766,19 +14779,6 @@ MonoBehaviour:
   bulletType: 1
   bulletSpeed: 30
   bulletDamage: 10
---- !u!65 &6329621320342524290
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6117845985236440142}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.15, y: 0.15, z: 0.15}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6117904820586324854
 GameObject:
   m_ObjectHideFlags: 0
@@ -14790,7 +14790,7 @@ GameObject:
   - component: {fileID: 6119893014879531864}
   - component: {fileID: 6206412295909196362}
   - component: {fileID: 6208183219960888440}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CenterAura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14806,7 +14806,7 @@ Transform:
   m_GameObject: {fileID: 6117904820586324854}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6119981522705888842}
@@ -19690,7 +19690,7 @@ GameObject:
   - component: {fileID: 6119870692608543602}
   - component: {fileID: 6223464362803692290}
   - component: {fileID: 6207522023572444062}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SideAura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19707,7 +19707,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6119981522705888842}
   m_RootOrder: 3
@@ -24590,7 +24590,7 @@ GameObject:
   - component: {fileID: 6119905393690367344}
   - component: {fileID: 6206144584105044250}
   - component: {fileID: 6207243925563260150}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Darkness
   m_TagString: Untagged
   m_Icon: {fileID: 0}

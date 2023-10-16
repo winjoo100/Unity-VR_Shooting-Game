@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shot_BSJ : MonoBehaviour
 {
     // 공격속도 배율
-    public float attackSpeedOffset = 0.8f;
+    public float attackSpeedOffset = 1f;
 
     // 동일 공격속도
     [SerializeField]
@@ -31,16 +31,7 @@ public class Shot_BSJ : MonoBehaviour
     {
         playerStat = GetComponent<PlayerStatus>();
 
-        // 현재 탄환 타입
-        bulletType = (PoolObjType)playerStat.playerWeapon;
-
-        // 공격 속도 조정
-        if (bulletType == PoolObjType.Bullet01) { attackSpeedOffset = 0.7f; }
-        else if (bulletType == PoolObjType.Bullet02) { attackSpeedOffset = 1f; }
-
-        // 진폭 조정
-        if (bulletType == PoolObjType.Bullet01 ) { handAmplitude = 2f; }
-        else if(bulletType == PoolObjType.Bullet02 ) { handAmplitude = 10f; }
+        ChangeBullet();
     }
 
     private void Update()
@@ -75,6 +66,20 @@ public class Shot_BSJ : MonoBehaviour
             isAttack = false;
             delayAttackTime = 0f;
         }
+    }
+
+    public void ChangeBullet()
+    {
+        // 현재 탄환 타입
+        bulletType = (PoolObjType)playerStat.playerWeapon;
+
+        // 공격 속도 조정
+        if (bulletType == PoolObjType.Bullet01) { attackSpeed = 0.5f; }
+        else if (bulletType == PoolObjType.Bullet02) { attackSpeed = 0.5f; }
+
+        // 진폭 조정
+        if (bulletType == PoolObjType.Bullet01) { handAmplitude = 2f; }
+        else if (bulletType == PoolObjType.Bullet02) { handAmplitude = 10f; }
     }
 }
 
