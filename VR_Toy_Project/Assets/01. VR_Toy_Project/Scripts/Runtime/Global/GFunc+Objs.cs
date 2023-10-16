@@ -67,6 +67,11 @@ public static partial class GFunc
     }       // GetChildObj()
 
 
+    public static T GetAttachedComponent<T>(this GameObject gameObject_, string componentName) where T : Component
+    {
+        return gameObject_.GetComponent<T>();
+    }
+
 
     public static T CreateObj<T>(string objName_) where T : Component
     {

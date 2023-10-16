@@ -6,8 +6,9 @@
     "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project",
     "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts",
     "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime",
-    "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime\\Global"
+    "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime\\Global",
+    "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime\\Global\\Base"
   ],
-  "SelectedNode": "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime\\Global\\GFunc+Objs.cs",
+  "SelectedNode": "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime\\Global\\Base\\GSingleton.cs",
   "PreviewInSolutionExplorer": false
 }
