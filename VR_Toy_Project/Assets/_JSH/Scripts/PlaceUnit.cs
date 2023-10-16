@@ -30,13 +30,13 @@ public class PlaceUnit : MonoBehaviour
     private void Update()
     {
         // 왼쪽 컨트롤러의 One 버튼이 눌리면 
-        if (ARAVRInput.GetDown(ARAVRInput.Button.One, ARAVRInput.Controller.LTouch))
+        if (BSJVRInput.GetDown(BSJVRInput.Button.Two, BSJVRInput.Controller.LTouch))
         {
             // 라인 렌더러 컴포넌트 활성화
             lineRenderer.enabled = true;
         }
         // 왼쪽 컨트롤러의 One 버튼에서 손을 떼면
-        else if (ARAVRInput.GetUp(ARAVRInput.Button.One, ARAVRInput.Controller.LTouch))
+        else if (BSJVRInput.GetUp(BSJVRInput.Button.Two, BSJVRInput.Controller.LTouch))
         {
             // 라인 렌더러 컴포넌트 비활성화
             lineRenderer.enabled = false;
@@ -51,10 +51,10 @@ public class PlaceUnit : MonoBehaviour
             placeUnitUI.gameObject.SetActive(false);
         }
         // 왼쪽 컨트롤러의 One 버튼을 누르고 있을 때
-        else if (ARAVRInput.Get(ARAVRInput.Button.One, ARAVRInput.Controller.LTouch))
+        else if (BSJVRInput.Get(BSJVRInput.Button.Two, BSJVRInput.Controller.LTouch))
         {
             // 왼쪽 컨트롤러를 기준으로 Ray를 만든다
-            Ray ray_ = new Ray(ARAVRInput.LHandPosition, ARAVRInput.LHandDirection);
+            Ray ray_ = new Ray(BSJVRInput.LHandPosition, BSJVRInput.LHandDirection);
             RaycastHit hitInfo_ = default;
             int layer_ = 1 << LayerMask.NameToLayer("Terrain");
 
@@ -76,7 +76,7 @@ public class PlaceUnit : MonoBehaviour
             {
                 // Ray 충돌이 발생하지 않으면 선이 Ray 방향으로 그려지도록 처리
                 lineRenderer.SetPosition(0, ray_.origin);
-                lineRenderer.SetPosition(1, ray_.origin + ARAVRInput.LHandDirection * 200f);
+                lineRenderer.SetPosition(1, ray_.origin + BSJVRInput.LHandDirection * 200f);
                 // 유닛 배치 UI는 화면에서 비활성화
                 placeUnitUI.gameObject.SetActive(false);
             }

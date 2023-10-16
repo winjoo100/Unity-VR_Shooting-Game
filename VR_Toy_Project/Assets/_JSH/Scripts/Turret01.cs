@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class Turret01 : TurretUnit
 {
@@ -12,9 +13,35 @@ public class Turret01 : TurretUnit
         Init("Turret01", 200, 150, 20, 40, 0.5f, 0);
     }
 
-    private void Start()
+    private void Update()
     {
-        // 공격 사이클 진행
-        StartCoroutine(AttackRoutine());
+        // 목표가 없으면 탐지 실행
+        if (target == null || target == default)
+        {
+            DetectTarget();
+        }
+
+        // 공격이 준비되면 공격
+        if (isReady == true)
+        {
+            isReady = false;
+
+            AttackTarget();
+        }
+        else { /* DoNothing */ }
+    }
+}
+
+[CustomEditor(typeof(Turret01))]
+public class DestroyTurretEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        Turret01 target = GameObject.Find("Unit(Clone)").GetComponent<Turret01>();
+        if (GUILayout.Button("DamageSelf"))
+        {
+            target.DamageSelf(100);
+        }
     }
 }

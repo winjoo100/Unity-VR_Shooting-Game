@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class TurretUnit : MonoBehaviour
 {
@@ -25,7 +26,8 @@ public class TurretUnit : MonoBehaviour
     protected string image = default;
     // 가장 가까운 목표
     protected Transform target = default;
-
+    // 공격 준비 여부
+    protected bool isReady = false;
 
     // 터렛의 포탑 편하게 사용하기 위해 직렬화
     [SerializeField]
@@ -99,6 +101,9 @@ public class TurretUnit : MonoBehaviour
 
         // 탐색한 목표를 저장
         target = hitObjects_[closest_].transform;
+
+        // 공격 사이클 시작
+        StartCoroutine(AttackRoutine());
     }       // DetectTarget()
 
     //! 터렛의 공격 로직
@@ -112,16 +117,20 @@ public class TurretUnit : MonoBehaviour
 
         // 적을 향해 포탑 회전
         Vector3 direction = target.position - head.transform.position;
-        head.transform.Rotate(direction);
+        head.transform.forward = direction;
 
         // 포구에서 총알 발사
         GameObject bullet = BulletObjectPool.instance.GetPoolObj((PoolObjType)bullet_Table_ID);
+        bullet.gameObject.SetActive(true);
         bullet.transform.position = muzzle.transform.position;
-        bullet.transform.Rotate(direction);
+        bullet.transform.forward = direction;
+
+        // 사이클 재시작
+        StartCoroutine(AttackRoutine());
     }
 
     //! 터렛의 체력 변화
-    protected virtual void DamageSelf(int damage_)
+    public virtual void DamageSelf(int damage_)
     {
         // 체력 감소
         health -= damage_;
@@ -153,7 +162,10 @@ public class TurretUnit : MonoBehaviour
     {
         yield return new WaitForSeconds(firing_Interval);
 
-        DetectTarget();
-        AttackTarget();
+        // 공격 준비
+        if (isReady == false)
+        {
+            isReady = true;
+        }
     }
 }
