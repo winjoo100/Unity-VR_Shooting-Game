@@ -25,11 +25,9 @@ public class UIManager : MonoBehaviour
         //timerTxt = HUDCanvas.GetChildObj("TimerTxt");
         goldTxt = HUDCanvas.GetChildObj("GoldTxt");
 
+
     }
-
-
-
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -54,14 +52,11 @@ public class UIManager : MonoBehaviour
     }   // UpdateHUD()
 
     // ! 게임 시작 버튼 클릭시 동작
-    public void OnStartButton()
-    {
-
+    public void OnStartButton(bool isStart_)
+    {        
+        isStart_ = true;
+        startBtn.SetActive(!isStart_);
+        
     }
-
-    public void OnDamage()
-    {
-
-    }
-
+    
 }
