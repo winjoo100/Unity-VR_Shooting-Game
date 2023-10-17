@@ -5,12 +5,12 @@
     "\\VR_Toy_Project\\Assets",
     "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project",
     "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts",
-    "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Editor",
     "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime",
-    "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime\\Global",
-    "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime\\Global\\Base",
-    "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime\\Manager"
+    "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime\\Manager",
+    "\\VR_Toy_Project\\Assets\\_BSJ",
+    "\\VR_Toy_Project\\Assets\\_BSJ\\Scripts",
+    "\\VR_Toy_Project\\Assets\\_BSJ\\Scripts\\ObjectPool"
   ],
-  "SelectedNode": "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime\\Manager\\ResourceManager.cs",
+  "SelectedNode": "\\VR_Toy_Project\\Assets\\_BSJ\\Scripts\\ObjectPool\\BulletObjectPool.cs",
   "PreviewInSolutionExplorer": false
 }

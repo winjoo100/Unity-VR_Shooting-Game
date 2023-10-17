@@ -24,4 +24,6 @@ public class BossManager : MonoBehaviour
         skillCoolTime += Time.deltaTime;
         //Debug.Log(gametime);
     }
+
+
 }

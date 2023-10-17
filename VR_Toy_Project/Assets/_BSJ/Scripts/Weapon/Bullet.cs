@@ -114,7 +114,9 @@ public class Bullet : MonoBehaviour
             // 타격 이펙트 콜
             GameObject hitVFX = VFXObjectPool.instance.GetPoolObj(vfxType);
             hitVFX.SetActive(true);
-            hitVFX.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
+            // LEGACY : 
+            //hitVFX.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
+            hitVFX.transform.position = other.ClosestPointOnBounds(this.transform.position - new Vector3(0f, 0f, 5f));
 
             // { 타격 데미지 텍스트 콜
             GameObject damageText = TextObjectPool.instance.GetPoolObj(textType);
@@ -128,6 +130,7 @@ public class Bullet : MonoBehaviour
 
             // 탄환은 오브젝트 풀로 반환
             BulletObjectPool.instance.CoolObj(gameObject, bulletType);
+
         }
 
         // 바닥에 맞으면,

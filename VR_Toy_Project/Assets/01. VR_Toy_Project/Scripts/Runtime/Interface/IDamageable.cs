@@ -2,18 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamageable<T> where T : class
+public interface IDamageable
 {
     // ! 해당 함수를 구현하고 내용을 채운다. 
-    void OnDamage(T t, float damage);
-    //{    
-    //    if(hp >= damage)
+    void OnDamage(float damage);   
+
+    // ! 사용예시 
+    //float curHp = 0f;
+
+    //public void OnDamage(float damage)
+    //{
+    //    if (curHp >= damage)
     //    {
-    //        hp -= damage;
+    //        curHp -= damage;
     //    }
     //    else
     //    {
-    //        // TODO : Die() 관련 함수들 여기서 실행
+    //        // TODO : Die() 관련 함수 실행
     //    }
+
+
     //}
+
 }

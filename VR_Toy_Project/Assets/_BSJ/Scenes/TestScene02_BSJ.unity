@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -935,16 +935,8 @@ MonoBehaviour:
   currentTime: 0
   gametime: 0
   spawn: 0
-  BossHp: 10000
+  skillCoolTime: 0
   EndGame: 1500
-  BossAttackPlayer: 100
-  BossAttackTurret: 200
-  Lv1MonsterHp: 10
-  Lv1MonsterDamage: 10
-  Lv2MonsterHp: 20
-  Lv2MonsterDamage: 20
-  Lv3MonsterHp: 20
-  Lv3MonsterDamage: 30
 --- !u!4 &512671941
 Transform:
   m_ObjectHideFlags: 0
@@ -3761,7 +3753,7 @@ PrefabInstance:
       objectReference: {fileID: 1397957300}
     - target: {fileID: 6036764068900137854, guid: c35709c98aae9294ba666fa0cc3116da, type: 3}
       propertyPath: playerWeapon
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7156563202277209571, guid: c35709c98aae9294ba666fa0cc3116da, type: 3}
       propertyPath: m_LocalPosition.y
