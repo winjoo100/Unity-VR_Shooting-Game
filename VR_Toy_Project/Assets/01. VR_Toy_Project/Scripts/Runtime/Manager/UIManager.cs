@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
         StartCanvas = GFunc.GetRootObj("GameStartCanvas");
         startBtn = StartCanvas.GetChildObj("StartButton");
 
-        timerTxt = HUDCanvas.GetChildObj("TimerTxt");
+        //timerTxt = HUDCanvas.GetChildObj("TimerTxt");
         goldTxt = HUDCanvas.GetChildObj("GoldTxt");
 
     }

@@ -6,13 +6,16 @@ public class PlaceUnit : MonoBehaviour
 {
     // 배치할 유닛 ID
     private int turretID = default;
-    // 배치할 유닛 프리팹
+    // 배치할 유닛 프리팹 테스트용
     public GameObject placeUnitPrefab = default;
+    // 배치할 유닛 프리팹들
+    public GameObject[] turretPrefabs = default;
     // 유닛 배치 UI
     public Transform placeUnitUI = default;
     // 선을 그릴 라인 렌더러
     private LineRenderer lineRenderer = default;
-
+    // 버튼 클릭용 클래스
+    ButtonClicker buttonClicker = default;
 
     private void Awake()
     {
@@ -25,8 +28,8 @@ public class PlaceUnit : MonoBehaviour
         // 라인 렌더러 비활성화
         lineRenderer.enabled = false;
 
-        // 컴포넌트 비활성화
-        enabled = false;
+        // 버튼 클릭 클래스 받아오기
+        buttonClicker = FindObjectOfType<ButtonClicker>();
     }
 
     private void OnEnable()
@@ -47,13 +50,16 @@ public class PlaceUnit : MonoBehaviour
             {
                 // 유닛 배치 UI 위치에 유닛 생성
                 SpawnUnit();
+                // 유닛 배치 UI의 좌표 변경
+                placeUnitUI.transform.position = Vector3.up * -100;
             }
 
             // 유닛 배치 UI 비활성화
             placeUnitUI.gameObject.SetActive(false);
 
-            // 컴포넌트 비활성화
-            enabled = false;
+            // 배치가 끝났으니 모드 전환
+            buttonClicker.mode = Mode.ShotMode;
+            buttonClicker.ModeSwap();
         }
 
         // 왼쪽 컨트롤러를 기준으로 Ray를 만든다
