@@ -5,7 +5,8 @@ using UnityEngine;
 public class Shot_BSJ : MonoBehaviour
 {
     // 공격속도 배율
-    public float attackSpeedOffset = 1f;
+    [SerializeField]
+    private float attackSpeedOffset = 1f;
 
     // 동일 공격속도
     [SerializeField]
@@ -24,6 +25,9 @@ public class Shot_BSJ : MonoBehaviour
 
     // 진폭 조정
     private float handAmplitude = 0f;
+
+    // 총구 쪽으로 살짝 이동하기 위한 Offset
+    private float shotPointOffset = 0.11f;
 
     private PlayerStatus playerStat;
 
@@ -59,7 +63,7 @@ public class Shot_BSJ : MonoBehaviour
             GameObject bulletObj = BulletObjectPool.instance.GetPoolObj(bulletType);
             bulletObj.SetActive(true);
 
-            bulletObj.transform.position = BSJVRInput.RHand.position;
+            bulletObj.transform.position = BSJVRInput.RHand.position + BSJVRInput.RHand.forward * shotPointOffset;
             bulletObj.transform.rotation = BSJVRInput.RHand.rotation;
 
             // 공격 후 딜레이

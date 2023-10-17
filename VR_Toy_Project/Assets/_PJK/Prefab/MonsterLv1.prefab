@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 163938136}
   - component: {fileID: 3351061256072875355}
   - component: {fileID: 5312910182827516994}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: DectectCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: -7661770956646755113}
   m_Layer: 0
   m_Name: MonsterLv1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,3 +246,5 @@ MonoBehaviour:
   moveSpeed: 50
   isFindTurret: 0
   isAttackTurret: 0
+  AttackDmg: 0
+  Hp: 0

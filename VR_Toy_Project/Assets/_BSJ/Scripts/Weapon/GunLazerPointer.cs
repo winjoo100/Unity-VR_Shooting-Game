@@ -21,6 +21,9 @@ public class GunLazerPointer : MonoBehaviour
     // 레이저 포인터의 칼라
     public Color lazerColor;
 
+    // 총구 쪽으로 살짝 이동하기 위한 Offset
+    private float shotPointOffset = 0.15f;
+
     private void Awake()
     {
         // 라인 렌더러 셋팅
@@ -35,13 +38,14 @@ public class GunLazerPointer : MonoBehaviour
 
     private void Update()
     {
-        //특정 layer만 raycast제외하기 (1)
-        int layerMask = (-1) - (1 << LayerMask.NameToLayer("Bullet"));  // Everything에서 Bullet 레이어만 제외하고 충돌 체크함
+        // Bullet과 UI 레이어 빼고 검출
+        int layerMask = ((1 << LayerMask.NameToLayer("Bullet")) | (1 << LayerMask.NameToLayer("UI")) | 1 << LayerMask.NameToLayer("DetectArea"));
+        layerMask = ~layerMask;
 
         if (isLeftHand)
         {
-            // 왼쪽 컨트롤러 기준으로 Ray를 만든다.
-            Ray ray = new Ray(BSJVRInput.LHandPosition, BSJVRInput.LHandDirection);
+            // 왼쪽 컨트롤러 기준으로 Ray를 만든다. (살짝 총구 쪽에서부터 시작하도록)
+            Ray ray = new Ray(BSJVRInput.LHandPosition + BSJVRInput.LHand.forward * shotPointOffset, BSJVRInput.LHandDirection);
             RaycastHit hitInfo;
 
             // 충돌이 있다면?
@@ -67,8 +71,8 @@ public class GunLazerPointer : MonoBehaviour
 
         else
         {
-            // 오른쪽 컨트롤러 기준으로 Ray를 만든다.
-            Ray ray = new Ray(BSJVRInput.RHandPosition, BSJVRInput.RHandDirection);
+            // 오른쪽 컨트롤러 기준으로 Ray를 만든다. (살짝 총구 쪽에서부터 시작하도록)
+            Ray ray = new Ray(BSJVRInput.RHandPosition + BSJVRInput.RHand.forward * shotPointOffset, BSJVRInput.RHandDirection);
             RaycastHit hitInfo;
 
             // 충돌이 있다면?
