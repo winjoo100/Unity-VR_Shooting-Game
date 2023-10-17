@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class BossAttack : MonoBehaviour
 {
@@ -11,14 +10,13 @@ public class BossAttack : MonoBehaviour
     public GameObject monsterAttack = default;
     public LayerMask Turret = default;
 
+
     private void Awake()
-    {
+    {        
+        
         boss = this.gameObject;
-       
 
-    }
-
-
+    }  
     // Update is called once per frame
     void Update()
     {

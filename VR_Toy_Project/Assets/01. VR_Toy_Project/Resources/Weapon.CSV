@@ -1,4 +1,4 @@
-ID,Description,Bullet_Table_ID,Firing_Interval,Image,Cost
+﻿ID,Description,Bullet_Table_ID,Firing_Interval,Image,Cost
 1000,기본 무기,1200,0.5,Model_Gun_001,null
 1001,강화 무기(Lv.1),1201,0.5,Model_Gun_002,1000
 1002,강화 무기(Lv.2),1202,0.4,Model_Gun_003,1000
