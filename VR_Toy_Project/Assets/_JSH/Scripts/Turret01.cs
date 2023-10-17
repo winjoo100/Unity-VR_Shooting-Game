@@ -10,7 +10,7 @@ public class Turret01 : TurretUnit
     private void Awake()
     {
         // 스탯 초기화
-        Init("Turret01", 200, 150, 20, 40, 0.5f, 0);
+        Init("Turret01", 1300, 200, 150, 20, 40, 0.5f, 0);
     }
 
     private void Update()
@@ -32,16 +32,16 @@ public class Turret01 : TurretUnit
     }
 }
 
-[CustomEditor(typeof(Turret01))]
-public class DestroyTurretEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        Turret01 target = GameObject.Find("Unit(Clone)").GetComponent<Turret01>();
-        if (GUILayout.Button("DamageSelf"))
-        {
-            target.DamageSelf(100);
-        }
-    }
-}
+//[CustomEditor(typeof(Turret01))]
+//public class DestroyTurretEditor : Editor
+//{
+//    public override void OnInspectorGUI()
+//    {
+//        base.OnInspectorGUI();
+//        Turret01 target = GameObject.Find("Unit(Clone)").GetComponent<Turret01>();
+//        if (GUILayout.Button("DamageSelf"))
+//        {
+//            target.DamageSelf(100);
+//        }
+//    }
+//}
