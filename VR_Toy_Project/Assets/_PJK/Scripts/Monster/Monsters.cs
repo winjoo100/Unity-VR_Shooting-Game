@@ -1,7 +1,14 @@
 using UnityEngine;
+using System.Collections;
 
 public class Monsters : MonoBehaviour
 {
+    //애니메이터 관련
+    private Animator anim;
+
+    //public bool isNoTurret = false;
+    //public bool isAttackturret = false;
+    //public bool isDied = false;
     
     //몬스터
     public GameObject monsterLevel = default;
@@ -29,16 +36,61 @@ public class Monsters : MonoBehaviour
     public float Hp = default;
     private Rigidbody rb; // 괴수의 Rigidbody를 사용하여 이동 처리
 
+    private float hp;
+    private float dmg;
+    private float bombdmg;
+    public float Lv1hp { get; private set; }
+    public float Lv1atk { get; private set; }
+    public float Lv1BombDmg { get; private set; }
+    public float Lv2hp { get; private set; }
+    public float Lv2atk { get; private set; }
+    public float Lv2BombDmg { get; private set; }
+    public float Lv3hp { get; private set; }
+
+    public float Lv3atk { get; private set; }
+    public float Lv3BombDmg { get; private set; }
+
     void Start()
     {
+        
+        if (BossManager.instance.gametime < 300f)
+        {
+            hp = Lv1hp;
+            dmg = Lv1atk;
+            bombdmg = Lv1BombDmg;
+        }
+        else if (BossManager.instance.gametime > 300f && BossManager.instance.gametime < 600f)
+        {
+            hp = Lv2hp;
+            dmg = Lv2atk;
+            bombdmg = Lv2BombDmg;
+        }
+        else if (BossManager.instance.gametime > 600f)
+        {
+            hp = Lv3hp;
+            dmg = Lv3atk;
+            bombdmg = Lv3BombDmg;
+        }
         player = GameObject.Find("Player");
-        data();
+        //data();
 
         rb = GetComponent<Rigidbody>(); // Rigidbody 컴포넌트 가져오기
+
+        //몬스터
+        anim = GetComponent<Animator>();
+        
+    }
+
+    private void OnEnable()
+    {
+        Debug.LogFormat("{0}",BossManager.instance == null);
+
     }
 
     private void Update()
     {
+        
+
         // 터렛을 추격중이 아니면,
         if (isFindTurret == false)
         {
@@ -73,62 +125,75 @@ public class Monsters : MonoBehaviour
 
                     // 터렛 공격
                     isAttackTurret = true;
+                    AttackTurret(dmg);
                 }
 
             }
             else if (isAttackTurret == true)
             {
-                //AttackTurret();
+                
                 rb.velocity = Vector3.zero;
+
             }
 
         }
+        else if(Vector3.Distance(gameObject.transform.position,player.transform.position)<20f )
+        {
+            AttackUser(Lv1BombDmg);
+        }
+
+        if(hp<0)
+        {
+            AttackUser(Lv1BombDmg);
+        }
 
 
-
-
-
-        // 다른 로직에 따라 공격 로직을 추가할 수 있습니다.
     }
-
     // 목표 지점으로 괴수를 이동시키는 함수
     void MoveTowardsTarget(Vector3 targetPosition)
     {
+        gameObject.transform.forward = (targetPosition-gameObject.transform.position).normalized;
+        
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
         rb.velocity = moveDirection * moveSpeed;
     }
 
-    private void data()
-    {
-        Debug.Log(monsterLevel.gameObject.name);
-        if (monsterLevel.gameObject.name == "MonsterLv1(Clone)")
-        {
-            
-            AttackDmg = BossManager.instance.Lv1MonsterDamage;
-            Hp = BossManager.instance.Lv1MonsterHp;
-        }
-        else if (monsterLevel.gameObject.name == "MonsterLv2(Clone)")
-        {
-            AttackDmg = BossManager.instance.Lv2MonsterDamage;
-            Hp = BossManager.instance.Lv2MonsterHp;
-        }
-        else if (monsterLevel.gameObject.name == "MonsterLv3(Clone)")
-        {
-            AttackDmg = BossManager.instance.Lv3MonsterDamage;
-            Hp = BossManager.instance.Lv3MonsterHp;
-        }
-        
 
-    }
 
-    private void AttackTurret()
+
+    private void AttackTurret(float damage)
     {
-        // 멈춤
         rb.velocity = Vector3.zero;
         //터렛 공격 함수
         //Tower.hp -= AttackDmg;
+        anim.SetBool("isAttackturret", true);
+        // 멈춤
     }
 
+    private void AttackUser(float damage)
+    {
+        rb.velocity = Vector3.zero;
+        Bomb();
+
+    }
+
+    private void Bomb()
+    {
+        MonsterBomb.instance.PlayEffect();
+        Died();
+
+
+    }
+
+    private void Died()
+    {
+        if(hp<0)
+        {
+            hp = 0;
+            anim.SetBool("isDied", true);
+            MonsterBomb.instance.PlayEffect();
+        }
+    }
 
 
 

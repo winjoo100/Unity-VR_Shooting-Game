@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class KillAllCollider : MonoBehaviour
 {
-    private BossMoving Boss;
+    private Boss boss;
     private GameObject monster;
     //터렛
     public GameObject turret = default;
     private void Awake()
     {
-        Boss = GetComponentInParent<BossMoving>();
+        boss = GetComponentInParent<Boss>();
     }
 
     private void OnTriggerEnter(Collider other)
