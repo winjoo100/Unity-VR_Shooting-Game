@@ -1,0 +1,5 @@
+ID,Name,Description,Install_Limit,Cost,HP,Range,Firing_Interval,Bullet_Table_ID,Image
+1300,하급 터렛,배치형 유닛 Lv1,25,300,200,35,0.5,1205,Model_Unit_001
+1301,중급 터렛,배치형 유닛 Lv2,15,,350,40,0.33,1205,Model_Unit_002
+1302,고급 터렛,배치형 유닛 Lv3,10,,500,40,0.2,1206,Model_Unit_003
+1303,대포 터렛,배치형 유닛 Lv4,5,,100,80,1.2,1206,Model_Unit_004

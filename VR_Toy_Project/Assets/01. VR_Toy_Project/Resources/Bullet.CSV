@@ -1,0 +1,9 @@
+ID,Description,Image,Att,Bullet_Speed,Life_Time,Size,Cri_Chance,Cri_Damege,Effect
+1200,기본 총알,Model_Bullet_001,100,500,3,5,0.5,1.5,FX_Bullet_001
+1201,강화 총알(Lv.1),Model_Bullet_001,120,500,3,5,0.5,1.6,FX_Bullet_002
+1202,강화 총알(Lv.2),Model_Bullet_001,150,500,3,5,0.5,1.7,FX_Bullet_003
+1203,강화 총알(Lv.3),Model_Bullet_001,170,500,3,5,0.5,1.8,FX_Bullet_004
+1204,강화 총알(Lv.4),Model_Bullet_001,200,500,3,5,0.7,2,FX_Bullet_005
+1205,유닛 총알(하급),Model_Bullet_001,150,80,2,5,0,null,FX_Bullet_006
+1206,유닛 총알(고급),Model_Bullet_001,300,80,2,5,0,null,FX_Bullet_006
+1207,유닛 총알(대포),Model_Bullet_002,800,20,3,30,0,null,FX_Bullet_007

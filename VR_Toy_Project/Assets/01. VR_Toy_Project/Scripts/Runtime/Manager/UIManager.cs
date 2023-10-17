@@ -45,14 +45,21 @@ public class UIManager : MonoBehaviour
         int sec = ((int)curTime_ % 60);
         // } 시간을 분 / 초 로 나눔
 
+        // { HUD Text 변경
         string timeFormat = string.Format("{0} : {1}", min.ToString("D2"), sec.ToString("D2"));
         timerTxt.SetTmpText(timeFormat);
         goldTxt.SetTmpText(gold_.ToString());
+        // } HUD Text 변경
 
     }   // UpdateHUD()
 
     // ! 게임 시작 버튼 클릭시 동작
     public void OnStartButton()
+    {
+
+    }
+
+    public void OnDamage()
     {
 
     }

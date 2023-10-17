@@ -1,0 +1,5 @@
+ID,Description,Method,Gold_Gain,Gold_Time,Boss_Hp
+3000,기본 지급,1,500,null,null
+3001,시간 당 획득,2,5,1,null
+3002,보스 hp당 획득,3,200,null,0.1
+3003,몬스터 처치 시 획득,4,10,null,null
