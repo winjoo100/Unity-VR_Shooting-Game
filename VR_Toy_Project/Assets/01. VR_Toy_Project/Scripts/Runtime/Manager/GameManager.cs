@@ -24,9 +24,11 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Variables
-    // { 호출하기 위한 매니저들
+    // { 초기화를 위한 컴포너트들
     private UIManager uiManager = default;
-    // } 호출하기 위한 매니저들
+    private PlayerStatus playerStatus = default;
+    private BossManager bossManager = default;
+    // { 초기화를 위한 컴포너트들
 
     // { 게임 사이클 변수
     [SerializeField]
@@ -75,8 +77,8 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
-        uiManager = GFunc.GetRootObj("UIManager").GetComponent<UIManager>();    
-
+        uiManager = GFunc.GetRootObj("UIManager").GetComponent<UIManager>();   
+        //playerStatus = GFunc.GetRootObj("Player").GetComponent<PlayerStatus>();
 
         isStart = false;
         isEnd = false;  

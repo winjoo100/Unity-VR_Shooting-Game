@@ -1,0 +1,4 @@
+ID,Description,Image,Type,HP,Att,Att_Speed,Explosion_Damage,Speed,PlayerRange,UnitRange,Att_Rage,Ex_Rage
+1101,약한 졸개,Model_Monster_001,1,250,10,1,20,10,50,42,3,100
+1102,중간 졸개,Model_Monster_002,2,500,10,1,20,10,50,42,3,100
+1103,강한 졸개,Model_Monster_003,3,750,10,1,20,10,50,42,3,100
