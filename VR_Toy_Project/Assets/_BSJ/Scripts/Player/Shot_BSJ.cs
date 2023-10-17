@@ -76,10 +76,16 @@ public class Shot_BSJ : MonoBehaviour
         // 공격 속도 조정
         if (bulletType == PoolObjType.Bullet01) { attackSpeed = 0.5f; }
         else if (bulletType == PoolObjType.Bullet02) { attackSpeed = 0.5f; }
+        else if (bulletType == PoolObjType.Bullet03) { attackSpeed = 0.4f; }
+        else if (bulletType == PoolObjType.Bullet04) { attackSpeed = 0.4f; }
+        else if (bulletType == PoolObjType.Bullet05) { attackSpeed = 0.3f; }
 
         // 진폭 조정
         if (bulletType == PoolObjType.Bullet01) { handAmplitude = 2f; }
-        else if (bulletType == PoolObjType.Bullet02) { handAmplitude = 10f; }
+        else if (bulletType == PoolObjType.Bullet02) { handAmplitude = 4f; }
+        else if (bulletType == PoolObjType.Bullet03) { handAmplitude = 6f; }
+        else if (bulletType == PoolObjType.Bullet04) { handAmplitude = 4f; }
+        else if (bulletType == PoolObjType.Bullet05) { handAmplitude = 10f; }
     }
 }
 

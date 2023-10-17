@@ -1,0 +1,4 @@
+ID,Description,Spawn_Condition,Spawn_Interval,Monster,Amount,Distance
+1500,1페 스폰,1,5,1,4,10
+1501,2페 스폰,2,5,2,5,10
+1502,3페 스폰,3,5,3,6,10
