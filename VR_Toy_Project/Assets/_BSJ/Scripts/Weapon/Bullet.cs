@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
 
     // 총알의 속도
     [SerializeField]
-    private float bulletSpeed = 30f;
+    private float bulletSpeed = 500f;
 
     // 총알의 데미지
     [SerializeField]
@@ -30,16 +30,18 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float criticalRate = 1.0f;
 
-    // 치명타가 발생했는지 여부
-    private bool isCrit = false;
+    // 최종 데미지
+    [SerializeField]
+    private float finalDamage = 0f;
 
-    private void Start()
+    private void Awake()
     {
         // { 총알 타입에 따른 총알 조정
         if (bulletType == PoolObjType.Bullet01)
         {
             vfxType = VFXPoolObjType.Bullet01_HitVFX;
             textType = TextPoolObjType.DamageText01;
+            bulletSpeed = 500f;
             bulletDamage = 100f;
             criticalPercent = 0.5f;
             criticalRate = 1.5f;
@@ -48,29 +50,33 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet02_HitVFX;
             textType = TextPoolObjType.DamageText01;
+            bulletSpeed = 500f;
             bulletDamage = 120f;
             criticalPercent = 0.5f;
             criticalRate = 1.6f;
         }
         else if (bulletType == PoolObjType.Bullet03)
         {
-            vfxType = VFXPoolObjType.Bullet02_HitVFX;
+            vfxType = VFXPoolObjType.Bullet03_HitVFX;
             textType = TextPoolObjType.DamageText01;
+            bulletSpeed = 500f;
             bulletDamage = 150f;
             criticalPercent = 0.5f;
             criticalRate = 1.7f;
         }
         else if (bulletType == PoolObjType.Bullet04)
         {
-            vfxType = VFXPoolObjType.Bullet02_HitVFX;
+            vfxType = VFXPoolObjType.Bullet04_HitVFX;
             textType = TextPoolObjType.DamageText01;
+            bulletSpeed = 500f;
             bulletDamage = 170f;
             criticalPercent = 0.5f;
             criticalRate = 1.8f;
         }
         else if (bulletType == PoolObjType.Bullet05)
         {
-            vfxType = VFXPoolObjType.Bullet02_HitVFX;
+            vfxType = VFXPoolObjType.Bullet05_HitVFX;
+            bulletSpeed = 500f;
             textType = TextPoolObjType.DamageText01;
             bulletDamage = 200f;
             criticalPercent = 0.7f;
@@ -81,23 +87,23 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
-        // 치명타 확률 계산하여 치명타 발생했는지 체크
+        // 치명타 확률 계산하여 치명타 데미지 계산
         float _critCheck = Random.Range(0.0f, 1.0f);
 
         if(_critCheck < criticalPercent) 
         {
-            isCrit = true;
+            finalDamage = bulletDamage * criticalRate;
         }
         else
         {
-            isCrit = false;
+            finalDamage = bulletDamage;
         }
     }
 
     void Update()
     {
         // 총알이 계속 앞으로 날아감.
-        transform.Translate(Vector3.forward * bulletSpeed * Time.deltaTime);
+        transform.Translate(Vector3.forward * (bulletSpeed / 5f) * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -113,18 +119,8 @@ public class Bullet : MonoBehaviour
             // { 타격 데미지 텍스트 콜
             GameObject damageText = TextObjectPool.instance.GetPoolObj(textType);
 
-            // 치명타 성공 시
-            if (isCrit)
-            {
-                // 총알 데미지 텍스트 변경
-                damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", (int)(bulletDamage * criticalRate));
-            }
-            // 치명타 실패 시
-            else
-            {
-                // 총알 데미지 텍스트 변경
-                damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", bulletDamage);
-            }
+            // 총알 데미지 텍스트 변경
+            damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", finalDamage);
             
             damageText.SetActive(true);
             damageText.transform.position = new Vector3(transform.position.x + Random.Range(-0.25f, 0.25f), transform.position.y + Random.Range(-0.25f, 0.25f), transform.position.z - 1f);
@@ -134,7 +130,7 @@ public class Bullet : MonoBehaviour
             BulletObjectPool.instance.CoolObj(gameObject, bulletType);
         }
 
-        // 다른 곳에 맞으면
+        // 바닥에 맞으면,
         else if (other.CompareTag("Terrain"))
         {
             // 타격 이펙트 콜
@@ -146,6 +142,19 @@ public class Bullet : MonoBehaviour
             BulletObjectPool.instance.CoolObj(gameObject, bulletType);
         }
 
-        else { /* Do Nothing */ }
+        // 터렛에 맞으면,
+        else if (other.CompareTag("Turret"))
+        {
+            // 타격 이펙트 콜
+            GameObject hitVFX = VFXObjectPool.instance.GetPoolObj(vfxType);
+            hitVFX.SetActive(true);
+            hitVFX.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+
+            // 탄환 오브젝트 풀로 반환
+            BulletObjectPool.instance.CoolObj(gameObject, bulletType);
+        }
+
+        // 다른 곳에 맞으면,
+        else { /*Do Nothing*/ }
     }
 }
