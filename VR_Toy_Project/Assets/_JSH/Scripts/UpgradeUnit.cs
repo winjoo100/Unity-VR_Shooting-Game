@@ -25,11 +25,13 @@ public class UpgradeUnit : MonoBehaviour
     public virtual void UpgradeWeapon()
     {
         PlayerStatus playerStatus = FindObjectOfType<PlayerStatus>();
+        Shot_BSJ shot = FindObjectOfType<Shot_BSJ>();
 
         // TODO: cost보다 재화가 적으면 return
         // TODO: cost만큼 재화 감소
 
         playerStatus.playerWeapon = weaponLevel;
         playerStatus.ChangeWeapon();
+        shot.ChangeBullet();
     }
 }

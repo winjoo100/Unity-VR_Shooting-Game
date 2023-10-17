@@ -23,12 +23,22 @@ public class PlayerStatus : MonoBehaviour
     [Header("무적상태 확인")]
     public bool isInvincible = false;
 
+    // 대기 시간
+    private float f_waitSeconds = 1.5f;
+    private WaitForSeconds waitSeconds = default;
+
+    private void Awake()
+    {
+        // 대기 시간 캐싱
+        waitSeconds = new WaitForSeconds(f_waitSeconds);
+    }
+
     private void Start()
     {
         ChangeWeapon();
     }
 
-    // 무기 스왑
+    //! 무기 스왑
     public void ChangeWeapon()
     {
         foreach (GameObject weapon in weapons)
@@ -49,7 +59,7 @@ public class PlayerStatus : MonoBehaviour
         }
     }
 
-    // 플레이어 피격 시
+    //! 플레이어 피격 시
     public void HitDamage_Player()
     {
         // 무적 상태 시 리턴
@@ -67,11 +77,11 @@ public class PlayerStatus : MonoBehaviour
         
     }
 
-    // 플레이어 피격 시 피격 이미지 활성화/비활성화
+    //! 플레이어 피격 시 피격 이미지 활성화/비활성화
     private IEnumerator ActiveHitImage()
     {
         hitImage.enabled = true;
-        yield return new WaitForSeconds(1.5f);
+        yield return waitSeconds;
 
         hitImage.enabled = false;
 

@@ -1,4 +1,5 @@
 using Meta.WitAi.Lib;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -42,10 +43,8 @@ public class GameManager : MonoBehaviour
     public float CurTime { get; private set; }
     public int Gold { get; private set; }
     // } HUD 변수
-
     #endregion
 
- 
 
     private void Awake()
     {        
@@ -77,8 +76,8 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
-        uiManager = GFunc.GetRootObj("UIManager").GetComponent<UIManager>();   
-        //playerStatus = GFunc.GetRootObj("Player").GetComponent<PlayerStatus>();
+        uiManager = GFunc.GetRootObj("UIManager").GetComponent<UIManager>();
+        ResourceManager.Instance.Init();
 
         isStart = false;
         isEnd = false;  

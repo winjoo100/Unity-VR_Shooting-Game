@@ -14662,7 +14662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0919caf50ff0424db36c73cb0b82f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectType: 0
+  effectType: 1
   bulletReturnTime: 5
   startTime: 0
 --- !u!1 &5403613257085172984
