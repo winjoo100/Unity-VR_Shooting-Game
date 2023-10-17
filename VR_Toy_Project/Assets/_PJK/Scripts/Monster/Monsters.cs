@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Monsters : MonoBehaviour
 {
+    
     //몬스터
     public GameObject monsterLevel = default;
     //플레이어
@@ -22,12 +23,16 @@ public class Monsters : MonoBehaviour
 
     // 터렛을 공격중인지 체크
     public bool isAttackTurret = false;
-
+    [SerializeField]
+    public float AttackDmg = default;
+    [SerializeField]
+    public float Hp = default;
     private Rigidbody rb; // 괴수의 Rigidbody를 사용하여 이동 처리
 
     void Start()
     {
         player = GameObject.Find("Player");
+        data();
 
         rb = GetComponent<Rigidbody>(); // Rigidbody 컴포넌트 가져오기
     }
@@ -93,12 +98,35 @@ public class Monsters : MonoBehaviour
         rb.velocity = moveDirection * moveSpeed;
     }
 
+    private void data()
+    {
+        Debug.Log(monsterLevel.gameObject.name);
+        if (monsterLevel.gameObject.name == "MonsterLv1(Clone)")
+        {
+            
+            AttackDmg = BossManager.instance.Lv1MonsterDamage;
+            Hp = BossManager.instance.Lv1MonsterHp;
+        }
+        else if (monsterLevel.gameObject.name == "MonsterLv2(Clone)")
+        {
+            AttackDmg = BossManager.instance.Lv2MonsterDamage;
+            Hp = BossManager.instance.Lv2MonsterHp;
+        }
+        else if (monsterLevel.gameObject.name == "MonsterLv3(Clone)")
+        {
+            AttackDmg = BossManager.instance.Lv3MonsterDamage;
+            Hp = BossManager.instance.Lv3MonsterHp;
+        }
+        
+
+    }
+
     private void AttackTurret()
     {
         // 멈춤
         rb.velocity = Vector3.zero;
         //터렛 공격 함수
-
+        //Tower.hp -= AttackDmg;
     }
 
 
