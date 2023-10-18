@@ -1,0 +1,31 @@
+{
+  "Monster_Spawn": [
+    {
+      "ID": "1500",
+      "Description": "1페 스폰",
+      "Spawn_Condition": "1",
+      "Spawn_Interval": "5",
+      "Monster": "1",
+      "Amount": "4",
+      "Distance": "10"
+    },
+    {
+      "ID": "1501",
+      "Description": "2페 스폰",
+      "Spawn_Condition": "2",
+      "Spawn_Interval": "5",
+      "Monster": "2",
+      "Amount": "5",
+      "Distance": "10"
+    },
+    {
+      "ID": "1502",
+      "Description": "3페 스폰",
+      "Spawn_Condition": "3",
+      "Spawn_Interval": "5",
+      "Monster": "3",
+      "Amount": "6",
+      "Distance": "10"
+    }
+  ]
+}

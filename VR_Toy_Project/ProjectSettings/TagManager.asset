@@ -7,6 +7,10 @@ TagManager:
   - Enemy
   - Terrain
   - Turret
+  - WeakPoint
+  - Monster
+  - BossAttackPlayer
+  - BossAttackSpawnMon
   layers:
   - Default
   - TransparentFX

@@ -32,9 +32,9 @@ public class GameManager : MonoBehaviour
     // { 초기화를 위한 컴포너트들
 
     // { 게임 사이클 변수
+    //[SerializeField]
+    public bool isStart = default;
     [SerializeField]
-    private bool isStart = default;
-    [SerializeField]    
     private bool isEnd = default;
     // } 게임 사이클 변수
 

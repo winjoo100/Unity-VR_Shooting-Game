@@ -1,0 +1,49 @@
+{
+  "Monster": [
+    {
+      "ID": "1101",
+      "Description": "약한 졸개",
+      "Image": "Model_Monster_001",
+      "Type": "1",
+      "HP": "250",
+      "Att": "10",
+      "Att_Speed": "1",
+      "Explosion_Damage": "20",
+      "Speed": "10",
+      "PlayerRange": "50",
+      "UnitRange": "42",
+      "Att_Rage": "3",
+      "Ex_Rage": "100"
+    },
+    {
+      "ID": "1102",
+      "Description": "중간 졸개",
+      "Image": "Model_Monster_002",
+      "Type": "2",
+      "HP": "500",
+      "Att": "10",
+      "Att_Speed": "1",
+      "Explosion_Damage": "20",
+      "Speed": "10",
+      "PlayerRange": "50",
+      "UnitRange": "42",
+      "Att_Rage": "3",
+      "Ex_Rage": "100"
+    },
+    {
+      "ID": "1103",
+      "Description": "강한 졸개",
+      "Image": "Model_Monster_003",
+      "Type": "3",
+      "HP": "750",
+      "Att": "10",
+      "Att_Speed": "1",
+      "Explosion_Damage": "20",
+      "Speed": "10",
+      "PlayerRange": "50",
+      "UnitRange": "42",
+      "Att_Rage": "3",
+      "Ex_Rage": "100"
+    }
+  ]
+}

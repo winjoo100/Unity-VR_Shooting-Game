@@ -1,0 +1,34 @@
+{
+  "Boss_Skill": [
+    {
+      "ID": "1400",
+      "Description": "일반 공격 투사체",
+      "Image": "Model_Boss_Projectile_B",
+      "Hp": "400",
+      "Att": "50",
+      "Speed": "100",
+      "Amount_Min": "2",
+      "Amount_max": "5"
+    },
+    {
+      "ID": "1401",
+      "Description": "랜덤 공격 투사체",
+      "Image": "Model_Boss_Projectile_R",
+      "Hp": "400",
+      "Att": "1000",
+      "Speed": "100",
+      "Amount_Min": "1",
+      "Amount_max": "3"
+    },
+    {
+      "ID": "1402",
+      "Description": "졸개 소환 투사체",
+      "Image": "Model_Boss_Projectile_S",
+      "Hp": "400",
+      "Att": "0",
+      "Speed": "100",
+      "Amount_Min": "1",
+      "Amount_max": "3"
+    }
+  ]
+}

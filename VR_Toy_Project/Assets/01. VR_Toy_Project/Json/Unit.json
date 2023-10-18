@@ -1,0 +1,52 @@
+{
+  "Unit": [
+    {
+      "ID": "1300",
+      "Name": "하급 터렛",
+      "Description": "배치형 유닛 Lv1",
+      "Install_Limit": "25",
+      "Cost": "300",
+      "HP": "200",
+      "Range": "35",
+      "Firing_Interval": "0.5",
+      "Bullet_Table_ID": "1205",
+      "Image": "Model_Unit_001"
+    },
+    {
+      "ID": "1301",
+      "Name": "중급 터렛",
+      "Description": "배치형 유닛 Lv2",
+      "Install_Limit": "15",
+      "Cost": "500",
+      "HP": "350",
+      "Range": "40",
+      "Firing_Interval": "0.33",
+      "Bullet_Table_ID": "1205",
+      "Image": "Model_Unit_002"
+    },
+    {
+      "ID": "1302",
+      "Name": "고급 터렛",
+      "Description": "배치형 유닛 Lv3",
+      "Install_Limit": "10",
+      "Cost": "750",
+      "HP": "500",
+      "Range": "40",
+      "Firing_Interval": "0.2",
+      "Bullet_Table_ID": "1206",
+      "Image": "Model_Unit_003"
+    },
+    {
+      "ID": "1303",
+      "Name": "대포 터렛",
+      "Description": "배치형 유닛 Lv4",
+      "Install_Limit": "5",
+      "Cost": "1000",
+      "HP": "100",
+      "Range": "80",
+      "Firing_Interval": "1.2",
+      "Bullet_Table_ID": "1207",
+      "Image": "Model_Unit_004"
+    }
+  ]
+}
