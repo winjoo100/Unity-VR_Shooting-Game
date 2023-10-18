@@ -23,7 +23,7 @@ public class Boss : MonoBehaviour, IDamageable
     public int weakActiveCount = 0;
 
     private Rigidbody rb;
-    private float BossHp;
+    private int BossHp;
     private float BossAtk;
 
     void Start()
@@ -140,7 +140,7 @@ public class Boss : MonoBehaviour, IDamageable
         weakActiveCount = 0;
     }
 
-    public void OnDamage(float damage)
+    public void OnDamage(int damage)
     {
         BossHp -= damage;
     }

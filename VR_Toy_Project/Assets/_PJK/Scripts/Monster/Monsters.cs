@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Text;
 
 public class Monsters : MonoBehaviour, IDamageable
 {
@@ -37,21 +38,38 @@ public class Monsters : MonoBehaviour, IDamageable
     private Rigidbody rb; // 괴수의 Rigidbody를 사용하여 이동 처리
 
     private float hp;
-    private float dmg;
+    private int dmg;
     private float bombdmg;
-    public float Lv1hp { get; private set; }
-    public float Lv1atk { get; private set; }
-    public float Lv1BombDmg { get; private set; }
-    public float Lv2hp { get; private set; }
-    public float Lv2atk { get; private set; }
-    public float Lv2BombDmg { get; private set; }
-    public float Lv3hp { get; private set; }
 
-    public float Lv3atk { get; private set; }
-    public float Lv3BombDmg { get; private set; }
+    private TurretUnit tu = default;
+
+    public int Lv1hp { get; private set; }
+    public int Lv1atk { get; private set; }
+    public int Lv1BombDmg { get; private set; }
+    public int Lv2hp { get; private set; }
+    public int Lv2atk { get; private set; }
+    public int Lv2BombDmg { get; private set; }
+    public int Lv3hp { get; private set; }
+
+    public int Lv3atk { get; private set; }
+    public int Lv3BombDmg { get; private set; }
 
     void Start()
     {
+        tu = GetComponent<TurretUnit>();
+        // 몬스터 초기값 셋팅
+        Lv1hp = JsonData.Instance.monsterDatas.Monster[0].HP;
+        Lv1atk = JsonData.Instance.monsterDatas.Monster[0].Att;
+        Lv1BombDmg = JsonData.Instance.monsterDatas.Monster[0].Explosion_Damage;
+
+        Lv2hp = JsonData.Instance.monsterDatas.Monster[1].HP;
+        Lv2atk = JsonData.Instance.monsterDatas.Monster[1].Att;
+        Lv2BombDmg = JsonData.Instance.monsterDatas.Monster[1].Explosion_Damage;
+
+        Lv3hp = JsonData.Instance.monsterDatas.Monster[2].HP;
+        Lv3atk = JsonData.Instance.monsterDatas.Monster[2].Att;
+        Lv3BombDmg = JsonData.Instance.monsterDatas.Monster[2].Explosion_Damage;
+
         //Debug.LogFormat("{0}", BossManager.instance == null);
         if (BossManager.instance.gametime < 300f)
         {
@@ -79,18 +97,6 @@ public class Monsters : MonoBehaviour, IDamageable
         //몬스터
         anim = GetComponent<Animator>();
 
-        // 몬스터 초기값 셋팅
-        Lv1hp = JsonData.Instance.monsterDatas.Monster[0].HP;
-        Lv1atk = JsonData.Instance.monsterDatas.Monster[0].Att;
-        Lv1BombDmg = JsonData.Instance.monsterDatas.Monster[0].Explosion_Damage;
-
-        Lv2hp = JsonData.Instance.monsterDatas.Monster[1].HP;
-        Lv2atk = JsonData.Instance.monsterDatas.Monster[1].Att;
-        Lv2BombDmg = JsonData.Instance.monsterDatas.Monster[1].Explosion_Damage;
-
-        Lv3hp = JsonData.Instance.monsterDatas.Monster[2].HP;
-        Lv3atk = JsonData.Instance.monsterDatas.Monster[2].Att;
-        Lv3BombDmg = JsonData.Instance.monsterDatas.Monster[2].Explosion_Damage;
     }
 
     private void OnEnable()
@@ -149,7 +155,7 @@ public class Monsters : MonoBehaviour, IDamageable
             {
                 
                 rb.velocity = Vector3.zero;
-
+                AttackTurret(dmg);
             }
 
         }
@@ -174,12 +180,11 @@ public class Monsters : MonoBehaviour, IDamageable
         rb.velocity = moveDirection * moveSpeed;
     }
 
-    private void AttackTurret(float damage)
+    private void AttackTurret(int damage)
     {
         rb.velocity = Vector3.zero;
-        //터렛 공격 함수
-        //Tower.hp -= AttackDmg;
         anim.SetBool("isAttackturret", true);
+        tu.DamageSelf(damage);
         // 멈춤
     }
 
@@ -208,7 +213,7 @@ public class Monsters : MonoBehaviour, IDamageable
         }
     }
 
-    public void OnDamage(float damage)
+    public void OnDamage(int damage)
     {
         Hp -= damage;
     }

@@ -125,11 +125,11 @@ public class BossSkill
 {
     public int ID;
     public string Description;
-    public float Hp;
-    public float Att;
+    public int Hp;
+    public int Att;
     public float Speed;
-    public float Amount_Min;
-    public float Amount_max;
+    public int Amount_Min;
+    public int Amount_max;
 }
 #endregion
 
@@ -146,7 +146,7 @@ public class BulletData
 {
     public int ID;
     public string Description;
-    public float Att;
+    public int Att;
     public float Bullet_Speed;
     public float Life_Time;
     public float Size;
@@ -189,15 +189,15 @@ public class MonsterData
     public int ID;
     public string Description;
     public int Type;
-    public float HP;
-    public float Att;
+    public int HP;
+    public int Att;
     public float Att_Speed;
-    public float Explosion_Damage;
+    public int Explosion_Damage;
     public float Speed;
-    public float PlayerRange;
-    public float UnitRange;
-    public float Att_Rage;
-    public float Ex_Rage;
+    public int PlayerRange;
+    public int UnitRange;
+    public float Att_Range;
+    public int Ex_Range;
 }
 #endregion
 
@@ -238,8 +238,8 @@ public class UnitData
     public string Description;
     public int Install_Limit;
     public int Cost;
-    public float HP;
-    public float Range;
+    public int HP;
+    public int Range;
     public float Firing_Interval;
 }
 #endregion

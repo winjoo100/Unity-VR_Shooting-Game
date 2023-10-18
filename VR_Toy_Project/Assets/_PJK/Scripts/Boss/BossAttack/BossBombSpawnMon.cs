@@ -3,7 +3,7 @@ using UnityEngine;
 public class BossBombSpawnMon : MonoBehaviour, IDamageable
 {
     // 알 Hp
-    public float bossBombSpawnMonHp = default;
+    public int bossBombSpawnMonHp = default;
 
     public float initialAngle = 30f;    // 처음 날라가는 각도
 
@@ -13,6 +13,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
     private GameObject bossBombSpawnMon = default;
     private float Shottime;
     private Rigidbody rb;               // Rigidbody
+    private int randomX;
 
     public GameObject Monsterlv1 = default;
     public GameObject Monsterlv2 = default;
@@ -33,7 +34,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
     {
         targetx = Random.Range(-500, 480);
         targetz = Random.Range(-500, 480);
-        
+        randomX = Random.Range(-50, 50);
         RandomTarget = new Vector3(targetx, 0, targetz);
         StartCoroutine(Firsttime());
 
@@ -57,6 +58,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
 
     IEnumerator Firsttime()
     {
+        randomX = Random.Range(-50, 50);
         rb.useGravity = false;
         Vector3 velocity = new(15, 0, 0);
         rb.velocity = velocity;
@@ -163,7 +165,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         return finalVelocity;
     }
 
-    public void OnDamage(float damage)
+    public void OnDamage(int damage)
     {
 
         bossBombSpawnMonHp -= damage;

@@ -4,12 +4,13 @@ using UnityEngine;
 public class BossBombAttack : MonoBehaviour, IDamageable
 {
     // 공격 포탄 Hp
-    public float BossBombAttackHp = default;
+    public int BossBombAttackHp = default;
 
     public float initialAngle = 30f;    // 처음 날라가는 각도
     public GameObject target;
     private float Shottime;
     private Rigidbody rb;               // Rigidbody
+    private int randomX;
 
     private void Awake()
     {
@@ -25,7 +26,8 @@ public class BossBombAttack : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        Debug.LogFormat("target = {0}", target == null);
+        randomX = Random.Range(-50,50);
+
         StartCoroutine(Firsttime());
 
     }
@@ -44,7 +46,7 @@ public class BossBombAttack : MonoBehaviour, IDamageable
     {
         Debug.Log("시작");
         rb.useGravity = false;
-        Vector3 velocity = new Vector3(15, 10, 0);
+        Vector3 velocity = new Vector3(randomX, 100, 0);
         rb.velocity = velocity;
 
         Debug.Log("이동끝");
@@ -57,11 +59,7 @@ public class BossBombAttack : MonoBehaviour, IDamageable
         Debug.Log("발사");
         rb.useGravity = true;
         // 포물선 운동
-        Debug.LogFormat("velo = {0}", velocity);
         velocity = GetVelocity(transform.position, target.transform.position, initialAngle);
-        Debug.LogFormat("velo = {0}", velocity);
-        Debug.LogFormat("t p  = {0}", transform.position);
-        Debug.LogFormat("t t p  = {0}", target.transform.position);
 
         rb.velocity = velocity;
     }
@@ -78,8 +76,6 @@ public class BossBombAttack : MonoBehaviour, IDamageable
         float distance = Vector3.Distance(targetPos, shotPos);
         float yOffset = startPos.y - target.y; // yOffset을 0으로 설정하여 높이를 고려하지 않음
 
-        Debug.Log(distance);
-        Debug.Log(yOffset);
 
         if (distance <= 0 || yOffset <= 0)
         {
@@ -100,7 +96,7 @@ public class BossBombAttack : MonoBehaviour, IDamageable
         return finalVelocity;
     }
 
-    public void OnDamage(float damage)
+    public void OnDamage(int damage)
     {
         BossBombAttackHp -= damage;
     }

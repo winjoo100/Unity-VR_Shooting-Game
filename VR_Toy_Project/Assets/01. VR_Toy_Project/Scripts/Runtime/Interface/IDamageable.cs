@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IDamageable
 {
     // ! 해당 함수를 구현하고 내용을 채운다. 
-    void OnDamage(float damage);   
+    void OnDamage(int damage);   
 
     // ! 사용예시 
     //float curHp = 0f;

@@ -40,8 +40,7 @@ public class UIManager : MonoBehaviour
         goldTxt = HUDCanvas.GetChildObj("GoldTxt");
 
         startBtn.GetComponent<Button>().onClick.AddListener(OnStartButton);
-        startBtn.GetComponent<Button>().onClick.AddListener(OnQuitButtion);
-
+        quitBtn.GetComponent<Button>().onClick.AddListener(OnQuitButtion);
     }       // Init()
 
     // ! Player HUD 업데이트 
@@ -66,11 +65,12 @@ public class UIManager : MonoBehaviour
     {
         bool isStart_ = GameManager.Instance.GameStart();       
         StartCanvas.SetActive(!isStart_);
-    }
+    }       // OnStartButton()
 
+    // ! 게임 종료 버튼 클릭시 동작
     public void OnQuitButtion()
-    {
+    {        
         GameManager.Instance.GameQuit();
-    }
+    }       // OnQuitButtion()
 
 }

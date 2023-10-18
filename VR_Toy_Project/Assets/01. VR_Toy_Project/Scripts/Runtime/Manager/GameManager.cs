@@ -29,18 +29,26 @@ public class GameManager : MonoBehaviour
     private BossManager bossManager = default;
     // { 초기화를 위한 컴포너트들
 
+    // { 터렛을 관리할 리스트 
+    public List<Transform> turret1List = default; 
+    public List<Transform> turret2List = default; 
+    public List<Transform> turret3List = default; 
+    public List<Transform> turret4List = default; 
+    // } 터렛을 관리할 리스트 
+
     // { 게임 사이클 변수
     public bool isStart = default;
-    [SerializeField]    
-    private bool isEnd = default;
+    public bool isEnd = default;
     // } 게임 사이클 변수
     
     // { HUD 변수
     public float CurTime { get; private set; }
     public int Gold { get; private set; }
+
+    private float goldTime = default;
     // } HUD 변수
     #endregion
-    
+
     private void Awake()
     {        
         Init();
@@ -76,24 +84,47 @@ public class GameManager : MonoBehaviour
         ResourceManager.Instance.Init();
 
         isStart = false;
-        isEnd = false;  
+        isEnd = false;
         CurTime = 0f;
-        Gold = 0;
+
+        // 초기 골드 
+        Gold = 500;
     }       // Init()
 
+    // ! 글로벌로 사용할 시간과, 시간에 따른 골드 수급
     private void GetTime()
     {
         CurTime += Time.deltaTime;
-        // TEST : 추후 골드 얻는 곳에서 추가 시킬 것
-        //Gold += 1;
-
+        GetGold_Time();
     }       // GetTime()
+
+    // ! 1초당 획득 골드
+    private void GetGold_Time()
+    {
+        goldTime += Time.deltaTime;
+        if(goldTime >= 1f)
+        {
+            goldTime -= 1f;
+            Gold += 5;
+        }            
+    }
+
     
+    // ! 졸개 처치 시 골드 획득 (고정 10)  
+    public void GetGold(int gold = 10)
+    {
+        Gold += gold;
+    }       // GetGold();
+
+    // ! 보스 체력 비율에 따른 골드 획득
+    public void GetGold(float gold)
+    {
+    }
+       
     public bool GameStart()
     {
         isStart = true;
-        return isStart;
-
+        return isStart;        
     }       // GameStart()
 
     public void ReStart()
@@ -105,5 +136,5 @@ public class GameManager : MonoBehaviour
     public void GameQuit()
     {
         Application.Quit();
-    }
+    }       // QameQuit()
 }
