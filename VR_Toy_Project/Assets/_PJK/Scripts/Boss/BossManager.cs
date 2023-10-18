@@ -11,7 +11,8 @@ public class BossManager : MonoBehaviour
     public float spawn = default;
     public float skillCoolTime = default;
     //게임이 종료되는 시간
-    public float EndGame = 1500;
+    public float EndGame = 500;
+    public float Weaknesstime = default;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class BossManager : MonoBehaviour
         spawn += Time.deltaTime;
         gametime += Time.deltaTime;
         skillCoolTime += Time.deltaTime;
+        Weaknesstime += Time.deltaTime;
         //Debug.Log(gametime);
     }
 

@@ -1,8 +1,6 @@
-using Meta.WitAi.Lib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -32,24 +30,22 @@ public class GameManager : MonoBehaviour
     // { 초기화를 위한 컴포너트들
 
     // { 게임 사이클 변수
-    [SerializeField]
-    private bool isStart = default;
+    public bool isStart = default;
     [SerializeField]    
     private bool isEnd = default;
     // } 게임 사이클 변수
-
-
+    
     // { HUD 변수
     public float CurTime { get; private set; }
     public int Gold { get; private set; }
     // } HUD 변수
     #endregion
-
-
+    
     private void Awake()
     {        
         Init();
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,7 +58,7 @@ public class GameManager : MonoBehaviour
         if(isStart == default || isStart == false) {  return; }
 
         // { TEST : 버튼에 할당해서 ReStart() 할 것임
-        if(isEnd)
+        if (isEnd)
         {
             ReStart();
         }
@@ -92,12 +88,12 @@ public class GameManager : MonoBehaviour
         //Gold += 1;
 
     }       // GetTime()
-
-
-
-    public void GameStart()
+    
+    public bool GameStart()
     {
         isStart = true;
+        return isStart;
+
     }       // GameStart()
 
     public void ReStart()
@@ -106,4 +102,8 @@ public class GameManager : MonoBehaviour
         isStart = true;
     }       // ReStart()
 
+    public void GameQuit()
+    {
+        Application.Quit();
+    }
 }

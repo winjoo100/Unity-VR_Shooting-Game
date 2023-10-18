@@ -16,23 +16,23 @@ public class Bullet : MonoBehaviour
 
     // 총알의 속도
     [SerializeField]
-    private float bulletSpeed = 500f;
+    private float bulletSpeed = default;
 
     // 총알의 데미지
     [SerializeField]
-    private float bulletDamage = 10f;
+    private float bulletDamage = default;
 
     // 치명타 확률
     [SerializeField]
-    private float criticalPercent = 0f;
+    private float criticalPercent = default;
 
     // 치명타 배율
     [SerializeField]
-    private float criticalRate = 1.0f;
+    private float criticalDamage = default;
 
     // 최종 데미지
     [SerializeField]
-    private float finalDamage = 0f;
+    private float finalDamage = default;
 
     private void Awake()
     {
@@ -41,46 +41,46 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet01_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = 500f;
-            bulletDamage = 100f;
-            criticalPercent = 0.5f;
-            criticalRate = 1.5f;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[0].Bullet_Speed;
+            bulletDamage = JsonData.Instance.bulletDatas.Bullet[0].Att;
+            criticalPercent = JsonData.Instance.bulletDatas.Bullet[0].Cri_Chance;
+            criticalDamage = JsonData.Instance.bulletDatas.Bullet[0].Cri_Damege;
         }
         else if (bulletType == PoolObjType.Bullet02)
         {
             vfxType = VFXPoolObjType.Bullet02_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = 500f;
-            bulletDamage = 120f;
-            criticalPercent = 0.5f;
-            criticalRate = 1.6f;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[1].Bullet_Speed;
+            bulletDamage = JsonData.Instance.bulletDatas.Bullet[1].Att;
+            criticalPercent = JsonData.Instance.bulletDatas.Bullet[1].Cri_Chance;
+            criticalDamage = JsonData.Instance.bulletDatas.Bullet[1].Cri_Damege;
         }
         else if (bulletType == PoolObjType.Bullet03)
         {
             vfxType = VFXPoolObjType.Bullet03_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = 500f;
-            bulletDamage = 150f;
-            criticalPercent = 0.5f;
-            criticalRate = 1.7f;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[2].Bullet_Speed;
+            bulletDamage = JsonData.Instance.bulletDatas.Bullet[2].Att;
+            criticalPercent = JsonData.Instance.bulletDatas.Bullet[2].Cri_Chance;
+            criticalDamage = JsonData.Instance.bulletDatas.Bullet[2].Cri_Damege;
         }
         else if (bulletType == PoolObjType.Bullet04)
         {
             vfxType = VFXPoolObjType.Bullet04_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = 500f;
-            bulletDamage = 170f;
-            criticalPercent = 0.5f;
-            criticalRate = 1.8f;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[3].Bullet_Speed;
+            bulletDamage = JsonData.Instance.bulletDatas.Bullet[3].Att;
+            criticalPercent = JsonData.Instance.bulletDatas.Bullet[3].Cri_Chance;
+            criticalDamage = JsonData.Instance.bulletDatas.Bullet[3].Cri_Damege;
         }
         else if (bulletType == PoolObjType.Bullet05)
         {
             vfxType = VFXPoolObjType.Bullet05_HitVFX;
-            bulletSpeed = 500f;
             textType = TextPoolObjType.DamageText01;
-            bulletDamage = 200f;
-            criticalPercent = 0.7f;
-            criticalRate = 2.0f;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[4].Bullet_Speed;
+            bulletDamage = JsonData.Instance.bulletDatas.Bullet[4].Att;
+            criticalPercent = JsonData.Instance.bulletDatas.Bullet[4].Cri_Chance;
+            criticalDamage = JsonData.Instance.bulletDatas.Bullet[4].Cri_Damege;
         }
         // } 총알 타입에 따른 총알 조정
     }
@@ -92,7 +92,7 @@ public class Bullet : MonoBehaviour
 
         if(_critCheck < criticalPercent) 
         {
-            finalDamage = bulletDamage * criticalRate;
+            finalDamage = bulletDamage * criticalDamage;
         }
         else
         {
@@ -108,8 +108,8 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 적과 맞으면, 
-        if (other.CompareTag("Enemy"))
+        // 약점 ||
+        if (other.CompareTag("WeakPoint") || other.CompareTag("Monster") || other.CompareTag("BossAttackPlayer") || other.CompareTag("BossAttackSpawnMon"))
         {
             // 타격 이펙트 콜
             GameObject hitVFX = VFXObjectPool.instance.GetPoolObj(vfxType);
@@ -117,6 +117,27 @@ public class Bullet : MonoBehaviour
             // LEGACY : 
             //hitVFX.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
             hitVFX.transform.position = other.ClosestPointOnBounds(this.transform.position - new Vector3(0f, 0f, 5f));
+
+            // { 실제 데미지를 입히는 로직
+            // 약점
+            if (other.CompareTag("WeakPoint"))
+            {
+                finalDamage = bulletDamage * criticalDamage;
+                other.GetComponent<WeakPoint>().OnDamage(finalDamage);
+            }
+            else if (other.CompareTag("Monster"))
+            {
+                other.GetComponent<Monsters>().OnDamage(finalDamage);
+            }
+            else if (other.CompareTag("BossAttackPlayer"))
+            {
+                other.GetComponent<BossBombAttack>().OnDamage(finalDamage);
+            }
+            else if (other.CompareTag("BossAttackSpawnMon"))
+            {
+                other.GetComponent<BossBombSpawnMon>().OnDamage(finalDamage);
+            }       
+            // } 실제 데미지를 입히는 로직
 
             // { 타격 데미지 텍스트 콜
             GameObject damageText = TextObjectPool.instance.GetPoolObj(textType);
@@ -128,9 +149,11 @@ public class Bullet : MonoBehaviour
             damageText.transform.position = new Vector3(transform.position.x + Random.Range(-0.25f, 0.25f), transform.position.y + Random.Range(-0.25f, 0.25f), transform.position.z - 1f);
             // } 타격 데미지 텍스트 콜
 
+            
+            
+
             // 탄환은 오브젝트 풀로 반환
             BulletObjectPool.instance.CoolObj(gameObject, bulletType);
-
         }
 
         // 바닥에 맞으면,

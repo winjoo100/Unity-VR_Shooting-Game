@@ -1,0 +1,44 @@
+{
+  "Weapon": [
+    {
+      "ID": "1000",
+      "Description": "기본 무기",
+      "Bullet_Table_ID": "1200",
+      "Firing_Interval": "0.5",
+      "Image": "Model_Gun_001",
+      "Cost": null
+    },
+    {
+      "ID": "1001",
+      "Description": "강화 무기(Lv.1)",
+      "Bullet_Table_ID": "1201",
+      "Firing_Interval": "0.5",
+      "Image": "Model_Gun_002",
+      "Cost": "1000"
+    },
+    {
+      "ID": "1002",
+      "Description": "강화 무기(Lv.2)",
+      "Bullet_Table_ID": "1202",
+      "Firing_Interval": "0.4",
+      "Image": "Model_Gun_003",
+      "Cost": "1000"
+    },
+    {
+      "ID": "1003",
+      "Description": "강화 무기(Lv.3)",
+      "Bullet_Table_ID": "1203",
+      "Firing_Interval": "0.4",
+      "Image": "Model_Gun_004",
+      "Cost": "2000"
+    },
+    {
+      "ID": "1004",
+      "Description": "강화 무기(Lv.4)",
+      "Bullet_Table_ID": "1204",
+      "Firing_Interval": "0.3",
+      "Image": "Model_Gun_005",
+      "Cost": "2500"
+    }
+  ]
+}
