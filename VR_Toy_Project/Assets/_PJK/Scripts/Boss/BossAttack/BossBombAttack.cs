@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 public class BossBombAttack : MonoBehaviour
 {
@@ -12,36 +13,42 @@ public class BossBombAttack : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Shottime = 0;
 
-
+        target = GameObject.Find("Player");
     }
+
 
     private void Start()
     {
+        Debug.LogFormat("target = {0}", target == null);
         StartCoroutine(Firsttime());
 
     }
 
-
     IEnumerator Firsttime()
     {
+        Debug.Log("시작");
         rb.useGravity = false;
-        Vector3 velocity = new(15, 0, 0);
+        Vector3 velocity = new Vector3(15, 10, 0);
         rb.velocity = velocity;
 
+        Debug.Log("이동끝");
         yield return new WaitForSeconds(1.5f);
         rb.velocity = Vector3.zero;
 
+        Debug.Log("발사준비");
         yield return new WaitForSeconds(1.5f);
+
+        Debug.Log("발사");
         rb.useGravity = true;
         // 포물선 운동
+        Debug.LogFormat("velo = {0}", velocity);
         velocity = GetVelocity(transform.position, target.transform.position, initialAngle);
+        Debug.LogFormat("velo = {0}", velocity);
+        Debug.LogFormat("t p  = {0}", transform.position);
+        Debug.LogFormat("t t p  = {0}", target.transform.position);
+
         rb.velocity = velocity;
     }
-
-
-
-
-
 
 
     public Vector3 GetVelocity(Vector3 startPos, Vector3 target, float initialAngle)
@@ -54,6 +61,9 @@ public class BossBombAttack : MonoBehaviour
 
         float distance = Vector3.Distance(targetPos, shotPos);
         float yOffset = startPos.y - target.y; // yOffset을 0으로 설정하여 높이를 고려하지 않음
+
+        Debug.Log(distance);
+        Debug.Log(yOffset);
 
         if (distance <= 0 || yOffset <= 0)
         {

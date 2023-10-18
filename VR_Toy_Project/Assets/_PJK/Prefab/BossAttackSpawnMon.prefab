@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2520058075537607665}
   - component: {fileID: 2520058075537607666}
   - component: {fileID: 2520058075537607667}
+  - component: {fileID: -901097363620505784}
+  - component: {fileID: 183037446}
   m_Layer: 0
   m_Name: BossAttackSpawnMon
   m_TagString: Untagged
@@ -92,8 +94,42 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2520058075537607676}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-901097363620505784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2520058075537607676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0c548c596f11ff4c8acd7d4bc2169c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialAngle: 30
+  targetx: 0
+  targetz: 0
+  Monsterlv1: {fileID: 5585716154177097565, guid: f061947629117764b86614f930f6f37a, type: 3}
+  Monsterlv2: {fileID: 5585716154177097565, guid: f061947629117764b86614f930f6f37a, type: 3}
+  Monsterlv3: {fileID: 2520058075537607676}
+--- !u!54 &183037446
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2520058075537607676}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

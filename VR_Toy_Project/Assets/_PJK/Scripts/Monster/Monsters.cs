@@ -52,7 +52,7 @@ public class Monsters : MonoBehaviour
 
     void Start()
     {
-        
+        //Debug.LogFormat("{0}", BossManager.instance == null);
         if (BossManager.instance.gametime < 300f)
         {
             hp = Lv1hp;
@@ -83,7 +83,7 @@ public class Monsters : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.LogFormat("{0}",BossManager.instance == null);
+        
 
     }
 
