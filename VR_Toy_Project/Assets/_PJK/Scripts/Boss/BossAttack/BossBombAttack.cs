@@ -25,7 +25,6 @@ public class BossBombAttack : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        Debug.LogFormat("target = {0}", target == null);
         StartCoroutine(Firsttime());
 
     }
@@ -57,11 +56,7 @@ public class BossBombAttack : MonoBehaviour, IDamageable
         Debug.Log("발사");
         rb.useGravity = true;
         // 포물선 운동
-        Debug.LogFormat("velo = {0}", velocity);
         velocity = GetVelocity(transform.position, target.transform.position, initialAngle);
-        Debug.LogFormat("velo = {0}", velocity);
-        Debug.LogFormat("t p  = {0}", transform.position);
-        Debug.LogFormat("t t p  = {0}", target.transform.position);
 
         rb.velocity = velocity;
     }
@@ -78,8 +73,6 @@ public class BossBombAttack : MonoBehaviour, IDamageable
         float distance = Vector3.Distance(targetPos, shotPos);
         float yOffset = startPos.y - target.y; // yOffset을 0으로 설정하여 높이를 고려하지 않음
 
-        Debug.Log(distance);
-        Debug.Log(yOffset);
 
         if (distance <= 0 || yOffset <= 0)
         {
