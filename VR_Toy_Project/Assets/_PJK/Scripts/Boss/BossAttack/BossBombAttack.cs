@@ -10,6 +10,7 @@ public class BossBombAttack : MonoBehaviour, IDamageable
     public GameObject target;
     private float Shottime;
     private Rigidbody rb;               // Rigidbody
+    private int randomX;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class BossBombAttack : MonoBehaviour, IDamageable
     private void Start()
     {
         Debug.LogFormat("target = {0}", target == null);
+        randomX = Random.Range(-50,50);
         StartCoroutine(Firsttime());
 
     }
@@ -44,7 +46,7 @@ public class BossBombAttack : MonoBehaviour, IDamageable
     {
         Debug.Log("시작");
         rb.useGravity = false;
-        Vector3 velocity = new Vector3(15, 10, 0);
+        Vector3 velocity = new Vector3(randomX, 100, 0);
         rb.velocity = velocity;
 
         Debug.Log("이동끝");
