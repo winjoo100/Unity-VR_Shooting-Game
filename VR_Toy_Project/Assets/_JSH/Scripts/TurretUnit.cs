@@ -120,13 +120,19 @@ public class TurretUnit : MonoBehaviour
 
         // 적을 향해 포탑 회전
         Vector3 direction = target.position - head.transform.position;
-        head.transform.forward = direction;
+
+        // 포구가 forward 상태에서 오른쪽을 보고 있음...
+        direction.y = 0;
+        //direction = new Vector3(0, direction.y - 90, 0);
+
+        // 만들어준 방향으로 회전
+        head.transform.right = direction.normalized;
 
         // 포구에서 총알 발사
         GameObject bullet = BulletObjectPool.instance.GetPoolObj((PoolObjType)bullet_Table_ID);
         bullet.gameObject.SetActive(true);
         bullet.transform.position = muzzle.transform.position;
-        bullet.transform.forward = direction;
+        bullet.transform.forward = muzzle.transform.right;
 
         // 사이클 재시작
         StartCoroutine(AttackRoutine());

@@ -77,11 +77,13 @@ public class PlaceUnit : MonoBehaviour
             // Ray가 부딪힌 지점에 라인 그리기
             lineRenderer.SetPosition(0, ray_.origin);
             lineRenderer.SetPosition(1, hitInfo_.point);
-            
+
             // Ray가 부딪힌 지점에 유닛 배치 UI 표시
             placeUnitUI.position = hitInfo_.point;
             // 유닛 배치 UI의 Head가 위로 향하도록 방향 설정
             placeUnitUI.up = hitInfo_.normal;
+            // 유닛 배치 UI가 앞을 보도록 설정
+            placeUnitUI.right = hitInfo_.transform.forward;
         }
         else
         {
@@ -100,7 +102,7 @@ public class PlaceUnit : MonoBehaviour
         Transform unit_ = Instantiate(placeUnitPrefab).transform;
 
         unit_.position = placeUnitUI.position;
-        unit_.rotation = placeUnitUI.rotation;
+        unit_.forward = placeUnitUI.right;
         unit_.localScale = placeUnitUI.localScale;
     }
 
@@ -111,5 +113,5 @@ public class PlaceUnit : MonoBehaviour
     }
 
     //! TODO: 설치 후 게임매니져의 터렛 리스트에 추가
-    
+
 }
