@@ -43,6 +43,10 @@ public class Shot_BSJ : MonoBehaviour
 
     private void Update()
     {
+        // HSJ_
+        // TEST :GameManger에서 게임 시작 버튼을 누르기 전까지 총 발사 막는 로직
+        if(GameManager.Instance.isStart == false) {  return; }
+
         if (isAttack == false)
         {
             // 공격 쿨타임이 On되면 공격가능
