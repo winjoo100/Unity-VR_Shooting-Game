@@ -15,7 +15,7 @@ public class PlaceUnit : MonoBehaviour
     // 선을 그릴 라인 렌더러
     private LineRenderer lineRenderer = default;
     // 버튼 클릭용 클래스
-    ButtonClicker buttonClicker = default;
+    PlayerStatus playerStatus = default;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class PlaceUnit : MonoBehaviour
         lineRenderer.enabled = false;
 
         // 버튼 클릭 클래스 받아오기
-        buttonClicker = FindObjectOfType<ButtonClicker>();
+        playerStatus = FindObjectOfType<PlayerStatus>();
     }
 
     private void OnEnable()
@@ -58,8 +58,8 @@ public class PlaceUnit : MonoBehaviour
             placeUnitUI.gameObject.SetActive(false);
 
             // 배치가 끝났으니 모드 전환
-            buttonClicker.mode = Mode.ShotMode;
-            buttonClicker.ModeSwap();
+            playerStatus.mode = Mode.ShotMode;
+            playerStatus.ModeSwap();
         }
 
         // 왼쪽 컨트롤러를 기준으로 Ray를 만든다
@@ -107,4 +107,7 @@ public class PlaceUnit : MonoBehaviour
     {
         turretID = idNum_;
     }
+
+    //! TODO: 설치 후 게임매니져의 터렛 리스트에 추가
+    
 }

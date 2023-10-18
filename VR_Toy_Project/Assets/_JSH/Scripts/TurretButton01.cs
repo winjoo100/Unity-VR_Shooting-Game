@@ -21,7 +21,7 @@ public class TurretButton01 : MonoBehaviour
     //! ID SET 후 유닛 배치 실행
     public void PlaceTurret()
     {
-        //placeUnit.enabled = true;
+        // ID에 해당하는 터렛 설정
         placeUnit.SetID(turretID);
     }
 }
