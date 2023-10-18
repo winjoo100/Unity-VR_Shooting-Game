@@ -12,8 +12,8 @@
       "Speed": "10",
       "PlayerRange": "50",
       "UnitRange": "42",
-      "Att_Rage": "3",
-      "Ex_Rage": "100"
+      "Att_Range": "3",
+      "Ex_Range": "100"
     },
     {
       "ID": "1102",
@@ -27,8 +27,8 @@
       "Speed": "10",
       "PlayerRange": "50",
       "UnitRange": "42",
-      "Att_Rage": "3",
-      "Ex_Rage": "100"
+      "Att_Range": "3",
+      "Ex_Range": "100"
     },
     {
       "ID": "1103",
@@ -42,8 +42,8 @@
       "Speed": "10",
       "PlayerRange": "50",
       "UnitRange": "42",
-      "Att_Rage": "3",
-      "Ex_Rage": "100"
+      "Att_Range": "3",
+      "Ex_Range": "100"
     }
   ]
 }
