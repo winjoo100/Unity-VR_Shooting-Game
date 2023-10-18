@@ -1,2 +1,2 @@
-ID,Description,Hp,Arrive_Time,DeadSizeX,DeadSizeY,DeadSizeZ,DeadInstance,WeaknessF,WeaknessL,WeaknessR
-2001,괴수,50000,15,250,125,2,5,2100,2101,2101
+﻿ID,Description,Hp,Arrive_Time,DeadSizeX,DeadSizeY,DeadSizeZ,DeadInstance,WeaknessF,WeaknessL,WeaknessR,Cooltime,Skill_1,Skill2,Skill
+2001,괴수,50000,15,250,125,2,5,2100,2101,2101,30,1400,1401,1402
