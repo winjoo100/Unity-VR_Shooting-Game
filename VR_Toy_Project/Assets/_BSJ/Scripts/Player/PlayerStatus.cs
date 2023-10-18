@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public enum Mode
 {
-    None,
+    NoShotMode,
     ShotMode,
     PlaceMode,
 }
@@ -60,41 +60,33 @@ public class PlayerStatus : MonoBehaviour
         RaycastHit hitInfo_ = default;
         int layer_ = 1 << LayerMask.NameToLayer("Water");
 
-        // Terrain만 Ray 충돌 검출
+        // 버튼과 Ray 충돌 검출
         if (Physics.Raycast(ray_, out hitInfo_, 200f, layer_))
         {
-            Debug.Log("레이 충돌 검출");
+            // 버튼에는 발사하지 않는다
+            mode = Mode.NoShotMode;
+            ModeSwap();
 
-            // 버튼과 부딪혔는지 체크
-            if (hitInfo_.collider.gameObject.GetComponent<Button>() != null)
+            if (BSJVRInput.GetUp(BSJVRInput.Button.One, BSJVRInput.Controller.LTouch))
             {
-                // 버튼에는 발사하지 않는다
-                mode = Mode.None;
-                ModeSwap();
-            }
-            // 안 부딪혔으면 Update 종료
-            else { return; }
+                // 버튼의 기능 실행
+                hitInfo_.collider.gameObject.GetComponent<Button>().onClick.Invoke();
 
-            // 어떤 버튼인지 컴포넌트로 체크
-            if (hitInfo_.collider.gameObject.GetComponent<Upgrade01>() != null)
-            {
-                if (BSJVRInput.GetUp(BSJVRInput.Button.One, BSJVRInput.Controller.LTouch))
-                {
-                    // 버튼의 기능 실행
-                    hitInfo_.collider.gameObject.GetComponent<Button>().onClick.Invoke();
-                }
-            }
-            else if (hitInfo_.collider.gameObject.GetComponent<TurretButton01>() != null)
-            {
-                if (BSJVRInput.GetUp(BSJVRInput.Button.One, BSJVRInput.Controller.LTouch))
-                {
-                    // 모드 변경
-                    mode = Mode.PlaceMode;
-                    ModeSwap();
+                //if (hitInfo_.collider.gameObject.GetComponent<Upgrade01>() != null)
+                //{
+                //    // 버튼의 기능 실행
+                //    hitInfo_.collider.gameObject.GetComponent<Button>().onClick.Invoke();
+                //}
+                //else if (hitInfo_.collider.gameObject.GetComponent<TurretButton01>() != null)
+                //{
 
-                    // 버튼의 기능 실행
-                    hitInfo_.collider.gameObject.GetComponent<Button>().onClick.Invoke();
-                }
+                //    // 배치 모드로 변경
+                //    mode = Mode.PlaceMode;
+                //    ModeSwap();
+
+                //    // 버튼의 기능 실행
+                //    hitInfo_.collider.gameObject.GetComponent<Button>().onClick.Invoke();
+                //}
             }
         }
     }
@@ -155,10 +147,9 @@ public class PlayerStatus : MonoBehaviour
     {
         switch (mode)
         {
-            // 모두 비활성화
-            case Mode.None:
+            // 사격 비활성화
+            case Mode.NoShotMode:
                 shot.enabled = false;
-                placeUnit.enabled = false;
                 break;
             // 사격 활성화, 배치 비활성화
             case Mode.ShotMode:
@@ -167,6 +158,7 @@ public class PlayerStatus : MonoBehaviour
                 break;
             // 배치 활성화, 사격 비활성화
             case Mode.PlaceMode:
+                Debug.Log("배치 모드");
                 placeUnit.enabled = true;
                 shot.enabled = false;
                 break;

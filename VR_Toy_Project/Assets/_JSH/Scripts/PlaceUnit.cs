@@ -36,6 +36,10 @@ public class PlaceUnit : MonoBehaviour
     {
         // 라인 렌더러 컴포넌트 활성화
         lineRenderer.enabled = true;
+        // 유닛 배치 UI 활성화
+        placeUnitUI.gameObject.SetActive(true);
+
+        Debug.Log("켜졌나");
     }
 
     private void Update()
@@ -73,13 +77,11 @@ public class PlaceUnit : MonoBehaviour
             // Ray가 부딪힌 지점에 라인 그리기
             lineRenderer.SetPosition(0, ray_.origin);
             lineRenderer.SetPosition(1, hitInfo_.point);
+            
             // Ray가 부딪힌 지점에 유닛 배치 UI 표시
-            placeUnitUI.gameObject.SetActive(true);
             placeUnitUI.position = hitInfo_.point;
             // 유닛 배치 UI의 Head가 위로 향하도록 방향 설정
             placeUnitUI.up = hitInfo_.normal;
-            // 유닛 배치 UI의 크기가 거리에 따라 보정되도록 설정
-            //placeUnitUI.localScale = originScale * Mathf.Max(1, hitInfo.distance);
         }
         else
         {
