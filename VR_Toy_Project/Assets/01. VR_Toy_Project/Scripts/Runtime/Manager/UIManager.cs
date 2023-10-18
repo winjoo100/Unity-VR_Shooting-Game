@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
         goldTxt = HUDCanvas.GetChildObj("GoldTxt");
 
         startBtn.GetComponent<Button>().onClick.AddListener(OnStartButton);
-        startBtn.GetComponent<Button>().onClick.AddListener(OnQuitButtion);
+        quitBtn.GetComponent<Button>().onClick.AddListener(OnQuitButtion);
 
     }       // Init()
 
