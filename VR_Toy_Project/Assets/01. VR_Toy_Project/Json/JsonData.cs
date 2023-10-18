@@ -125,7 +125,7 @@ public class BossSkill
 {
     public int ID;
     public string Description;
-    public int Hp;
+    public float Hp;
     public float Att;
     public float Speed;
     public float Amount_Min;
@@ -189,7 +189,7 @@ public class MonsterData
     public int ID;
     public string Description;
     public int Type;
-    public int HP;
+    public float HP;
     public float Att;
     public float Att_Speed;
     public float Explosion_Damage;
@@ -238,7 +238,7 @@ public class UnitData
     public string Description;
     public int Install_Limit;
     public int Cost;
-    public int HP;
+    public float HP;
     public float Range;
     public float Firing_Interval;
 }

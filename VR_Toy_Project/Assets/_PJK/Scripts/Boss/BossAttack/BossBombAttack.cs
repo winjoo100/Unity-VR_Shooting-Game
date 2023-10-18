@@ -1,8 +1,11 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
-public class BossBombAttack : MonoBehaviour
+public class BossBombAttack : MonoBehaviour, IDamageable
 {
+    // 공격 포탄 Hp
+    public float BossBombAttackHp = default;
+
     public float initialAngle = 30f;    // 처음 날라가는 각도
     public GameObject target;
     private float Shottime;
@@ -10,6 +13,9 @@ public class BossBombAttack : MonoBehaviour
 
     private void Awake()
     {
+        // 체력 셋팅
+        BossBombAttackHp = JsonData.Instance.bossSkillDatas.Boss_Skill[0].Hp;
+
         rb = GetComponent<Rigidbody>();
         Shottime = 0;
 
@@ -23,6 +29,16 @@ public class BossBombAttack : MonoBehaviour
         StartCoroutine(Firsttime());
 
     }
+
+    private void Update()
+    {
+        // 체력이 0이되면 비활성화
+        if (BossBombAttackHp <= 0 )
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
 
     IEnumerator Firsttime()
     {
@@ -84,4 +100,8 @@ public class BossBombAttack : MonoBehaviour
         return finalVelocity;
     }
 
+    public void OnDamage(float damage)
+    {
+        BossBombAttackHp -= damage;
+    }
 }

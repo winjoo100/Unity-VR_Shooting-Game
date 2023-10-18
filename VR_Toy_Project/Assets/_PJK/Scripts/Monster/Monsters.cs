@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Monsters : MonoBehaviour
+public class Monsters : MonoBehaviour, IDamageable
 {
     //애니메이터 관련
     private Animator anim;
@@ -78,7 +78,19 @@ public class Monsters : MonoBehaviour
 
         //몬스터
         anim = GetComponent<Animator>();
-        
+
+        // 몬스터 초기값 셋팅
+        Lv1hp = JsonData.Instance.monsterDatas.Monster[0].HP;
+        Lv1atk = JsonData.Instance.monsterDatas.Monster[0].Att;
+        Lv1BombDmg = JsonData.Instance.monsterDatas.Monster[0].Explosion_Damage;
+
+        Lv2hp = JsonData.Instance.monsterDatas.Monster[1].HP;
+        Lv2atk = JsonData.Instance.monsterDatas.Monster[1].Att;
+        Lv2BombDmg = JsonData.Instance.monsterDatas.Monster[1].Explosion_Damage;
+
+        Lv3hp = JsonData.Instance.monsterDatas.Monster[2].HP;
+        Lv3atk = JsonData.Instance.monsterDatas.Monster[2].Att;
+        Lv3BombDmg = JsonData.Instance.monsterDatas.Monster[2].Explosion_Damage;
     }
 
     private void OnEnable()
@@ -89,7 +101,11 @@ public class Monsters : MonoBehaviour
 
     private void Update()
     {
-        
+        // 체력이 0이되면 비활성화
+        if (Hp <= 0)
+        {
+            gameObject.SetActive(false);
+        }
 
         // 터렛을 추격중이 아니면,
         if (isFindTurret == false)
@@ -158,9 +174,6 @@ public class Monsters : MonoBehaviour
         rb.velocity = moveDirection * moveSpeed;
     }
 
-
-
-
     private void AttackTurret(float damage)
     {
         rb.velocity = Vector3.zero;
@@ -195,6 +208,10 @@ public class Monsters : MonoBehaviour
         }
     }
 
+    public void OnDamage(float damage)
+    {
+        Hp -= damage;
+    }
 
 
 }

@@ -108,8 +108,8 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 적과 맞으면, 
-        if (other.CompareTag("Enemy"))
+        // 약점 ||
+        if (other.CompareTag("WeakPoint") || other.CompareTag("Monster") || other.CompareTag("BossAttackPlayer") || other.CompareTag("BossAttackSpawnMon"))
         {
             // 타격 이펙트 콜
             GameObject hitVFX = VFXObjectPool.instance.GetPoolObj(vfxType);
@@ -117,6 +117,27 @@ public class Bullet : MonoBehaviour
             // LEGACY : 
             //hitVFX.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
             hitVFX.transform.position = other.ClosestPointOnBounds(this.transform.position - new Vector3(0f, 0f, 5f));
+
+            // { 실제 데미지를 입히는 로직
+            // 약점
+            if (other.CompareTag("WeakPoint"))
+            {
+                finalDamage = bulletDamage * criticalDamage;
+                other.GetComponent<WeakPoint>().OnDamage(finalDamage);
+            }
+            else if (other.CompareTag("Monster"))
+            {
+                other.GetComponent<Monsters>().OnDamage(finalDamage);
+            }
+            else if (other.CompareTag("BossAttackPlayer"))
+            {
+                other.GetComponent<BossBombAttack>().OnDamage(finalDamage);
+            }
+            else if (other.CompareTag("BossAttackSpawnMon"))
+            {
+                other.GetComponent<BossBombSpawnMon>().OnDamage(finalDamage);
+            }       
+            // } 실제 데미지를 입히는 로직
 
             // { 타격 데미지 텍스트 콜
             GameObject damageText = TextObjectPool.instance.GetPoolObj(textType);
@@ -128,9 +149,11 @@ public class Bullet : MonoBehaviour
             damageText.transform.position = new Vector3(transform.position.x + Random.Range(-0.25f, 0.25f), transform.position.y + Random.Range(-0.25f, 0.25f), transform.position.z - 1f);
             // } 타격 데미지 텍스트 콜
 
+            
+            
+
             // 탄환은 오브젝트 풀로 반환
             BulletObjectPool.instance.CoolObj(gameObject, bulletType);
-
         }
 
         // 바닥에 맞으면,

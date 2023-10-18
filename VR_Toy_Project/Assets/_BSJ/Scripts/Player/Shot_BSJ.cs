@@ -34,7 +34,10 @@ public class Shot_BSJ : MonoBehaviour
     private void Awake()
     {
         playerStat = GetComponent<PlayerStatus>();
+    }
 
+    private void Start()
+    {
         ChangeBullet();
     }
 

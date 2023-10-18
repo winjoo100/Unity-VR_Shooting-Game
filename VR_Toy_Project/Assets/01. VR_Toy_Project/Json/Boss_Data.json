@@ -4,7 +4,7 @@
       "ID": "2001",
       "Description": "괴수",
       "Hp": "50000",
-      "Arrive_Time": "15",
+      "Arrive_Time": "900",
       "DeadSizeX": "250",
       "DeadSizeY": "125",
       "DeadSizeZ": "2",

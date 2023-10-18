@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class Boss : MonoBehaviour
+public class Boss : MonoBehaviour, IDamageable
 {
-
     public GameObject boss = default;
     public GameObject player = default;
     public GameObject Turret = default;
@@ -27,9 +26,11 @@ public class Boss : MonoBehaviour
     private float BossHp;
     private float BossAtk;
 
-
     void Start()
     {
+        // 보스 초기 값 셋팅
+        BossHp = JsonData.Instance.bossDatas.Boss_Data[0].Hp;
+
         StartCoroutine(_BossMove());
 
         // 약점 프리팹 모두 비활성화
@@ -75,21 +76,19 @@ public class Boss : MonoBehaviour
                 //AttackTurret();
                 rb.velocity = Vector3.zero;
             }
-
-
-            if (bm.Weaknesstime > 10 || weakActiveCount == 0)
-            {
-                // 기존 약점 비활성화
-                OffWeakPoint();
-
-                // 약점 활성화
-                OnWeakPoint();
-                bm.Weaknesstime = 0;
-            }
-
         }
 
-        if(BossHp<0)
+        if (bm.Weaknesstime > 10 || weakActiveCount == 0)
+        {
+            // 기존 약점 비활성화
+            OffWeakPoint();
+
+            // 약점 활성화
+            OnWeakPoint();
+            bm.Weaknesstime = 0;
+        }
+
+        if (BossHp<0)
         {
 
             Death();
@@ -139,5 +138,10 @@ public class Boss : MonoBehaviour
         }
 
         weakActiveCount = 0;
+    }
+
+    public void OnDamage(float damage)
+    {
+        BossHp -= damage;
     }
 }
