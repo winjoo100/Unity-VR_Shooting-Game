@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+/*  LEGACY
 public enum Mode
 {
     ShotMode,
@@ -36,6 +38,17 @@ public class ButtonClicker : MonoBehaviour
         if (Physics.Raycast(ray_, out hitInfo_, 200f, layer_))
         {
             Debug.Log("레이 충돌 검출");
+
+            // 버튼이랑 부딪혔는지 체크
+            if (hitInfo_.collider.gameObject.GetComponent<Button>() != null)
+            {
+                // 버튼에는 총알을 발사하지 않는다
+                shot.enabled = false;
+
+                // 버튼의 OnClick에 설정된 함수를 실행
+                hitInfo_.collider.gameObject.GetComponent<Button>().onClick.Invoke();
+            }
+
             // 어떤 버튼인지 컴포넌트로 체크
             if (hitInfo_.collider.gameObject.GetComponent<Upgrade01>() != null)
             {
@@ -88,3 +101,5 @@ public class ButtonClicker : MonoBehaviour
         }
     }
 }
+
+ */

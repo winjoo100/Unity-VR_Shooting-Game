@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class Boss : MonoBehaviour
+public class Boss : MonoBehaviour, IDamageable
 {
-
     public GameObject boss = default;
     public GameObject player = default;
     public GameObject Turret = default;
@@ -15,13 +14,27 @@ public class Boss : MonoBehaviour
     public bool isAttackedWeakPoint = false;
     // 죽었는지 체크
     public bool isDead = false;
+    public BossManager bm = default;
+
+    // 약점 포인트 프리팹들
+    public GameObject[] weakpoints;
+
+    // 몇개가 활성화 되어있는지 체크
+    public int weakActiveCount = 0;
+
     private Rigidbody rb;
-    // Start is called before the first frame update
+    private float BossHp;
+    private float BossAtk;
+
     void Start()
     {
+        // 보스 초기 값 셋팅
+        BossHp = JsonData.Instance.bossDatas.Boss_Data[0].Hp;
 
         StartCoroutine(_BossMove());
 
+        // 약점 프리팹 모두 비활성화
+        OffWeakPoint();
     }
 
     private IEnumerator _BossMove()
@@ -40,7 +53,8 @@ public class Boss : MonoBehaviour
         {
             BossManager.instance.currentTime += Time.deltaTime;
             BossManager.instance.elapsedRate = BossManager.instance.currentTime / finishTime;
-            boss.transform.position = Vector3.Lerp(startLocation, targetLocation, BossManager.instance.elapsedRate);
+            // TEST : * 5f
+            boss.transform.position = Vector3.Lerp(startLocation, targetLocation, BossManager.instance.elapsedRate * 5f);
             // Y 위치를 고정
             Vector3 newPosition = new Vector3(
                 Mathf.Lerp(startLocation.x, targetLocation.x, BossManager.instance.elapsedRate),
@@ -62,10 +76,23 @@ public class Boss : MonoBehaviour
                 //AttackTurret();
                 rb.velocity = Vector3.zero;
             }
-
         }
 
+        if (bm.Weaknesstime > 10 || weakActiveCount == 0)
+        {
+            // 기존 약점 비활성화
+            OffWeakPoint();
 
+            // 약점 활성화
+            OnWeakPoint();
+            bm.Weaknesstime = 0;
+        }
+
+        if (BossHp<0)
+        {
+
+            Death();
+        }
 
 
     }
@@ -78,6 +105,43 @@ public class Boss : MonoBehaviour
 
     private void Death()
     {
+        
         isDead = true;
+        //TODO : 게임종료 승리
+
+    }
+
+    void OnWeakPoint()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            int onweak = Random.Range(0, 8);
+
+            weakpoints[onweak].SetActive(true);
+
+            if (i == 0)
+            {
+                weakpoints[onweak].transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            }
+
+            weakActiveCount = 3;
+        }
+    }
+
+    void OffWeakPoint()
+    {
+        // 약점 프리팹 모두 비활성화
+        for (int i = 0; i < weakpoints.Length; i++)
+        {
+
+            weakpoints[i].SetActive(false);
+        }
+
+        weakActiveCount = 0;
+    }
+
+    public void OnDamage(float damage)
+    {
+        BossHp -= damage;
     }
 }

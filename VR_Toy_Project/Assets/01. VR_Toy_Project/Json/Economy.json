@@ -1,0 +1,36 @@
+{
+  "Economy": [
+    {
+      "ID": "3000",
+      "Description": "기본 지급",
+      "Method": "1",
+      "Gold_Gain": "500",
+      "Gold_Time": "0",
+      "Boss_Hp": "0"
+    },
+    {
+      "ID": "3001",
+      "Description": "시간 당 획득",
+      "Method": "2",
+      "Gold_Gain": "5",
+      "Gold_Time": "1",
+      "Boss_Hp": "0"
+    },
+    {
+      "ID": "3002",
+      "Description": "보스 hp당 획득",
+      "Method": "3",
+      "Gold_Gain": "200",
+      "Gold_Time": "0",
+      "Boss_Hp": "0.1"
+    },
+    {
+      "ID": "3003",
+      "Description": "몬스터 처치 시 획득",
+      "Method": "4",
+      "Gold_Gain": "10",
+      "Gold_Time": "0",
+      "Boss_Hp": "0"
+    }
+  ]
+}

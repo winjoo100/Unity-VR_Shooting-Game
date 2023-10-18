@@ -8,9 +8,9 @@ public class Shot_BSJ : MonoBehaviour
     [SerializeField]
     private float attackSpeedOffset = 1f;
 
-    // 동일 공격속도
+    // 공격속도
     [SerializeField]
-    private float attackSpeed = 0.5f;
+    private float attackSpeed = default;
 
     // 공격 후 딜레이 시간
     [SerializeField]
@@ -34,7 +34,10 @@ public class Shot_BSJ : MonoBehaviour
     private void Awake()
     {
         playerStat = GetComponent<PlayerStatus>();
+    }
 
+    private void Start()
+    {
         ChangeBullet();
     }
 
@@ -82,11 +85,11 @@ public class Shot_BSJ : MonoBehaviour
         bulletType = (PoolObjType)playerStat.playerWeapon;
 
         // 공격 속도 조정
-        if (bulletType == PoolObjType.Bullet01) { attackSpeed = 0.5f; }
-        else if (bulletType == PoolObjType.Bullet02) { attackSpeed = 0.5f; }
-        else if (bulletType == PoolObjType.Bullet03) { attackSpeed = 0.4f; }
-        else if (bulletType == PoolObjType.Bullet04) { attackSpeed = 0.4f; }
-        else if (bulletType == PoolObjType.Bullet05) { attackSpeed = 0.3f; }
+        if (bulletType == PoolObjType.Bullet01) { attackSpeed = JsonData.Instance.weaponDatas.Weapon[0].Firing_Interval; }
+        else if (bulletType == PoolObjType.Bullet02) { attackSpeed = JsonData.Instance.weaponDatas.Weapon[1].Firing_Interval; }
+        else if (bulletType == PoolObjType.Bullet03) { attackSpeed = JsonData.Instance.weaponDatas.Weapon[2].Firing_Interval; }
+        else if (bulletType == PoolObjType.Bullet04) { attackSpeed = JsonData.Instance.weaponDatas.Weapon[3].Firing_Interval; }
+        else if (bulletType == PoolObjType.Bullet05) { attackSpeed = JsonData.Instance.weaponDatas.Weapon[4].Firing_Interval; }
 
         // 진폭 조정
         if (bulletType == PoolObjType.Bullet01) { handAmplitude = 2f; }

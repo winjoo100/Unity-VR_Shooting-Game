@@ -1,7 +1,10 @@
 using System.Collections;
 using UnityEngine;
-public class BossBombSpawnMon : MonoBehaviour
+public class BossBombSpawnMon : MonoBehaviour, IDamageable
 {
+    // 알 Hp
+    public float bossBombSpawnMonHp = default;
+
     public float initialAngle = 30f;    // 처음 날라가는 각도
 
     public int targetx;
@@ -17,6 +20,9 @@ public class BossBombSpawnMon : MonoBehaviour
 
     private void Awake()
     {
+        // 체력 셋팅
+        bossBombSpawnMonHp = JsonData.Instance.bossSkillDatas.Boss_Skill[2].Hp;
+
         rb = GetComponent<Rigidbody>();
         Shottime = 0;
         bossBombSpawnMon = this.gameObject;
@@ -39,6 +45,12 @@ public class BossBombSpawnMon : MonoBehaviour
         {
             spawnMons();
             bossBombSpawnMon.gameObject.SetActive(false);
+        }
+
+        // 체력이 0이되면 비활성화
+        if (bossBombSpawnMonHp <= 0)
+        {
+            gameObject.SetActive(false);
         }
     }
 
@@ -151,4 +163,10 @@ public class BossBombSpawnMon : MonoBehaviour
         return finalVelocity;
     }
 
+    public void OnDamage(float damage)
+    {
+
+        bossBombSpawnMonHp -= damage;
+
+    }
 }

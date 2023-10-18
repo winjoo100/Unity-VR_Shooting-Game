@@ -1,7 +1,11 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
-public class BossBombAttack : MonoBehaviour
+public class BossBombAttack : MonoBehaviour, IDamageable
 {
+    // 공격 포탄 Hp
+    public float BossBombAttackHp = default;
+
     public float initialAngle = 30f;    // 처음 날라가는 각도
     public GameObject target;
     private float Shottime;
@@ -9,39 +13,58 @@ public class BossBombAttack : MonoBehaviour
 
     private void Awake()
     {
+        // 체력 셋팅
+        BossBombAttackHp = JsonData.Instance.bossSkillDatas.Boss_Skill[0].Hp;
+
         rb = GetComponent<Rigidbody>();
         Shottime = 0;
 
-
+        target = GameObject.Find("Player");
     }
+
 
     private void Start()
     {
+        Debug.LogFormat("target = {0}", target == null);
         StartCoroutine(Firsttime());
 
+    }
+
+    private void Update()
+    {
+        // 체력이 0이되면 비활성화
+        if (BossBombAttackHp <= 0 )
+        {
+            gameObject.SetActive(false);
+        }
     }
 
 
     IEnumerator Firsttime()
     {
+        Debug.Log("시작");
         rb.useGravity = false;
-        Vector3 velocity = new(15, 0, 0);
+        Vector3 velocity = new Vector3(15, 10, 0);
         rb.velocity = velocity;
 
+        Debug.Log("이동끝");
         yield return new WaitForSeconds(1.5f);
         rb.velocity = Vector3.zero;
 
+        Debug.Log("발사준비");
         yield return new WaitForSeconds(1.5f);
+
+        Debug.Log("발사");
         rb.useGravity = true;
         // 포물선 운동
+        Debug.LogFormat("velo = {0}", velocity);
         velocity = GetVelocity(transform.position, target.transform.position, initialAngle);
+        Debug.LogFormat("velo = {0}", velocity);
+        Debug.LogFormat("t p  = {0}", transform.position);
+        Debug.LogFormat("t t p  = {0}", target.transform.position);
+
         rb.velocity = velocity;
     }
-
-
-
-
-
 
 
     public Vector3 GetVelocity(Vector3 startPos, Vector3 target, float initialAngle)
@@ -54,6 +77,9 @@ public class BossBombAttack : MonoBehaviour
 
         float distance = Vector3.Distance(targetPos, shotPos);
         float yOffset = startPos.y - target.y; // yOffset을 0으로 설정하여 높이를 고려하지 않음
+
+        Debug.Log(distance);
+        Debug.Log(yOffset);
 
         if (distance <= 0 || yOffset <= 0)
         {
@@ -74,4 +100,8 @@ public class BossBombAttack : MonoBehaviour
         return finalVelocity;
     }
 
+    public void OnDamage(float damage)
+    {
+        BossBombAttackHp -= damage;
+    }
 }
