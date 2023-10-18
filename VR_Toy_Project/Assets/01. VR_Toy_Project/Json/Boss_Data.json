@@ -1,0 +1,21 @@
+{
+  "Boss_Data": [
+    {
+      "ID": "2001",
+      "Description": "괴수",
+      "Hp": "50000",
+      "Arrive_Time": "15",
+      "DeadSizeX": "250",
+      "DeadSizeY": "125",
+      "DeadSizeZ": "2",
+      "DeadInstance": "5",
+      "WeaknessF": "2100",
+      "WeaknessL": "2101",
+      "WeaknessR": "2101",
+      "Cooltime": "30",
+      "Skill_1": "1400",
+      "Skill2": "1401",
+      "Skill": "1402"
+    }
+  ]
+}
