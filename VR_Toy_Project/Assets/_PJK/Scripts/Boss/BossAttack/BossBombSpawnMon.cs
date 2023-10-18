@@ -3,7 +3,7 @@ using UnityEngine;
 public class BossBombSpawnMon : MonoBehaviour, IDamageable
 {
     // 알 Hp
-    public float bossBombSpawnMonHp = default;
+    public int bossBombSpawnMonHp = default;
 
     public float initialAngle = 30f;    // 처음 날라가는 각도
 
@@ -165,7 +165,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         return finalVelocity;
     }
 
-    public void OnDamage(float damage)
+    public void OnDamage(int damage)
     {
 
         bossBombSpawnMonHp -= damage;

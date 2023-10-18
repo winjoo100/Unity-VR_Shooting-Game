@@ -4,7 +4,7 @@ using UnityEngine;
 public class BossBombAttack : MonoBehaviour, IDamageable
 {
     // 공격 포탄 Hp
-    public float BossBombAttackHp = default;
+    public int BossBombAttackHp = default;
 
     public float initialAngle = 30f;    // 처음 날라가는 각도
     public GameObject target;
@@ -96,7 +96,7 @@ public class BossBombAttack : MonoBehaviour, IDamageable
         return finalVelocity;
     }
 
-    public void OnDamage(float damage)
+    public void OnDamage(int damage)
     {
         BossBombAttackHp -= damage;
     }

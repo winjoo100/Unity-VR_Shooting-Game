@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
 
     // 총알의 데미지
     [SerializeField]
-    private float bulletDamage = default;
+    private int bulletDamage = default;
 
     // 치명타 확률
     [SerializeField]
@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
 
     // 최종 데미지
     [SerializeField]
-    private float finalDamage = default;
+    private int finalDamage = default;
 
     private void Awake()
     {
@@ -92,7 +92,7 @@ public class Bullet : MonoBehaviour
 
         if(_critCheck < criticalPercent) 
         {
-            finalDamage = bulletDamage * criticalDamage;
+            finalDamage = (int)(bulletDamage * criticalDamage);
         }
         else
         {
@@ -122,7 +122,7 @@ public class Bullet : MonoBehaviour
             // 약점
             if (other.CompareTag("WeakPoint"))
             {
-                finalDamage = bulletDamage * criticalDamage;
+                finalDamage = (int)(bulletDamage * criticalDamage);
                 other.GetComponent<WeakPoint>().OnDamage(finalDamage);
             }
             else if (other.CompareTag("Monster"))

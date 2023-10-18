@@ -38,21 +38,21 @@ public class Monsters : MonoBehaviour, IDamageable
     private Rigidbody rb; // 괴수의 Rigidbody를 사용하여 이동 처리
 
     private float hp;
-    private float dmg;
+    private int dmg;
     private float bombdmg;
 
     private TurretUnit tu = default;
 
-    public float Lv1hp { get; private set; }
-    public float Lv1atk { get; private set; }
-    public float Lv1BombDmg { get; private set; }
-    public float Lv2hp { get; private set; }
-    public float Lv2atk { get; private set; }
-    public float Lv2BombDmg { get; private set; }
-    public float Lv3hp { get; private set; }
+    public int Lv1hp { get; private set; }
+    public int Lv1atk { get; private set; }
+    public int Lv1BombDmg { get; private set; }
+    public int Lv2hp { get; private set; }
+    public int Lv2atk { get; private set; }
+    public int Lv2BombDmg { get; private set; }
+    public int Lv3hp { get; private set; }
 
-    public float Lv3atk { get; private set; }
-    public float Lv3BombDmg { get; private set; }
+    public int Lv3atk { get; private set; }
+    public int Lv3BombDmg { get; private set; }
 
     void Start()
     {
@@ -213,7 +213,7 @@ public class Monsters : MonoBehaviour, IDamageable
         }
     }
 
-    public void OnDamage(float damage)
+    public void OnDamage(int damage)
     {
         Hp -= damage;
     }

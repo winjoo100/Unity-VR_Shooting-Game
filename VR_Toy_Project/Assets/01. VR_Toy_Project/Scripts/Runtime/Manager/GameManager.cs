@@ -119,10 +119,6 @@ public class GameManager : MonoBehaviour
     // ! 보스 체력 비율에 따른 골드 획득
     public void GetGold(float gold)
     {
-        float maxBossHP = 1000f;
-        float curBossHP = 0f;
-        bossHP
-            10 % 9 = 1; 
     }
        
     public bool GameStart()
