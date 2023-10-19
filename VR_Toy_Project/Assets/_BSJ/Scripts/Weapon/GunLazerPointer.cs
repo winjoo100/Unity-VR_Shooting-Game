@@ -39,7 +39,7 @@ public class GunLazerPointer : MonoBehaviour
     private void Update()
     {
         // Bullet과 UI 레이어 빼고 검출
-        int layerMask = ((1 << LayerMask.NameToLayer("Bullet")) | (1 << LayerMask.NameToLayer("UI")) | 1 << LayerMask.NameToLayer("DetectArea"));
+        int layerMask = ((1 << LayerMask.NameToLayer("Bullet")) | (1 << LayerMask.NameToLayer("UI")) | 1 << LayerMask.NameToLayer("DetectArea") | 1 << LayerMask.NameToLayer("Player"));
         layerMask = ~layerMask;
 
         if (isLeftHand)
@@ -54,9 +54,6 @@ public class GunLazerPointer : MonoBehaviour
                 // Ray가 부딪힌 지점에 라인 그리기
                 lineRenderer.SetPosition(0, ray.origin);
                 lineRenderer.SetPosition(1, hitInfo.point);
-
-                // 부딪힌 지점에 크로스 헤어 그리기
-                crosshairCan.transform.position = hitInfo.point;
             }
 
             // 충돌이 없다면?
@@ -64,8 +61,6 @@ public class GunLazerPointer : MonoBehaviour
             {
                 lineRenderer.SetPosition(0, ray.origin);
                 lineRenderer.SetPosition(1, ray.origin + BSJVRInput.LHandDirection * lrMaxDistance);
-
-                crosshairCan.transform.position = ray.origin + BSJVRInput.LHandDirection * lrMaxDistance;
             }
         }       // if : 왼쪽 핸드 기준으로 레이저 포인터 만들기
 
