@@ -1,9 +1,22 @@
 using UnityEngine;
 using System.Collections;
-using System.Text;
 
 public class Monsters : MonoBehaviour, IDamageable
 {
+    // HSJ_ 231019
+    // { 기획 Scale 변경용 변수
+    [Header("졸개 Scale 변경용 변수")]
+    [Space]
+    [Range(10f, 30f)]
+    public float scaleX= 10f;
+    [Range(10f, 30f)]
+    public float scaleY = 10f;    
+    [Range(10f, 30f)]
+    public float scaleZ = 10f;
+    // } 기획 Scale 변경용 변수
+
+    public bool isTest = false;
+
     //애니메이터 관련
     private Animator anim;
 
@@ -54,6 +67,8 @@ public class Monsters : MonoBehaviour, IDamageable
     public int Lv3atk { get; private set; }
     public int Lv3BombDmg { get; private set; }
 
+
+
     void Start()
     {
         tu = GetComponent<TurretUnit>();
@@ -70,7 +85,6 @@ public class Monsters : MonoBehaviour, IDamageable
         Lv3atk = JsonData.Instance.monsterDatas.Monster[2].Att;
         Lv3BombDmg = JsonData.Instance.monsterDatas.Monster[2].Explosion_Damage;
 
-        //Debug.LogFormat("{0}", BossManager.instance == null);
         if (BossManager.instance.gametime < 300f)
         {
             hp = Lv1hp;
@@ -97,16 +111,19 @@ public class Monsters : MonoBehaviour, IDamageable
         //몬스터
         anim = GetComponent<Animator>();
 
-    }
 
-    private void OnEnable()
-    {
-        
 
     }
 
     private void Update()
     {
+        // TEST : 
+        // TODO : 기획 Sclae 확정 후 삭제 예정
+        TestChangeScale();
+        //
+
+
+
         // 체력이 0이되면 비활성화
         if (Hp <= 0)
         {
@@ -169,6 +186,8 @@ public class Monsters : MonoBehaviour, IDamageable
             AttackUser(Lv1BombDmg);
         }
 
+        
+
 
     }
     // 목표 지점으로 괴수를 이동시키는 함수
@@ -205,11 +224,12 @@ public class Monsters : MonoBehaviour, IDamageable
 
     private void Died()
     {
-        if(hp<0)
+        if(hp <= 0)
         {
             hp = 0;
             anim.SetBool("isDied", true);
             MonsterBomb.instance.PlayEffect();
+            GameManager.Instance.GetGold();
         }
     }
 
@@ -219,6 +239,19 @@ public class Monsters : MonoBehaviour, IDamageable
     }
 
 
+
+    // TEST : 기획 분들 Scale 변경 테스트 하기 위한 함수
+    public void TestChangeScale()
+    {
+        // TEST : 스케일 변경 위하여 
+        if(Input.GetMouseButtonDown(1))
+        {
+            isTest = true;
+            moveSpeed = 0f;
+        }
+        this.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
+        
+    }       // TestChangeScale()
 }
 
 
