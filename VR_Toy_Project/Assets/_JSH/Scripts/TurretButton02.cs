@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretButton01 : MonoBehaviour
+public class TurretButton02 : MonoBehaviour
 {
+    // TODO: 상속
     // 터렛 인덱스
     private int turretIDX = default;
     // PlaceUnit class
@@ -15,7 +16,7 @@ public class TurretButton01 : MonoBehaviour
     private void Awake()
     {
         // 인덱스: PlaceUnit 참조
-        turretIDX = 0;
+        turretIDX = 1;
 
         // PlaceUnit 가져오기
         placeUnit = FindObjectOfType<PlaceUnit>();

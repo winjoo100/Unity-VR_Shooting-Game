@@ -102,7 +102,7 @@ public class PlaceUnit : MonoBehaviour
         Transform unit_ = Instantiate(placeUnitPrefab).transform;
 
         unit_.position = placeUnitUI.position;
-        unit_.forward = placeUnitUI.right;
+        unit_.forward = placeUnitUI.forward;
         unit_.localScale = placeUnitUI.localScale;
     }
 

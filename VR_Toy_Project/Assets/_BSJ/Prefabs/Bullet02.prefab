@@ -14646,5 +14646,5 @@ MonoBehaviour:
   bulletSpeed: 100
   bulletDamage: 10
   criticalPercent: 0
-  criticalRate: 1
+  criticalDamage: 0
   finalDamage: 0
