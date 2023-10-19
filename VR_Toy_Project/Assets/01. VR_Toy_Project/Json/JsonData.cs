@@ -241,6 +241,7 @@ public class UnitData
     public int HP;
     public int Range;
     public float Firing_Interval;
+    public int Bullet_Table_ID;
 }
 #endregion
 

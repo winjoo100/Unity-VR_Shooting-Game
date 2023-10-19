@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
         {
             if (instance_ == null || instance_ == default)
             {
-                instance_ = new GameManager();
+                instance_.AddComponent<GameManager>();
             }
 
             return instance_;
@@ -30,17 +31,17 @@ public class GameManager : MonoBehaviour
     // { 초기화를 위한 컴포너트들
 
     // { 터렛을 관리할 리스트 
-    public List<Transform> turret1List = default; 
-    public List<Transform> turret2List = default; 
-    public List<Transform> turret3List = default; 
-    public List<Transform> turret4List = default; 
+    public List<Transform> turretLv1_List = default;
+    public List<Transform> turretLv2_List = default;
+    public List<Transform> turretLv3_List = default;
+    public List<Transform> turretLv4_List = default;
     // } 터렛을 관리할 리스트 
 
     // { 게임 사이클 변수
     public bool isStart = default;
     public bool isEnd = default;
     // } 게임 사이클 변수
-    
+
     // { HUD 변수
     public float CurTime { get; private set; }
     public int Gold { get; private set; }
@@ -50,7 +51,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     private void Awake()
-    {        
+    {
         Init();
     }
 
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isStart == default || isStart == false) {  return; }
+        if (isStart == default || isStart == false) { return; }
 
         // { TEST : 버튼에 할당해서 ReStart() 할 것임
         if (isEnd)
@@ -87,6 +88,15 @@ public class GameManager : MonoBehaviour
         isEnd = false;
         CurTime = 0f;
 
+
+        // { JSH 리스트 할당
+        turretLv1_List = new List<Transform>();
+        turretLv2_List = new List<Transform>();
+        turretLv3_List = new List<Transform>();
+        turretLv4_List = new List<Transform>();
+        // } JSH 리스트 할당
+
+
         // 초기 골드 
         Gold = 500;
     }       // Init()
@@ -102,14 +112,14 @@ public class GameManager : MonoBehaviour
     private void GetGold_Time()
     {
         goldTime += Time.deltaTime;
-        if(goldTime >= 1f)
+        if (goldTime >= 1f)
         {
             goldTime -= 1f;
             Gold += 5;
-        }            
+        }
     }
 
-    
+
     // ! 졸개 처치 시 골드 획득 (고정 10)  
     public void GetGold(int gold = 10)
     {
@@ -120,11 +130,11 @@ public class GameManager : MonoBehaviour
     public void GetGold(float gold)
     {
     }
-       
+
     public bool GameStart()
     {
         isStart = true;
-        return isStart;        
+        return isStart;
     }       // GameStart()
 
     public void ReStart()

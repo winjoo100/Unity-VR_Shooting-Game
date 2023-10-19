@@ -82,6 +82,33 @@ public class Bullet : MonoBehaviour
             criticalPercent = JsonData.Instance.bulletDatas.Bullet[4].Cri_Chance;
             criticalDamage = JsonData.Instance.bulletDatas.Bullet[4].Cri_Damege;
         }
+        else if (bulletType == PoolObjType.Bullet06)
+        {
+            vfxType = VFXPoolObjType.Bullet06_HitVFX;
+            textType = TextPoolObjType.DamageText01;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[5].Bullet_Speed;
+            bulletDamage = JsonData.Instance.bulletDatas.Bullet[5].Att;
+            criticalPercent = JsonData.Instance.bulletDatas.Bullet[5].Cri_Chance;
+            criticalDamage = JsonData.Instance.bulletDatas.Bullet[5].Cri_Damege;
+        }
+        else if (bulletType == PoolObjType.Bullet07)
+        {
+            vfxType = VFXPoolObjType.Bullet07_HitVFX;
+            textType = TextPoolObjType.DamageText01;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[6].Bullet_Speed;
+            bulletDamage = JsonData.Instance.bulletDatas.Bullet[6].Att;
+            criticalPercent = JsonData.Instance.bulletDatas.Bullet[6].Cri_Chance;
+            criticalDamage = JsonData.Instance.bulletDatas.Bullet[6].Cri_Damege;
+        }
+        else if (bulletType == PoolObjType.Bullet08)
+        {
+            vfxType = VFXPoolObjType.Bullet08_HitVFX;
+            textType = TextPoolObjType.DamageText01;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[7].Bullet_Speed;
+            bulletDamage = JsonData.Instance.bulletDatas.Bullet[7].Att;
+            criticalPercent = JsonData.Instance.bulletDatas.Bullet[7].Cri_Chance;
+            criticalDamage = JsonData.Instance.bulletDatas.Bullet[7].Cri_Damege;
+        }
         // } 총알 타입에 따른 총알 조정
     }
 
