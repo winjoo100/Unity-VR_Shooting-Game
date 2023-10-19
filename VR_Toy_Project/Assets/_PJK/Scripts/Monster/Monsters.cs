@@ -39,12 +39,12 @@ public class Monsters : MonoBehaviour, IDamageable
     [SerializeField]
     public float AttackDmg = default;
     [SerializeField]
-    public float Hp = default;
-    private Rigidbody rb; // 괴수의 Rigidbody를 사용하여 이동 처리
-
     private float hp;
     private int dmg;
     private float bombdmg;
+
+    private Rigidbody rb; // 괴수의 Rigidbody를 사용하여 이동 처리
+    private BoxCollider boxCollider;
 
     private TurretUnit tu = default;
 
@@ -61,6 +61,10 @@ public class Monsters : MonoBehaviour, IDamageable
     public int Lv3atk { get; private set; }
     public float Lv3atkspeed { get; private set; }
     public int Lv3BombDmg { get; private set; }
+
+    // TEST 
+    // HSJ_ 2310119
+    private SkinnedMeshRenderer meshRender;
 
     void Start()
     {
@@ -104,9 +108,14 @@ public class Monsters : MonoBehaviour, IDamageable
         //data();
 
         rb = GetComponent<Rigidbody>(); // Rigidbody 컴포넌트 가져오기
+        boxCollider = GetComponent<BoxCollider>();
 
         //몬스터
         anim = GetComponent<Animator>();
+
+        // TEST : 
+        // HSJ_ 2310119
+        meshRender = this.gameObject.GetChildObj("AnkleBiter").GetComponent<SkinnedMeshRenderer>();
 
     }
 
@@ -118,13 +127,6 @@ public class Monsters : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        FindTarget();
-        // 체력이 0이되면 비활성화
-        if (Hp <= 0)
-        {
-            gameObject.SetActive(false);
-        }
-
         // 터렛을 추격중이 아니면,
         if (target == null)
         {
@@ -176,7 +178,7 @@ public class Monsters : MonoBehaviour, IDamageable
             AttackUser(bombdmg);
         }
 
-        if(hp<0)
+        if(hp < 0)
         {
             Bomb(bombdmg);
         }
@@ -222,15 +224,29 @@ public class Monsters : MonoBehaviour, IDamageable
     {
         if(hp<0)
         {
+            boxCollider.enabled = false;
             hp = 0;
-            anim.SetBool("isDied", true);
+            anim.SetTrigger("isDied");
             MonsterBomb.instance.PlayEffect();
+            StartCoroutine(inActive());
         }
+    }
+
+    IEnumerator ChangeColor()
+    {
+
+        meshRender.material.color = Color.red;
+
+        yield return new WaitForSeconds(0.2f);
+
+        meshRender.material.color = Color.white;
+
     }
 
     public void OnDamage(int damage)
     {
-        Hp -= damage;
+        StartCoroutine(ChangeColor());
+        hp -= damage;
     }
 
     private void FindTarget()
@@ -258,6 +274,11 @@ public class Monsters : MonoBehaviour, IDamageable
         }
     }
 
+    IEnumerator inActive()
+    {
+        yield return new WaitForSeconds(1.5f);
+        gameObject.SetActive(false);
+    }
 }
 
 

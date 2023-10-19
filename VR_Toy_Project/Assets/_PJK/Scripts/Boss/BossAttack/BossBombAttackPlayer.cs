@@ -26,7 +26,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        randomX = Random.Range(-50,50);
+        randomX = Random.Range(-15,15);
 
         StartCoroutine(Firsttime());
 
@@ -46,7 +46,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
     {
         Debug.Log("시작");
         rb.useGravity = false;
-        Vector3 velocity = new Vector3(randomX, 100, 0);
+        Vector3 velocity = new Vector3(randomX, 10, 0);
         rb.velocity = velocity;
 
         Debug.Log("이동끝");

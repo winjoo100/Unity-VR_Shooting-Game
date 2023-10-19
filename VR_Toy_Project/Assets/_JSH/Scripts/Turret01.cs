@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System.Runtime.CompilerServices;
 
 public class Turret01 : TurretUnit
 {
@@ -11,7 +10,22 @@ public class Turret01 : TurretUnit
     private void Awake()
     {
         // 스탯 초기화
-        Init("Turret01", 1300, 200, 150, 20, 40, 0.5f, 0);
+        Init(
+            JsonData.Instance.unitDatas.Unit[0].Name,
+            JsonData.Instance.unitDatas.Unit[0].ID,
+            JsonData.Instance.unitDatas.Unit[0].HP,
+            JsonData.Instance.unitDatas.Unit[0].Cost,
+            JsonData.Instance.unitDatas.Unit[0].Install_Limit,
+            JsonData.Instance.unitDatas.Unit[0].Range,
+            JsonData.Instance.unitDatas.Unit[0].Firing_Interval,
+            JsonData.Instance.unitDatas.Unit[0].Bullet_Table_ID
+            );
+    }
+
+    private void Start()
+    {
+        // 터렛의 존재 유무와 갯수를 세기 위해 추가
+        GameManager.Instance.turretLv1_List.Add(transform);
     }
 
     private void Update()

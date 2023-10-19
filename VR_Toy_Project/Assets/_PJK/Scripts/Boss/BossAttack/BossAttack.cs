@@ -5,7 +5,6 @@ public class BossAttack : MonoBehaviour
     private GameObject boss;
     public BossManager bm;
     public GameObject player = default;
-    public GameObject Plane = default;
     public GameObject playerAttack = default;
     public GameObject TowerAttack = default;
     public GameObject monsterAttack = default;
