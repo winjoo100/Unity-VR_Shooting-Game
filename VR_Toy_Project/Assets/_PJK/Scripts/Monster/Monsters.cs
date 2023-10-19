@@ -14,7 +14,7 @@ public class Monsters : MonoBehaviour, IDamageable
     //몬스터
     public GameObject monsterLevel = default;
     //플레이어
-    private GameObject player = default;
+    public GameObject player = default;
     //터렛
     public GameObject turret = default;
     // 사정거리
@@ -26,6 +26,11 @@ public class Monsters : MonoBehaviour, IDamageable
     // 이동 속도
     public float moveSpeed = 50.0f;
 
+    public float AttackSpeed = default;
+    public LayerMask turretLayer;
+    public float detectionRadius = 100f;
+
+    private Transform target = default;
     // 터렛을 타겟중인지 체크
     public bool isFindTurret = false;
 
@@ -45,13 +50,16 @@ public class Monsters : MonoBehaviour, IDamageable
 
     public int Lv1hp { get; private set; }
     public int Lv1atk { get; private set; }
+    public float Lv1atkspeed { get; private set; }
     public int Lv1BombDmg { get; private set; }
     public int Lv2hp { get; private set; }
     public int Lv2atk { get; private set; }
+    public float Lv2atkspeed { get; private set; }
     public int Lv2BombDmg { get; private set; }
     public int Lv3hp { get; private set; }
 
     public int Lv3atk { get; private set; }
+    public float Lv3atkspeed { get; private set; }
     public int Lv3BombDmg { get; private set; }
 
     void Start()
@@ -61,14 +69,17 @@ public class Monsters : MonoBehaviour, IDamageable
         Lv1hp = JsonData.Instance.monsterDatas.Monster[0].HP;
         Lv1atk = JsonData.Instance.monsterDatas.Monster[0].Att;
         Lv1BombDmg = JsonData.Instance.monsterDatas.Monster[0].Explosion_Damage;
+        Lv1atkspeed = JsonData.Instance.monsterDatas.Monster[0].Att_Speed;
 
         Lv2hp = JsonData.Instance.monsterDatas.Monster[1].HP;
         Lv2atk = JsonData.Instance.monsterDatas.Monster[1].Att;
         Lv2BombDmg = JsonData.Instance.monsterDatas.Monster[1].Explosion_Damage;
+        Lv2atkspeed = JsonData.Instance.monsterDatas.Monster[1].Att_Speed;
 
         Lv3hp = JsonData.Instance.monsterDatas.Monster[2].HP;
         Lv3atk = JsonData.Instance.monsterDatas.Monster[2].Att;
         Lv3BombDmg = JsonData.Instance.monsterDatas.Monster[2].Explosion_Damage;
+        Lv3atkspeed = JsonData.Instance.monsterDatas.Monster[2].Att_Speed;
 
         //Debug.LogFormat("{0}", BossManager.instance == null);
         if (BossManager.instance.gametime < 300f)
@@ -107,6 +118,7 @@ public class Monsters : MonoBehaviour, IDamageable
 
     private void Update()
     {
+        FindTarget();
         // 체력이 0이되면 비활성화
         if (Hp <= 0)
         {
@@ -114,13 +126,14 @@ public class Monsters : MonoBehaviour, IDamageable
         }
 
         // 터렛을 추격중이 아니면,
-        if (isFindTurret == false)
+        if (target == null)
         {
             // 플레이어 추격
             MoveTowardsTarget(player.transform.position);
+            
         }
         // 터렛을 콜라이더에서 발견하면
-        else if (isFindTurret == true)
+        else if (target == true)
         {    //터렛을 공격중이 아니라면
             if (isAttackTurret == false)
             {
@@ -135,6 +148,7 @@ public class Monsters : MonoBehaviour, IDamageable
                 {
                     // 이동
                     MoveTowardsTarget(targetPosition);
+                    
                 }
 
 
@@ -144,10 +158,8 @@ public class Monsters : MonoBehaviour, IDamageable
                 // 터렛이 사정거리 안에 들어왔다면,
                 if (distanceToTurret < attackdistance)
                 {
-
                     // 터렛 공격
                     isAttackTurret = true;
-                    AttackTurret(dmg);
                 }
 
             }
@@ -159,14 +171,14 @@ public class Monsters : MonoBehaviour, IDamageable
             }
 
         }
-        else if(Vector3.Distance(gameObject.transform.position,player.transform.position)<20f )
+        else if(Vector3.Distance(gameObject.transform.position,player.transform.position) < 20f )
         {
-            AttackUser(Lv1BombDmg);
+            AttackUser(bombdmg);
         }
 
         if(hp<0)
         {
-            AttackUser(Lv1BombDmg);
+            Bomb(bombdmg);
         }
 
 
@@ -180,6 +192,8 @@ public class Monsters : MonoBehaviour, IDamageable
         rb.velocity = moveDirection * moveSpeed;
     }
 
+
+
     private void AttackTurret(int damage)
     {
         rb.velocity = Vector3.zero;
@@ -191,13 +205,14 @@ public class Monsters : MonoBehaviour, IDamageable
     private void AttackUser(float damage)
     {
         rb.velocity = Vector3.zero;
-        Bomb();
+        Bomb(damage);
 
     }
 
-    private void Bomb()
+    private void Bomb(float damage)
     {
         MonsterBomb.instance.PlayEffect();
+
         Died();
 
 
@@ -218,6 +233,30 @@ public class Monsters : MonoBehaviour, IDamageable
         Hp -= damage;
     }
 
+    private void FindTarget()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, turretLayer);
+
+        if (colliders.Length > 0)
+        {
+            // 가장 가까운 터렛을 타겟으로 설정
+            float closestDistance = float.MaxValue;
+
+            foreach (Collider collider in colliders)
+            {
+                float distance = Vector3.Distance(transform.position, collider.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    target = collider.transform;
+                }
+            }
+        }
+        else
+        {
+            target = null;
+        }
+    }
 
 }
 

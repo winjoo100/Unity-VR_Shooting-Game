@@ -131,7 +131,11 @@ public class Bullet : MonoBehaviour
             }
             else if (other.CompareTag("BossAttackPlayer"))
             {
-                other.GetComponent<BossBombAttack>().OnDamage(finalDamage);
+                other.GetComponent<BossBombAttackPlayer>().OnDamage(finalDamage);
+            }
+            else if (other.CompareTag("BossAttackTurret"))
+            {
+                other.GetComponent<BossBombAttackTurret>().OnDamage(finalDamage);
             }
             else if (other.CompareTag("BossAttackSpawnMon"))
             {
