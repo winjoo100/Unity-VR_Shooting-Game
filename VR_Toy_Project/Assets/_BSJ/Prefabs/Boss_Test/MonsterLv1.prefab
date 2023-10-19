@@ -5196,7 +5196,7 @@ GameObject:
   - component: {fileID: 5585716154177097552}
   m_Layer: 13
   m_Name: AnkleBiter
-  m_TagString: Untagged
+  m_TagString: DetectArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5440,7 +5440,7 @@ GameObject:
   - component: {fileID: 5585716154177097553}
   - component: {fileID: 1858441223}
   - component: {fileID: 1858441228}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MonsterLv1
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -5514,12 +5514,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29ecc2900a4ae34c941f1649768b483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTest: 0
   monsterLevel: {fileID: 5585716154177097565}
+  player: {fileID: 0}
   turret: {fileID: 0}
   attackdistance: 20
   distanceToTurret: 0
   detectCollider: {fileID: 5585716154354450754}
   moveSpeed: 0.5
+  AttackSpeed: 0
+  turretLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  detectionRadius: 100
   isFindTurret: 0
   isAttackTurret: 0
   AttackDmg: 0
@@ -6077,7 +6084,7 @@ GameObject:
   - component: {fileID: 5585716154354450753}
   m_Layer: 13
   m_Name: DectectCollider
-  m_TagString: Untagged
+  m_TagString: DetectArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

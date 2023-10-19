@@ -37,17 +37,15 @@ public class BossAttack : MonoBehaviour
     void attack()
     {
         float zrange = Vector3.Distance(gameObject.transform.position, player.transform.position);
-        
-        // 정근정근아 뒤질래? 
-        // 동작하는 코드를 넣으라고.. 주석 달던가
-        //if(m.isFindTurret==true)
-        //{
-        //     skill = Random.Range(0, 2);
-        //}
-        //else if(m.isFindTurret==false)
-        //{
-        //    skill = Random.Range(0, 1);
-        //}
+
+        if (GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count > 0)
+        {
+            skill = Random.Range(0, 2);
+        }
+        else if (GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count < 1)
+        {
+            skill = Random.Range(0, 1);
+        }
 
 
         if (skill == 0)

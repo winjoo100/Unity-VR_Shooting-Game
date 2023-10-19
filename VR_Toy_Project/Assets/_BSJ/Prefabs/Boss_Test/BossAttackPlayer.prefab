@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4699289894634410477}
   - component: {fileID: 4699289894634410476}
   - component: {fileID: 2809388281257856580}
-  - component: {fileID: 7479292071743414512}
+  - component: {fileID: -6134315094493676966}
   m_Layer: 0
   m_Name: BossAttackPlayer
   m_TagString: BossAttackPlayer
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7479292071743414512
+--- !u!114 &-6134315094493676966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,9 +124,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4699289894634410467}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 064021a2259d28f4384a9faf701bb0e2, type: 3}
+  m_Script: {fileID: 11500000, guid: cba6c207e1d90734fac5d891c3b35c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossBombAttackHp: 400
+  BossBombAttackTurretHp: 0
   initialAngle: 30
+  turretLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  detectionRadius: 1000
   target: {fileID: 0}

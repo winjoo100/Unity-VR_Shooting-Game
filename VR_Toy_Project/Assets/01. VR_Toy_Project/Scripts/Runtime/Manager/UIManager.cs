@@ -10,10 +10,12 @@ public class UIManager : MonoBehaviour
     private GameObject StartCanvas = default;
     private GameObject startBtn = default; 
     private GameObject quitBtn = default;
+    private Slider slider = default;
 
     private GameObject timerTxt = default;
     private GameObject goldTxt = default;
 
+    private Boss Boss = default;
     // UI에 표시할 타이머 텍스트 
     private string timeFormat = default;
     #endregion
@@ -26,6 +28,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
     // ! UI 요소 캐싱 및 초기화
@@ -33,9 +36,11 @@ public class UIManager : MonoBehaviour
     {
         HUDCanvas = GFunc.GetRootObj("PlayerHUDCanvas");
         StartCanvas = GFunc.GetRootObj("GameStartCanvas");
+        Boss = GFunc.GetRootObj("Boss").GetComponent<Boss>();  
         startBtn = StartCanvas.GetChildObj("StartButton");
         quitBtn = StartCanvas.GetChildObj("QuitButton");
 
+        slider = HUDCanvas.GetChildObj("BossHPSlider").GetComponent<Slider>();
         timerTxt = HUDCanvas.GetChildObj("TimerTxt");
         goldTxt = HUDCanvas.GetChildObj("GoldTxt");
 
@@ -57,6 +62,9 @@ public class UIManager : MonoBehaviour
         timerTxt.SetTmpText(timeFormat);
         goldTxt.SetTmpText(gold_.ToString());
         // } HUD Text 변경
+
+        Debug.LogFormat("{0}, {1}", Boss.MaxHp, Boss.CurHP);
+        slider.value = ((float)Boss.CurHP / (float)Boss.MaxHp);
 
     }   // UpdateHUD()
 

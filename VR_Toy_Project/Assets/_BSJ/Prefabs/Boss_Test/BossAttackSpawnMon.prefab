@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2520058075537607676}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.5, y: 0, z: -23.76}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 43d039ae088ac534da0b4aa901dd7e37, type: 2}
+  - {fileID: 2100000, guid: c88de9526de7af447808fcc227d886c8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -115,9 +115,9 @@ MonoBehaviour:
   initialAngle: 30
   targetx: 0
   targetz: 0
-  Monsterlv1: {fileID: 5585716154177097565, guid: f061947629117764b86614f930f6f37a, type: 3}
-  Monsterlv2: {fileID: 5585716154177097565, guid: f061947629117764b86614f930f6f37a, type: 3}
-  Monsterlv3: {fileID: 2520058075537607676}
+  Monsterlv1: {fileID: 5585716154177097565, guid: 6e069b84a8d3f814cac3805eb58f4fcd, type: 3}
+  Monsterlv2: {fileID: 5585716154177097565, guid: 6e069b84a8d3f814cac3805eb58f4fcd, type: 3}
+  Monsterlv3: {fileID: 5585716154177097565, guid: 6e069b84a8d3f814cac3805eb58f4fcd, type: 3}
 --- !u!54 &183037446
 Rigidbody:
   m_ObjectHideFlags: 0

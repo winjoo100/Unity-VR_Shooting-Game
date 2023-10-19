@@ -12,6 +12,8 @@ TagManager:
   - BossAttackPlayer
   - BossAttackSpawnMon
   - BossAttackTurret
+  - Boss
+  - DetectArea
   layers:
   - Default
   - TransparentFX

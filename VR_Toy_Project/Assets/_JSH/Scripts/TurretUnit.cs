@@ -28,8 +28,11 @@ public class TurretUnit : MonoBehaviour
     protected string image = default;
     // 가장 가까운 목표
     protected Transform target = default;
+
+    // 탐지 준비 여부
+    protected bool isReadyDetect = true;
     // 공격 준비 여부
-    protected bool isReady = false;
+    protected bool isReadyAttack = false;
 
     // 터렛의 포탑 편하게 사용하기 위해 직렬화
     [SerializeField]
@@ -79,10 +82,16 @@ public class TurretUnit : MonoBehaviour
         // 영역 안에 탐지된 것이 존재하지 않음
         if (hitObjects_.Length <= 0)
         {
+            // 사이클 재시작
+            Invoke("DetectTarget", firing_Interval);
             target = default;
+
             return;
         }
-        else { /* Do Nothing */ }
+        else
+        {
+            isReadyDetect = false;
+        }
 
         // 가장 가까운 목표를 탐색하는 루프
         int closest_ = 0;
@@ -105,8 +114,7 @@ public class TurretUnit : MonoBehaviour
         // 탐색한 목표를 저장
         target = hitObjects_[closest_].transform;
 
-        // 공격 사이클 시작
-        StartCoroutine(AttackRoutine());
+        AttackTarget();
     }       // DetectTarget()
 
     //! 터렛의 공격 로직
@@ -115,6 +123,8 @@ public class TurretUnit : MonoBehaviour
         // 목표가 존재하지 않으면 실행하지 않음
         if (target == null || target == default)
         {
+            DetectTarget();
+            isReadyDetect = true;
             return;
         }
 
@@ -134,9 +144,8 @@ public class TurretUnit : MonoBehaviour
         bullet.transform.position = muzzle.transform.position;
         bullet.transform.forward = muzzle.transform.right;
 
-        // 사이클 재시작
-        StartCoroutine(AttackRoutine());
-    }
+        Invoke("AttackTarget", firing_Interval);
+    }       // AttackTarget()
 
     //! 터렛의 체력 변화
     public virtual void DamageSelf(int damage_)
@@ -160,21 +169,27 @@ public class TurretUnit : MonoBehaviour
     {
         // TODO: 배치된 터렛 수 감소
 
-        // 공격 사이클 코루틴 멈추기
-        StopCoroutine(AttackRoutine());
         // 스스로를 파괴
         Destroy(gameObject);
     }
 
-    //! 일정 주기로 1. 목표 탐색 함수 호출 후 2. 공격 함수 호출
-    protected virtual IEnumerator AttackRoutine()
-    {
-        yield return new WaitForSeconds(firing_Interval);
+    ////! 일정 주기로 공격 함수 호출
+    //protected virtual void AttackRoutine()
+    //{
+    //    // 공격 준비
+    //    if (isReadyAttack == false)
+    //    {
+    //        isReadyAttack = true;
+    //    }
+    //}
 
-        // 공격 준비
-        if (isReady == false)
-        {
-            isReady = true;
-        }
-    }
+    ////! 일정 주기로 탐지 함수 호출
+    //protected virtual void DetectRoutine()
+    //{
+    //    // 탐지 준비
+    //    if (isReadyDetect == false)
+    //    {
+    //        isReadyDetect = true;
+    //    }
+    //}
 }

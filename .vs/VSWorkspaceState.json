@@ -1,17 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\VR_Toy_Project",
-    "\\VR_Toy_Project\\Assets",
-    "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project",
-    "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts",
-    "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime",
-    "\\VR_Toy_Project\\Assets\\01. VR_Toy_Project\\Scripts\\Runtime\\Interface",
-    "\\VR_Toy_Project\\Assets\\_PJK",
-    "\\VR_Toy_Project\\Assets\\_PJK\\Scripts",
-    "\\VR_Toy_Project\\Assets\\_PJK\\Scripts\\Boss",
-    "\\VR_Toy_Project\\Assets\\_PJK\\Scripts\\Boss\\BossAttack"
+    ""
   ],
-  "SelectedNode": "\\VR_Toy_Project\\Assets\\_PJK\\Scripts\\Boss\\BossAttack\\BossBombAttack.cs",
+  "SelectedNode": "\\VR_Toy_Project.sln",
   "PreviewInSolutionExplorer": false
 }

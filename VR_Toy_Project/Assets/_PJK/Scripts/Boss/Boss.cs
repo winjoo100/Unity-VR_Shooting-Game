@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 public class Boss : MonoBehaviour, IDamageable
-{
+{    
     public GameObject boss = default;
     public GameObject player = default;
     public GameObject[] Turret = default;
@@ -23,13 +23,22 @@ public class Boss : MonoBehaviour, IDamageable
     public int weakActiveCount = 0;
 
     private Rigidbody rb;
-    private int BossHp;
+
+    // HSJ_ 231019
+    // 프로퍼티로 변경
+    // { GameManger에서 가져가서 사용할 변수
+    public int MaxHp { get; private set; }
+    public int CurHP { get; private set; }
+    private int lastGoldHP = default;
+    // { GameManger에서 가져가서 사용할 변수
     private float BossAtk;
 
     void Start()
     {
         // 보스 초기 값 셋팅
-        BossHp = JsonData.Instance.bossDatas.Boss_Data[0].Hp;
+        MaxHp = JsonData.Instance.bossDatas.Boss_Data[0].Hp;
+        lastGoldHP = MaxHp;
+        CurHP = MaxHp;
 
         StartCoroutine(_BossMove());
 
@@ -90,7 +99,7 @@ public class Boss : MonoBehaviour, IDamageable
             bm.Weaknesstime = 0;
         }
 
-        if (BossHp<0)
+        if (CurHP <= 0)
         {
 
             Death();
@@ -150,6 +159,17 @@ public class Boss : MonoBehaviour, IDamageable
 
     public void OnDamage(int damage)
     {
-        BossHp -= damage;
+        CurHP -= damage;
+        CalculateHp();
+    }
+    private void CalculateHp()
+    {        
+        int rateHp = (int)(MaxHp * 0.1f);
+        
+        if (CurHP <= lastGoldHP - rateHp)
+        {
+            GameManager.Instance.GetGold_Boss();
+            lastGoldHP = lastGoldHP - rateHp;
+        }
     }
 }
