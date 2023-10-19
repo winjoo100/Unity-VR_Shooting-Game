@@ -10,6 +10,10 @@ public class MonsterSpawner : MonoBehaviour
     public GameObject Monsterlv2 = default;
     public GameObject Monsterlv3 = default;
 
+    // 스폰 포인트
+    public GameObject spawnPoint01;
+    public GameObject spawnPoint02;
+
     private float spawnTime = 5f;
     
 
@@ -33,7 +37,7 @@ public class MonsterSpawner : MonoBehaviour
 
             if (BossManager.instance.currentTime < 300f)
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     FirstWave();
 
@@ -41,7 +45,7 @@ public class MonsterSpawner : MonoBehaviour
             }
             else if (300f < BossManager.instance.currentTime && BossManager.instance.currentTime < 600f)
             {
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     SecondWave();
 
@@ -49,7 +53,7 @@ public class MonsterSpawner : MonoBehaviour
             }
             else if (600f < BossManager.instance.currentTime && BossManager.instance.currentTime < 900f)
             {
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     ThirdWave();
 
@@ -64,7 +68,7 @@ public class MonsterSpawner : MonoBehaviour
 
     void FirstWave()
     {
-        int spawnx=Random.Range(-500, 500);
+        int spawnx=Random.Range((int)spawnPoint01.transform.position.x, (int)spawnPoint02.transform.position.x);
 
         GameObject Mon1 = Instantiate(Monsterlv1, _monsterSpawner.transform.position, Quaternion.identity);
         Mon1.transform.position = new Vector3(spawnx, _monsterSpawner.transform.position.y, _monsterSpawner.transform.position.z);

@@ -5,7 +5,7 @@ public class Boss : MonoBehaviour, IDamageable
 {
     public GameObject boss = default;
     public GameObject player = default;
-    public GameObject Turret = default;
+    public GameObject[] Turret = default;
     // 터렛을 타겟중인지 체크
     public bool isFindTurret = false;
     // 터렛을 공격중인지 체크
@@ -15,7 +15,7 @@ public class Boss : MonoBehaviour, IDamageable
     // 죽었는지 체크
     public bool isDead = false;
     public BossManager bm = default;
-
+    private Monsters m = default;
     // 약점 포인트 프리팹들
     public GameObject[] weakpoints;
 
@@ -35,6 +35,7 @@ public class Boss : MonoBehaviour, IDamageable
 
         // 약점 프리팹 모두 비활성화
         OffWeakPoint();
+        m = GetComponent<Monsters>();
     }
 
     private IEnumerator _BossMove()
@@ -69,14 +70,15 @@ public class Boss : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        if (isFindTurret == true)
-        {
-            if (isAttackTurret == true)
-            {
-                //AttackTurret();
-                rb.velocity = Vector3.zero;
-            }
-        }
+        // 정근정근아 작동되는 코드를 넣어라
+        //if (m.isFindTurret == true)
+        //{
+        //    if (m.isAttackTurret == true)
+        //    {
+        //        //AttackTurret();
+        //        rb.velocity = Vector3.zero;
+        //    }
+        //}
 
         if (bm.Weaknesstime > 10 || weakActiveCount == 0)
         {
@@ -96,6 +98,12 @@ public class Boss : MonoBehaviour, IDamageable
 
 
     }
+
+    public void FindTurret()
+    {
+
+    }
+
 
     private void AttackedWeakPoint()
     {

@@ -69,7 +69,7 @@
       "Life_Time": "2",
       "Size": "5",
       "Cri_Chance": "0",
-      "Cri_Damege": null,
+      "Cri_Damege": "0",
       "Effect": "FX_Bullet_006"
     },
     {
@@ -81,7 +81,7 @@
       "Life_Time": "2",
       "Size": "5",
       "Cri_Chance": "0",
-      "Cri_Damege": null,
+      "Cri_Damege": "0",
       "Effect": "FX_Bullet_006"
     },
     {
@@ -93,7 +93,7 @@
       "Life_Time": "3",
       "Size": "30",
       "Cri_Chance": "0",
-      "Cri_Damege": null,
+      "Cri_Damege": "0",
       "Effect": "FX_Bullet_007"
     }
   ]

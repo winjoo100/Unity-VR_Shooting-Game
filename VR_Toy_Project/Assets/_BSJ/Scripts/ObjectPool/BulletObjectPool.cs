@@ -5,7 +5,8 @@ using System.ComponentModel;
 using UnityEngine;
 
 // 불렛의 타입을 구별하기 위한 Enum
-public enum PoolObjType { Bullet01, Bullet02, Bullet03, Bullet04, Bullet05 }
+public enum PoolObjType { Bullet01, Bullet02, Bullet03, Bullet04, Bullet05, 
+    Bullet06 = 1205, Bullet07 = 1206, Bullet08 = 1207 }
 
 // 외부 인스펙터창에서 클래스 정보에 접근할 수 있게 해주는 [Serializable]
 [Serializable]
