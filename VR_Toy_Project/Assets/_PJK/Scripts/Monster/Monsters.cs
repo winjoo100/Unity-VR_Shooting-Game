@@ -1,9 +1,22 @@
 using UnityEngine;
 using System.Collections;
-using System.Text;
 
 public class Monsters : MonoBehaviour, IDamageable
 {
+    // HSJ_ 231019
+    // { 기획 Scale 변경용 변수
+    [Header("졸개 Scale 변경용 변수")]
+    [Space]
+    [Range(10f, 30f)]
+    public float scaleX= 10f;
+    [Range(10f, 30f)]
+    public float scaleY = 10f;    
+    [Range(10f, 30f)]
+    public float scaleZ = 10f;
+    // } 기획 Scale 변경용 변수
+
+    public bool isTest = false;
+
     //애니메이터 관련
     private Animator anim;
 
@@ -85,7 +98,6 @@ public class Monsters : MonoBehaviour, IDamageable
         Lv3BombDmg = JsonData.Instance.monsterDatas.Monster[2].Explosion_Damage;
         Lv3atkspeed = JsonData.Instance.monsterDatas.Monster[2].Att_Speed;
 
-        //Debug.LogFormat("{0}", BossManager.instance == null);
         if (BossManager.instance.gametime < 300f)
         {
             hp = Lv1hp;
@@ -119,14 +131,17 @@ public class Monsters : MonoBehaviour, IDamageable
 
     }
 
-    private void OnEnable()
-    {
-        
 
     }
 
     private void Update()
     {
+        // TEST : 
+        // TODO : 기획 Sclae 확정 후 삭제 예정
+        // HSJ_ 231019
+        TestChangeScale();
+        
+
         // 터렛을 추격중이 아니면,
         if (target == null)
         {
@@ -183,6 +198,8 @@ public class Monsters : MonoBehaviour, IDamageable
             Bomb(bombdmg);
         }
 
+        
+
 
     }
     // 목표 지점으로 괴수를 이동시키는 함수
@@ -222,13 +239,16 @@ public class Monsters : MonoBehaviour, IDamageable
 
     private void Died()
     {
-        if(hp<0)
+        if(hp <= 0)
         {
             boxCollider.enabled = false;
             hp = 0;
             anim.SetTrigger("isDied");
             MonsterBomb.instance.PlayEffect();
             StartCoroutine(inActive());
+            // TEST : 
+            // HSJ_ 231019
+            GameManager.Instance.GetGold();
         }
     }
 
@@ -279,6 +299,20 @@ public class Monsters : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(1.5f);
         gameObject.SetActive(false);
     }
+
+    // TEST : 기획 분들 Scale 변경 테스트 하기 위한 함수
+    // HSJ_ 231019
+    public void TestChangeScale()
+    {
+        // TEST : 스케일 변경 위하여 
+        if(Input.GetMouseButtonDown(1))
+        {
+            isTest = true;
+            moveSpeed = 0f;
+        }
+        this.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
+        
+    }       // TestChangeScale()
 }
 
 

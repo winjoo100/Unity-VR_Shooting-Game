@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     private BossManager bossManager = default;
     // { 초기화를 위한 컴포너트들
 
+    [Header ("Turret List")]
+    [Space]
     // { 터렛을 관리할 리스트 
     public List<Transform> turretLv1_List = default;
     public List<Transform> turretLv2_List = default;
@@ -37,8 +39,10 @@ public class GameManager : MonoBehaviour
     public List<Transform> turretLv4_List = default;
     // } 터렛을 관리할 리스트 
 
+    [Header("GameCycle boolean")]
+    [Space]
     // { 게임 사이클 변수
-    public bool isStart = default;
+    public bool isStart = true;
     public bool isEnd = default;
     // } 게임 사이클 변수
 
@@ -47,6 +51,11 @@ public class GameManager : MonoBehaviour
     public int Gold { get; private set; }
 
     private float goldTime = default;
+
+    float leftHp = default;
+    float elapseRate = 0.1f;
+    float rateHp = default;
+
     // } HUD 변수
     #endregion
 
@@ -55,10 +64,12 @@ public class GameManager : MonoBehaviour
         Init();
     }
 
+
+    float maxHp = 5000f;
     // Start is called before the first frame update
     void Start()
     {
-
+        StartCoroutine(TestGetGold());
     }
 
     // Update is called once per frame
@@ -72,6 +83,8 @@ public class GameManager : MonoBehaviour
             ReStart();
         }
         // } TEST : 버튼에 할당해서 ReStart() 할 것임
+
+
 
         uiManager.Update_HUD(CurTime, Gold);
 
@@ -127,9 +140,32 @@ public class GameManager : MonoBehaviour
     }       // GetGold();
 
     // ! 보스 체력 비율에 따른 골드 획득
-    public void GetGold(float gold)
+    public void GetGold(ref float maxHp, ref float curHp)
     {
+       
+        
+        leftHp = maxHp % curHp;
+        rateHp = maxHp * elapseRate;
+        if (leftHp >= rateHp && elapseRate < 1)
+        {
+            elapseRate += 0.1f;
+            Gold += 200;
+        }
+    }       // GetGold()
+
+    IEnumerator TestGetGold()
+    {
+        maxHp = 5000f;
+        float curHp = maxHp;
+        while (maxHp >= 0)
+        {
+           
+            curHp -= Time.deltaTime * 100f;
+            GetGold(ref maxHp, ref curHp);
+            yield return null;
+        }
     }
+
 
     public bool GameStart()
     {
