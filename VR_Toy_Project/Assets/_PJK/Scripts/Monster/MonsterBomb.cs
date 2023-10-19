@@ -25,7 +25,7 @@ public class MonsterBomb : MonoBehaviour
     {
         if (!isEffectPlaying)
         {
-            StartCoroutine(PlayEffectCoroutine());
+            //StartCoroutine(PlayEffectCoroutine());
         }
     }
 

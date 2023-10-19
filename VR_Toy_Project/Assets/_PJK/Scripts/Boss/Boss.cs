@@ -70,14 +70,15 @@ public class Boss : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        if (m.isFindTurret == true)
-        {
-            if (m.isAttackTurret == true)
-            {
-                //AttackTurret();
-                rb.velocity = Vector3.zero;
-            }
-        }
+        // 정근정근아 작동되는 코드를 넣어라
+        //if (m.isFindTurret == true)
+        //{
+        //    if (m.isAttackTurret == true)
+        //    {
+        //        //AttackTurret();
+        //        rb.velocity = Vector3.zero;
+        //    }
+        //}
 
         if (bm.Weaknesstime > 10 || weakActiveCount == 0)
         {

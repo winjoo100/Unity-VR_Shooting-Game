@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
         {
             if (instance_ == null || instance_ == default)
             {
+                // TODO : 오류 수정 해야함 
                 instance_.AddComponent<GameManager>();
             }
 
