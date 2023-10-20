@@ -7,13 +7,14 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
 
     public float initialAngle = 30f;    // 처음 날라가는 각도
 
-    public int targetx;
-    public int targetz;
+    public float targetx;
+    public float targetz;
     private Vector3 RandomTarget =default;
-    private GameObject bossBombSpawnMon = default;
     private float Shottime;
     private Rigidbody rb;               // Rigidbody
     private int randomX;
+    public GameObject startx= default;
+    public GameObject endx= default;
 
     public GameObject Monsterlv1 = default;
     public GameObject Monsterlv2 = default;
@@ -26,15 +27,13 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
 
         rb = GetComponent<Rigidbody>();
         Shottime = 0;
-        bossBombSpawnMon = this.gameObject;
         
     }
 
     private void Start()
     {
-        targetx = Random.Range(-500, 480);
-        targetz = Random.Range(-500, 480);
-        randomX = Random.Range(-50, 50);
+        targetx = Random.Range(startx.transform.position.x, endx.transform.position.x);
+        targetz = Random.Range(startx.transform.position.z, endx.transform.position.z);
         RandomTarget = new Vector3(targetx, 0, targetz);
         StartCoroutine(Firsttime());
 
@@ -42,16 +41,16 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        if (bossBombSpawnMon.transform.position.y < 2)
+        if (transform.position.y < 2)
         {
             spawnMons();
-            bossBombSpawnMon.gameObject.SetActive(false);
+            Destroy(gameObject);
         }
 
         // 체력이 0이되면 비활성화
         if (bossBombSpawnMonHp <= 0)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 
@@ -60,7 +59,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
     {
         randomX = Random.Range(-50, 50);
         rb.useGravity = false;
-        Vector3 velocity = new(15, 0, 0);
+        Vector3 velocity = new(randomX, 10, 0);
         rb.velocity = velocity;
         
         yield return new WaitForSeconds(1.5f);
@@ -106,28 +105,28 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
     void FirstWave()
     {
         
-        int randomx = Random.Range(targetx - 50, targetx + 50);
-        int randomz = Random.Range(targetz - 50, targetz + 50);
+        float randomx = Random.Range(targetx - 5, targetx + 5);
+        float randomz = Random.Range(targetz - 5, targetz + 5);
 
-        GameObject Mon1 = Instantiate(Monsterlv1, bossBombSpawnMon.transform.position, Quaternion.identity);
-        Mon1.transform.position = new Vector3(randomx, bossBombSpawnMon.transform.position.y, randomz);
+        GameObject Mon1 = Instantiate(Monsterlv1, transform.position, Quaternion.identity);
+        Mon1.transform.position = new Vector3(randomx, transform.position.y, randomz);
     }
 
     void SecondWave()
     {
-        int randomx = Random.Range(targetx - 50, targetx + 50);
-        int randomz = Random.Range(targetz - 50, targetz + 50);
+        float randomx = Random.Range(targetx - 5, targetx + 5);
+        float randomz = Random.Range(targetz - 5, targetz + 5);
         
-        GameObject Mon2 = Instantiate(Monsterlv2, bossBombSpawnMon.transform.position, Quaternion.identity);
-        Mon2.transform.position = new Vector3(randomx, bossBombSpawnMon.transform.position.y, randomz);
+        GameObject Mon2 = Instantiate(Monsterlv2, transform.position, Quaternion.identity);
+        Mon2.transform.position = new Vector3(randomx, transform.position.y, randomz);
     }
     void ThirdWave()
     {
-        int randomx = Random.Range(targetx - 50, targetx + 50);
-        int randomz = Random.Range(targetz - 50, targetz + 50);
+        float randomx = Random.Range(targetx - 5, targetx + 5);
+        float randomz = Random.Range(targetz - 5, targetz + 5);
 
-        GameObject Mon3 = Instantiate(Monsterlv3, bossBombSpawnMon.transform.position, Quaternion.identity);
-        Mon3.transform.position = new Vector3(randomx, bossBombSpawnMon.transform.position.y, randomz);
+        GameObject Mon3 = Instantiate(Monsterlv3, transform.position, Quaternion.identity);
+        Mon3.transform.position = new Vector3(randomx, transform.position.y, randomz);
     }
 
 

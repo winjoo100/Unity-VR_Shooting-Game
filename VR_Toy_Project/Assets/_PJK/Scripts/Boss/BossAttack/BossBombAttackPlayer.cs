@@ -52,7 +52,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
     IEnumerator Firsttime()
     {
         rb.useGravity = false;
-        Vector3 velocity = new Vector3(randomX, 100, 0);
+        Vector3 velocity = new Vector3(randomX, 10, 0);
         rb.velocity = velocity;
 
         yield return new WaitForSeconds(1.5f);
