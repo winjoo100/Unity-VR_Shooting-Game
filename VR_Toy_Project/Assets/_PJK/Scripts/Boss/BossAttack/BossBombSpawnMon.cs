@@ -112,7 +112,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         float randomz = Random.Range(targetz - 5, targetz + 5);
 
         GameObject Mon1 = Instantiate(Monsterlv1, new Vector3(transform.position.x,0,transform.position.z), Quaternion.identity);
-        Mon1.transform.position = new Vector3(randomx, transform.position.y, randomz);
+        Mon1.transform.position = new Vector3(randomx, 0, randomz);
     }
 
     void SecondWave()
@@ -121,7 +121,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         float randomz = Random.Range(targetz - 5, targetz + 5);
         
         GameObject Mon2 = Instantiate(Monsterlv2, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-        Mon2.transform.position = new Vector3(randomx, transform.position.y, randomz);
+        Mon2.transform.position = new Vector3(randomx, 0, randomz);
     }
     void ThirdWave()
     {
@@ -129,7 +129,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         float randomz = Random.Range(targetz - 5, targetz + 5);
 
         GameObject Mon3 = Instantiate(Monsterlv3, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-        Mon3.transform.position = new Vector3(randomx, transform.position.y, randomz);
+        Mon3.transform.position = new Vector3(randomx, 0, randomz);
     }
 
 

@@ -402,6 +402,8 @@ MonoBehaviour:
   EndGame: 1500
   Weaknesstime: 0
   MonsterAttackTime: 0
+  Startx: {fileID: 0}
+  Endx: {fileID: 0}
 --- !u!4 &162884418
 Transform:
   m_ObjectHideFlags: 0
@@ -1011,7 +1013,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &392414257
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1222,7 +1225,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &454521772
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1703,7 +1707,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &538007957
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2162,6 +2167,7 @@ MonoBehaviour:
   Monsterlv3: {fileID: 5585716154177097565, guid: 6e069b84a8d3f814cac3805eb58f4fcd, type: 3}
   spawnPoint01: {fileID: 1667421293}
   spawnPoint02: {fileID: 1093616042}
+  testTimeReduce: 0
 --- !u!64 &634742530
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3241,7 +3247,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &828402844
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3916,7 +3923,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &924407424
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4028,7 +4036,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &927556440
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4810,7 +4819,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &1051134750
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5477,7 +5487,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &1305060139
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6046,13 +6057,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb92a8a7819d4c24aaa81cca43def3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeUnitPrefab: {fileID: 1010245598425602, guid: c045b2623755a5142b8df3787605592d, type: 3}
   turretPrefabs:
   - {fileID: 1010245598425602, guid: c045b2623755a5142b8df3787605592d, type: 3}
   - {fileID: 6297581697729859242, guid: 947e8193f97eb2d48bf042f33ca097d6, type: 3}
   placeUnitUI:
   - {fileID: 7208889491089322024}
   - {fileID: 2065235197137570282}
+  isPlacable: 1
+  placeMaterial: {fileID: 0}
 --- !u!1 &1403411646
 GameObject:
   m_ObjectHideFlags: 0

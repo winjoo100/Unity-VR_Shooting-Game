@@ -15,6 +15,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
     private GameObject startx = default;
     private GameObject endx = default;
     private BossManager bm = default;
+    private Boss bs = default;
 
     private void Awake()
     {
@@ -40,7 +41,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
         endx = bm.Endx;
 
         StartCoroutine(Firsttime());
-
+        bs = GameObject.Find("Boss").GetComponent<Boss>();
     }
 
     private void Update()
@@ -106,7 +107,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
     public void OnDamage(int damage)
     {
-        BossBombAttackTurretHp-= damage;
+        Destroy(gameObject);
     }
 
     // LEGACY : 

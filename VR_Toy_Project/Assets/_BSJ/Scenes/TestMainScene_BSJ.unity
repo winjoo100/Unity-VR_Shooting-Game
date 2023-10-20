@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.043663032, g: 0.04482539, b: 0.059559315, a: 1}
+  m_IndirectSpecularColor: {r: 0.04365709, g: 0.044818856, b: 0.05955075, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -414,6 +414,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47141425}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &74174024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 74174025}
+  m_Layer: 0
+  m_Name: StartX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &74174025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74174024}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -1.572327, y: 0, z: 0.4438455}
+  m_LocalScale: {x: 0.08984726, y: 0.08984726, z: 0.08984726}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1850149378}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &76420057
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,6 +821,8 @@ MonoBehaviour:
   EndGame: 1500
   Weaknesstime: 0
   MonsterAttackTime: 0
+  Startx: {fileID: 74174024}
+  Endx: {fileID: 1035945767}
 --- !u!4 &162884418
 Transform:
   m_ObjectHideFlags: 0
@@ -2699,7 +2732,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &392414257
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3426,7 +3460,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &454521772
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4489,7 +4524,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &538007957
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7201,7 +7237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &828402844
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8167,7 +8204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &924407424
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8279,7 +8317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &927556440
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9481,6 +9520,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031589263}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1035945767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1035945768}
+  m_Layer: 0
+  m_Name: EndX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1035945768
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035945767}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -17.25, y: 0, z: 9.71}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 30
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1040213928
 GameObject:
   m_ObjectHideFlags: 0
@@ -9741,7 +9811,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &1051134750
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11283,7 +11354,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boss: {fileID: 1850149380}
-  weakpointhp: 100
+  weakOn: {fileID: 0}
+  weakOut: {fileID: 0}
 --- !u!135 &1305060139
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -12628,13 +12700,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb92a8a7819d4c24aaa81cca43def3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeUnitPrefab: {fileID: 1010245598425602, guid: c045b2623755a5142b8df3787605592d, type: 3}
   turretPrefabs:
   - {fileID: 1010245598425602, guid: c045b2623755a5142b8df3787605592d, type: 3}
   - {fileID: 6297581697729859242, guid: 947e8193f97eb2d48bf042f33ca097d6, type: 3}
   placeUnitUI:
   - {fileID: 7208889491089322024}
   - {fileID: 2065235197137570282}
+  isPlacable: 1
+  placeMaterial: {fileID: 0}
 --- !u!1 &1403411646
 GameObject:
   m_ObjectHideFlags: 0

@@ -67,7 +67,7 @@ public class BossAttack : MonoBehaviour
             {
 
                 Debug.LogFormat("몬스터소환 몇개? {0}", howmanyAttack);
-                GameObject spawnmon = Instantiate(monsterAttack, boss.transform.position, Quaternion.identity);
+                GameObject spawnmon = Instantiate(monsterAttack, new Vector3(boss.transform.position.x,5, boss.transform.position.z), Quaternion.identity);
             }
         }
 

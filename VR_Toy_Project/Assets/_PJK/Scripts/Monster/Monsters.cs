@@ -262,7 +262,7 @@ public class Monsters : MonoBehaviour, IDamageable
     {
         rb.velocity = Vector3.zero;
         anim.SetBool("isAttackturret", true);
-        turretUnit.DamageSelf(damage);
+        turretUnit?.DamageSelf(damage);
         // 멈춤
     }
 
@@ -271,7 +271,6 @@ public class Monsters : MonoBehaviour, IDamageable
     {
         rb.velocity = Vector3.zero;
         Bomb(damage);
-
     }
 
     //! 몬스터가 자폭 공격을 하는 함수

@@ -115,9 +115,9 @@ MonoBehaviour:
   initialAngle: 30
   targetx: 0
   targetz: 0
-  Monsterlv1: {fileID: 0}
-  Monsterlv2: {fileID: 0}
-  Monsterlv3: {fileID: 0}
+  Monsterlv1: {fileID: 5585716154177097565, guid: 6e069b84a8d3f814cac3805eb58f4fcd, type: 3}
+  Monsterlv2: {fileID: 5585716154177097565, guid: 6e069b84a8d3f814cac3805eb58f4fcd, type: 3}
+  Monsterlv3: {fileID: 5585716154177097565, guid: 6e069b84a8d3f814cac3805eb58f4fcd, type: 3}
 --- !u!54 &183037446
 Rigidbody:
   m_ObjectHideFlags: 0
