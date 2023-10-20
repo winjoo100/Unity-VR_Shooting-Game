@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
+  m_SizeDelta: {x: 5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5404711610360856977
 CanvasRenderer:
@@ -75,8 +75,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281450442
-  m_fontColor: {r: 0.7924528, g: 0.74988425, b: 0.19063722, a: 1}
+    rgba: 4282528202
+  m_fontColor: {r: 0.7921569, g: 0.19215684, b: 0.2578625, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.2
-  m_fontSizeBase: 0.2
+  m_fontSize: 0.5
+  m_fontSizeBase: 0.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: -810462917797136833}
   - component: {fileID: 1026804860956597177}
   m_Layer: 5
-  m_Name: DamageCanvas
+  m_Name: DeathBombDamageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 039ac13070460fe4b92501edad34a281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textType: 0
+  textType: 1
   textReturnTime: 2
   startTime: 0
   moveUpSpeed: 0.3

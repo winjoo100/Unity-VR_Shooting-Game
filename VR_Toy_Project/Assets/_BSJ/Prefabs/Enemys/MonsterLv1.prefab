@@ -5516,12 +5516,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTest: 0
   monsterLevel: {fileID: 5585716154177097565}
-  player: {fileID: 0}
-  turret: {fileID: 0}
-  attackdistance: 20
+  target: {fileID: 0}
+  attackdistance: 3
   distanceToTurret: 0
   detectCollider: {fileID: 5585716154354450754}
-  moveSpeed: 0.5
+  moveSpeed: 3
   AttackSpeed: 0
   turretLayer:
     serializedVersion: 2
@@ -5529,8 +5528,9 @@ MonoBehaviour:
   detectionRadius: 100
   isFindTurret: 0
   isAttackTurret: 0
-  AttackDmg: 0
   hp: 0
+  dmg: 0
+  bombdmg: 0
 --- !u!114 &1858441223
 MonoBehaviour:
   m_ObjectHideFlags: 0
