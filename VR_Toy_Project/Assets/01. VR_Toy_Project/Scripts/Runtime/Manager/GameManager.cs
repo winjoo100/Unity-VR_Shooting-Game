@@ -15,8 +15,7 @@ public class GameManager : MonoBehaviour
         {
             if (instance_ == null || instance_ == default)
             {
-                // TODO : 오류 수정 해야함 
-                instance_.AddComponent<GameManager>();
+                instance_ = GFunc.GetRootObj("GameManager").GetComponent<GameManager>();
             }
 
             return instance_;
@@ -28,7 +27,7 @@ public class GameManager : MonoBehaviour
     // { 초기화를 위한 컴포너트들
     private UIManager uiManager = default;
     private PlayerStatus playerStatus = default;
-    private BossManager bossManager = default;
+    private Boss boss = default;
     // { 초기화를 위한 컴포너트들
 
     [Header ("Turret List")]
@@ -53,9 +52,7 @@ public class GameManager : MonoBehaviour
 
     private float goldTime = default;
 
-    float leftHp = default;
-    float elapseRate = 0.1f;
-    float rateHp = default;
+    
 
     // } HUD 변수
     #endregion
@@ -66,11 +63,10 @@ public class GameManager : MonoBehaviour
     }
 
 
-    float maxHp = 5000f;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(TestGetGold());
+        
     }
 
     // Update is called once per frame
@@ -85,23 +81,23 @@ public class GameManager : MonoBehaviour
         }
         // } TEST : 버튼에 할당해서 ReStart() 할 것임
 
-
-
         uiManager.Update_HUD(CurTime, Gold);
 
-        GetTime();
+        Timer();
+
     }       // Update()
 
 
     private void Init()
     {
         uiManager = GFunc.GetRootObj("UIManager").GetComponent<UIManager>();
+        boss = GFunc.GetRootObj("Boss").GetComponent<Boss>();
+
         ResourceManager.Instance.Init();
 
         isStart = false;
         isEnd = false;
         CurTime = 0f;
-
 
         // { JSH 리스트 할당
         turretLv1_List = new List<Transform>();
@@ -110,17 +106,16 @@ public class GameManager : MonoBehaviour
         turretLv4_List = new List<Transform>();
         // } JSH 리스트 할당
 
-
         // 초기 골드 
         Gold = 500;
     }       // Init()
 
-    // ! 글로벌로 사용할 시간과, 시간에 따른 골드 수급
-    private void GetTime()
+    // ! 글로벌로 사용할 타이머, 시간에 따른 골드 수급
+    private void Timer()
     {
         CurTime += Time.deltaTime;
         GetGold_Time();
-    }       // GetTime()
+    }       // Timer()
 
     // ! 1초당 획득 골드
     private void GetGold_Time()
@@ -129,43 +124,22 @@ public class GameManager : MonoBehaviour
         if (goldTime >= 1f)
         {
             goldTime -= 1f;
-            Gold += 5;
+            Gold += JsonData.Instance.economyDatas.Economy[1].Gold_Gain;
         }
-    }
+    }       // GetGold_Time()
 
 
     // ! 졸개 처치 시 골드 획득 (고정 10)  
-    public void GetGold(int gold = 10)
+    public void GetGold_Monster()
     {
-        Gold += gold;
-    }       // GetGold();
+        Gold += JsonData.Instance.economyDatas.Economy[3].Gold_Gain;
+    }       // GetGold_Monster();
 
     // ! 보스 체력 비율에 따른 골드 획득
-    public void GetGold(ref float maxHp, ref float curHp)
-    {
-       
-        
-        leftHp = maxHp % curHp;
-        rateHp = maxHp * elapseRate;
-        if (leftHp >= rateHp && elapseRate < 1)
-        {
-            elapseRate += 0.1f;
-            Gold += 200;
-        }
-    }       // GetGold()
-
-    IEnumerator TestGetGold()
-    {
-        maxHp = 5000f;
-        float curHp = maxHp;
-        while (maxHp >= 0)
-        {
-           
-            curHp -= Time.deltaTime * 100f;
-            GetGold(ref maxHp, ref curHp);
-            yield return null;
-        }
-    }
+    public void GetGold_Boss()
+    {                       
+        Gold += JsonData.Instance.economyDatas.Economy[2].Gold_Gain;
+    }       // GetGold_Boss()
 
 
     public bool GameStart()

@@ -368,7 +368,6 @@ GameObject:
   - component: {fileID: 6036764068900137854}
   - component: {fileID: 1726427640}
   - component: {fileID: 1726427646}
-  - component: {fileID: 1726427647}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -450,6 +449,9 @@ MonoBehaviour:
   - {fileID: 7156563202277209570}
   hitImage: {fileID: 1219890080}
   isInvincible: 0
+  shot: {fileID: 0}
+  placeUnit: {fileID: 0}
+  mode: 0
 --- !u!136 &1726427640
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -572,20 +574,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &1726427647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1841041335807565987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ed1de91f4bbaad42b946197de05f636, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlaceUnitPrefab: {fileID: 1952557376353440203, guid: 9db0e9f6364d5bd4f812c247260de3a7, type: 3}
-  placeUnitUI: {fileID: 0}
 --- !u!1001 &7156563203340010528
 PrefabInstance:
   m_ObjectHideFlags: 0

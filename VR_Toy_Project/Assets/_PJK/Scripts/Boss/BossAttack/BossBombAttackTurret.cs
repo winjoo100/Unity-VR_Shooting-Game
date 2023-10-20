@@ -1,37 +1,78 @@
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 public class BossBombAttackTurret : MonoBehaviour, IDamageable
 {
     // 공격 포탄 Hp
-    public int BossBombAttackTurretHp = default;
+    public int BossBombAttackHp = default;
 
     public float initialAngle = 30f;    // 처음 날라가는 각도
+    public GameObject target;
     private float Shottime;
     private Rigidbody rb;               // Rigidbody
     private int randomX;
-    public LayerMask turretLayer;
-    public float detectionRadius = 1000f;
-    public Transform target;
 
+    private Turret01[] turret01;
+    private Turret02[] turret02;
+    private BossManager bm;
+    private float nearDistance;
+    private GameObject tempTarget;
     private void Awake()
     {
         // 체력 셋팅
-        BossBombAttackTurretHp = JsonData.Instance.bossSkillDatas.Boss_Skill[0].Hp;
+        BossBombAttackHp = JsonData.Instance.bossSkillDatas.Boss_Skill[0].Hp;
 
         rb = GetComponent<Rigidbody>();
         Shottime = 0;
+        nearDistance = Mathf.Infinity;
 
-        FindTarget();
+        turret01 = FindObjectsOfType<Turret01>();
+        turret02 = FindObjectsOfType<Turret02>();
+        // TODO : turret03, turret04찾기
+        // TODO: if 터렛이 있으면 target은 터렛
+
+
+        // TODO: else 터렛이 없으면 target은 플레이어
+        target = GameObject.Find("Player");
+
+        if (turret01.Length > 0)
+        {
+            // 제일 가까운 터렛 찾기
+            for (int i = 0; i < turret01.Length; i++)
+            {
+                float findDistance = Vector3.Distance(transform.position, turret01[i].transform.position);
+
+                // 제일 가깝다면 그 타겟을 저장하고,
+                if (nearDistance > findDistance)
+                {
+                    nearDistance = findDistance;
+                    target = turret01[i].gameObject;
+                }
+            }
+        }
+
+        if (turret02.Length > 0)
+        {
+            for (int i = 0; i < turret02.Length ; i++)
+            {
+                float findDistance = Vector3.Distance(transform.position, turret02[i].transform.position);
+
+                // 제일 가깝다면 그 타겟을 저장하고,
+                if (nearDistance > findDistance)
+                {
+                    nearDistance = findDistance;
+                    target = turret02[i].gameObject;
+                }
+            }
+        }
+
     }
-
-
-
 
 
     private void Start()
     {
-        randomX = Random.Range(-50,50);
+        bm = GameObject.Find("BossManager").GetComponent<BossManager>();
 
         StartCoroutine(Firsttime());
 
@@ -40,7 +81,7 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
     private void Update()
     {
         // 체력이 0이되면 비활성화
-        if (BossBombAttackTurretHp <= 0 )
+        if (BossBombAttackHp <= 0 )
         {
             gameObject.SetActive(false);
         }
@@ -49,8 +90,9 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
 
     IEnumerator Firsttime()
     {
+        randomX = Random.Range(-10, 10);
         rb.useGravity = false;
-        Vector3 velocity = new Vector3(randomX, 100, 0);
+        Vector3 velocity = new Vector3(randomX, 10, 0);
         rb.velocity = velocity;
 
         yield return new WaitForSeconds(1.5f);
@@ -99,32 +141,6 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
 
     public void OnDamage(int damage)
     {
-        BossBombAttackTurretHp-= damage;
+        BossBombAttackHp -= damage;
     }
-
-    private void FindTarget()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, turretLayer);
-
-        if (colliders.Length > 0)
-        {
-            // 가장 가까운 터렛을 타겟으로 설정
-            float closestDistance = float.MaxValue;
-
-            foreach (Collider collider in colliders)
-            {
-                float distance = Vector3.Distance(transform.position, collider.transform.position);
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    target = collider.transform;
-                }
-            }
-        }
-        else
-        {
-            target = null;
-        }
-    }
-
 }

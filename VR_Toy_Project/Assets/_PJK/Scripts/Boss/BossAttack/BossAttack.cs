@@ -26,7 +26,7 @@ public class BossAttack : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(boss.transform.position, 100f, Turret);
 
         
-        if (bm.skillCoolTime > 20)
+        if (bm.skillCoolTime > 3)
         {
             attack();
             bm.skillCoolTime = 0;
@@ -37,22 +37,22 @@ public class BossAttack : MonoBehaviour
     void attack()
     {
         float zrange = Vector3.Distance(gameObject.transform.position, player.transform.position);
-        
-        // 정근정근아 뒤질래? 
-        // 동작하는 코드를 넣으라고.. 주석 달던가
-        //if(m.isFindTurret==true)
-        //{
-        //     skill = Random.Range(0, 2);
-        //}
-        //else if(m.isFindTurret==false)
-        //{
-        //    skill = Random.Range(0, 1);
-        //}
+
+        if (GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count > 0)
+        {
+            skill = Random.Range(0, 3);
+        }
+        else if (GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count < 1)
+        {
+            skill = Random.Range(0, 2);
+            skill = 1;
+        }
 
 
         if (skill == 0)
         {
-            int howmanyAttack = Random.Range(2, 5);
+            int howmanyAttack = Random.Range(2, 6);
+            Debug.LogFormat("플레이어공격 몇개? {0}", howmanyAttack);
             for (int i = 0; i < howmanyAttack; i++)
             {
                 GameObject atktoplayer = Instantiate(playerAttack, boss.transform.position, Quaternion.identity);
@@ -62,18 +62,21 @@ public class BossAttack : MonoBehaviour
 
         else if (skill == 1)
         {
-            int howmanyAttack = Random.Range(1, 3);
+            int howmanyAttack = Random.Range(1, 4);
             for (int i = 0; i < howmanyAttack; i++)
             {
+
+                Debug.LogFormat("몬스터소환 몇개? {0}", howmanyAttack);
                 GameObject spawnmon = Instantiate(monsterAttack, boss.transform.position, Quaternion.identity);
             }
         }
 
         else if (skill == 2)
         {
-            int howmanyAttack = Random.Range(1, 3);
+            int howmanyAttack = Random.Range(1, 4);
             for (int i = 0; i < howmanyAttack; i++)
             {
+                Debug.LogFormat("타워공격 몇개? {0}", howmanyAttack);
                 GameObject atktotower = Instantiate(TowerAttack, boss.transform.position, Quaternion.identity);
             }
         }

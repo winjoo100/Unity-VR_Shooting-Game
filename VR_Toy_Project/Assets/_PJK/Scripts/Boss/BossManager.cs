@@ -14,6 +14,8 @@ public class BossManager : MonoBehaviour
     public float EndGame = 500;
     public float Weaknesstime = default;
     public float MonsterAttackTime = default;
+    public GameObject Startx = default;
+    public GameObject Endx = default;
     private void Awake()
     {
         instance = this;

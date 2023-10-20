@@ -23,7 +23,7 @@ public class Monsters : MonoBehaviour, IDamageable
     //public bool isNoTurret = false;
     //public bool isAttackturret = false;
     //public bool isDied = false;
-    
+
     //몬스터
     public GameObject monsterLevel = default;
     //플레이어
@@ -56,6 +56,7 @@ public class Monsters : MonoBehaviour, IDamageable
     private int dmg;
     private float bombdmg;
 
+
     private Rigidbody rb; // 괴수의 Rigidbody를 사용하여 이동 처리
     private BoxCollider boxCollider;
 
@@ -81,6 +82,7 @@ public class Monsters : MonoBehaviour, IDamageable
 
     void Start()
     {
+       
         tu = GetComponent<TurretUnit>();
         // 몬스터 초기값 셋팅
         Lv1hp = JsonData.Instance.monsterDatas.Monster[0].HP;
@@ -132,7 +134,7 @@ public class Monsters : MonoBehaviour, IDamageable
     }
 
 
-    
+
 
     private void Update()
     {
@@ -140,14 +142,24 @@ public class Monsters : MonoBehaviour, IDamageable
         //// TODO : 기획 Sclae 확정 후 삭제 예정
         //// HSJ_ 231019
         //TestChangeScale();
-        
+
+        if(GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count  > 0)
+        {
+            isFindTurret = true;
+        }
+        else
+        {
+            isFindTurret = false;
+        }
+
+
 
         // 터렛을 추격중이 아니면,
         if (target == null)
         {
             // 플레이어 추격
             MoveTowardsTarget(player.transform.position);
-            
+
         }
         // 터렛을 콜라이더에서 발견하면
         else if (target == true)
@@ -165,7 +177,7 @@ public class Monsters : MonoBehaviour, IDamageable
                 {
                     // 이동
                     MoveTowardsTarget(targetPosition);
-                    
+
                 }
 
 
@@ -182,31 +194,31 @@ public class Monsters : MonoBehaviour, IDamageable
             }
             else if (isAttackTurret == true)
             {
-                
+
                 rb.velocity = Vector3.zero;
                 AttackTurret(dmg);
             }
 
         }
-        else if(Vector3.Distance(gameObject.transform.position,player.transform.position) < 20f )
+        else if (Vector3.Distance(gameObject.transform.position, player.transform.position) < 20f)
         {
             AttackUser(bombdmg);
         }
 
-        if(hp < 0)
+        if (hp < 0)
         {
             Bomb(bombdmg);
         }
 
-        
+
 
 
     }
     // 목표 지점으로 괴수를 이동시키는 함수
     void MoveTowardsTarget(Vector3 targetPosition)
     {
-        gameObject.transform.forward = (targetPosition-gameObject.transform.position).normalized;
-        
+        gameObject.transform.forward = (targetPosition - gameObject.transform.position).normalized;
+
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
         rb.velocity = moveDirection * moveSpeed;
     }
@@ -240,17 +252,17 @@ public class Monsters : MonoBehaviour, IDamageable
 
     private void Died()
     {
-        if(hp <= 0)
+        if (hp <= 0)
         {
+            // TEST : 
+            // HSJ_ 231019
+            GameManager.Instance.GetGold_Monster();
             boxCollider.enabled = false;
             hp = 0;
             anim.SetTrigger("isDied");
             // TODO : Effect 효과 넣어서 실행시켜야함
             //MonsterBomb.instance.PlayEffect();
             StartCoroutine(inActive());
-            // TEST : 
-            // HSJ_ 231019
-            GameManager.Instance.GetGold();
         }
     }
 
@@ -299,7 +311,7 @@ public class Monsters : MonoBehaviour, IDamageable
     IEnumerator inActive()
     {
         yield return new WaitForSeconds(1.5f);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     //// TEST : 기획 분들 Scale 변경 테스트 하기 위한 함수
@@ -313,7 +325,7 @@ public class Monsters : MonoBehaviour, IDamageable
     //        moveSpeed = 0f;
     //    }
     //    this.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
-        
+
     //}       // TestChangeScale()
 }
 

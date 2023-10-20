@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 public class Boss : MonoBehaviour, IDamageable
-{
+{    
     public GameObject boss = default;
     public GameObject player = default;
     public GameObject[] Turret = default;
@@ -23,18 +23,26 @@ public class Boss : MonoBehaviour, IDamageable
     public int weakActiveCount = 0;
 
     private Rigidbody rb;
-    private int BossHp;
+
+    // HSJ_ 231019
+    // 프로퍼티로 변경
+    // { GameManger에서 가져가서 사용할 변수
+    public int MaxHp { get; private set; }
+    public int CurHP { get; private set; }
+    private int lastGoldHP = default;
+    // { GameManger에서 가져가서 사용할 변수
     private float BossAtk;
 
     void Start()
     {
         // 보스 초기 값 셋팅
-        BossHp = JsonData.Instance.bossDatas.Boss_Data[0].Hp;
+        MaxHp = JsonData.Instance.bossDatas.Boss_Data[0].Hp;
+        lastGoldHP = MaxHp;
+        CurHP = MaxHp;
 
         StartCoroutine(_BossMove());
 
         // 약점 프리팹 모두 비활성화
-        OffWeakPoint();
         m = GetComponent<Monsters>();
     }
 
@@ -80,17 +88,17 @@ public class Boss : MonoBehaviour, IDamageable
         //    }
         //}
 
-        if (bm.Weaknesstime > 10 || weakActiveCount == 0)
-        {
-            // 기존 약점 비활성화
-            OffWeakPoint();
+        //if (bm.Weaknesstime > 10 || weakActiveCount == 0)
+        //{
+        //    // 기존 약점 비활성화
+        //    //OffWeakPoint();
 
-            // 약점 활성화
-            OnWeakPoint();
-            bm.Weaknesstime = 0;
-        }
+        //    // 약점 활성화
+        //    //OnWeakPoint();
+        //    bm.Weaknesstime = 0;
+        //}
 
-        if (BossHp<0)
+        if (CurHP <= 0)
         {
 
             Death();
@@ -119,37 +127,38 @@ public class Boss : MonoBehaviour, IDamageable
 
     }
 
-    void OnWeakPoint()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            int onweak = Random.Range(0, 8);
+    //void OnWeakPoint()
+    //{
+    //    for (int i = 0; i < 3; i++)
+    //    {
+    //        int onweak = Random.Range(0, 8);
 
-            weakpoints[onweak].SetActive(true);
+    //        weakpoints[onweak].SetActive(true);
 
-            if (i == 0)
-            {
-                weakpoints[onweak].transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-            }
+    //        if (i == 0)
+    //        {
+    //            weakpoints[onweak].transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+    //        }
 
-            weakActiveCount = 3;
-        }
-    }
+    //        weakActiveCount = 3;
+    //    }
+    //}
 
-    void OffWeakPoint()
-    {
-        // 약점 프리팹 모두 비활성화
-        for (int i = 0; i < weakpoints.Length; i++)
-        {
 
-            weakpoints[i].SetActive(false);
-        }
-
-        weakActiveCount = 0;
-    }
 
     public void OnDamage(int damage)
     {
-        BossHp -= damage;
+        CurHP -= damage;
+        CalculateHp();
+    }
+    private void CalculateHp()
+    {        
+        int rateHp = (int)(MaxHp * 0.1f);
+        
+        if (CurHP <= lastGoldHP - rateHp)
+        {
+            GameManager.Instance.GetGold_Boss();
+            lastGoldHP = lastGoldHP - rateHp;
+        }
     }
 }

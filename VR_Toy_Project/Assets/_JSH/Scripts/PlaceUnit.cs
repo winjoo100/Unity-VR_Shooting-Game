@@ -11,7 +11,7 @@ public class PlaceUnit : MonoBehaviour
     // 배치할 유닛 프리팹들
     public GameObject[] turretPrefabs = default;
     // 유닛 배치 UI
-    public Transform placeUnitUI = default;
+    public Transform[] placeUnitUI = default;
     // 선을 그릴 라인 렌더러
     private LineRenderer lineRenderer = default;
     // 버튼 클릭용 클래스
@@ -20,7 +20,10 @@ public class PlaceUnit : MonoBehaviour
     private void Awake()
     {
         // 시작할 때 비활성화
-        placeUnitUI.gameObject.SetActive(false);
+        placeUnitUI[0].gameObject.SetActive(false);
+        placeUnitUI[1].gameObject.SetActive(false);
+        //placeUnitUI[2].gameObject.SetActive(false);
+        //placeUnitUI[3].gameObject.SetActive(false);
 
         // 라인 렌더러 컴포넌트 얻어오기
         lineRenderer = GetComponent<LineRenderer>();
@@ -37,7 +40,7 @@ public class PlaceUnit : MonoBehaviour
         // 라인 렌더러 컴포넌트 활성화
         lineRenderer.enabled = true;
         // 유닛 배치 UI 활성화
-        placeUnitUI.gameObject.SetActive(true);
+        placeUnitUI[turretID].gameObject.SetActive(true);
 
         Debug.Log("켜졌나");
     }
@@ -50,16 +53,16 @@ public class PlaceUnit : MonoBehaviour
             // 라인 렌더러 컴포넌트 비활성화
             lineRenderer.enabled = false;
 
-            if (placeUnitUI.gameObject.activeSelf)
+            if (placeUnitUI[turretID].gameObject.activeSelf)
             {
                 // 유닛 배치 UI 위치에 유닛 생성
                 SpawnUnit();
                 // 유닛 배치 UI의 좌표 변경
-                placeUnitUI.transform.position = Vector3.up * -100;
+                placeUnitUI[turretID].transform.position = Vector3.up * -100;
             }
 
             // 유닛 배치 UI 비활성화
-            placeUnitUI.gameObject.SetActive(false);
+            placeUnitUI[turretID].gameObject.SetActive(false);
 
             // 배치가 끝났으니 모드 전환
             playerStatus.mode = Mode.ShotMode;
@@ -79,19 +82,17 @@ public class PlaceUnit : MonoBehaviour
             lineRenderer.SetPosition(1, hitInfo_.point);
 
             // Ray가 부딪힌 지점에 유닛 배치 UI 표시
-            placeUnitUI.position = hitInfo_.point;
+            placeUnitUI[turretID].position = hitInfo_.point;
             // 유닛 배치 UI의 Head가 위로 향하도록 방향 설정
-            placeUnitUI.up = hitInfo_.normal;
+            placeUnitUI[turretID].up = hitInfo_.normal;
             // 유닛 배치 UI가 앞을 보도록 설정
-            placeUnitUI.right = hitInfo_.transform.forward;
+            placeUnitUI[turretID].right = hitInfo_.transform.forward;
         }
         else
         {
             // Ray 충돌이 발생하지 않으면 선이 Ray 방향으로 그려지도록 처리
             lineRenderer.SetPosition(0, ray_.origin);
             lineRenderer.SetPosition(1, ray_.origin + BSJVRInput.LHandDirection * 200f);
-            // 유닛 배치 UI는 화면에서 비활성화
-            placeUnitUI.gameObject.SetActive(false);
         }
     }       // Update()
 
@@ -99,11 +100,11 @@ public class PlaceUnit : MonoBehaviour
     private void SpawnUnit()
     {
         // TODO: ID에 맞는 프리팹 찾아서 소환해야함
-        Transform unit_ = Instantiate(placeUnitPrefab).transform;
+        Transform unit_ = Instantiate(turretPrefabs[turretID]).transform;
 
-        unit_.position = placeUnitUI.position;
-        unit_.forward = placeUnitUI.forward;
-        unit_.localScale = placeUnitUI.localScale;
+        unit_.position = placeUnitUI[turretID].position;
+        unit_.forward = placeUnitUI[turretID].forward;
+        unit_.localScale = placeUnitUI[turretID].localScale;
     }
 
     //! 터렛 ID SET

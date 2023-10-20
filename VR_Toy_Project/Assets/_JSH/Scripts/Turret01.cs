@@ -28,22 +28,29 @@ public class Turret01 : TurretUnit
         GameManager.Instance.turretLv1_List.Add(transform);
     }
 
+    private void OnEnable()
+    {
+        DetectTarget();
+    }
+
     private void Update()
     {
-        // 목표가 없으면 탐지 실행
-        if (target == null || target == default)
-        {
-            DetectTarget();
-        }
+        //// 탐지
+        //if (isReadyDetect == true)
+        //{
+        //    isReadyDetect = false;
 
-        // 공격이 준비되면 공격
-        if (isReady == true)
-        {
-            isReady = false;
+        //    DetectTarget();
+        //}
 
-            AttackTarget();
-        }
-        else { /* DoNothing */ }
+        //// 공격이 준비되면 공격
+        //if (isReadyAttack == true)
+        //{
+        //    isReadyAttack = false;
+
+        //    AttackTarget();
+        //}
+        //else { /* DoNothing */ }
     }
 }
 

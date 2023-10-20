@@ -135,8 +135,8 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 약점 ||
-        if (other.CompareTag("WeakPoint") || other.CompareTag("Monster") || other.CompareTag("BossAttackPlayer") || other.CompareTag("BossAttackSpawnMon"))
+        // 약점 || 졸개 || 보스 공격 투사체 || 보스 스폰 알
+        if (other.CompareTag("WeakPoint") || other.CompareTag("Monster") || other.CompareTag("BossAttackPlayer") || other.CompareTag("BossAttackSpawnMon") || other.CompareTag("Boss"))
         {
             // 타격 이펙트 콜
             GameObject hitVFX = VFXObjectPool.instance.GetPoolObj(vfxType);
@@ -150,7 +150,7 @@ public class Bullet : MonoBehaviour
             if (other.CompareTag("WeakPoint"))
             {
                 finalDamage = (int)(bulletDamage * criticalDamage);
-                other.GetComponent<WeakPoint>().OnDamage(finalDamage);
+                other.GetComponent<WeakPointBig>().OnDamage(finalDamage);
             }
             else if (other.CompareTag("Monster"))
             {
@@ -167,7 +167,11 @@ public class Bullet : MonoBehaviour
             else if (other.CompareTag("BossAttackSpawnMon"))
             {
                 other.GetComponent<BossBombSpawnMon>().OnDamage(finalDamage);
-            }       
+            }
+            else if (other.CompareTag("Boss"))
+            {
+                other.GetComponent<Boss>().OnDamage(finalDamage);
+            }
             // } 실제 데미지를 입히는 로직
 
             // { 타격 데미지 텍스트 콜
@@ -179,9 +183,6 @@ public class Bullet : MonoBehaviour
             damageText.SetActive(true);
             damageText.transform.position = new Vector3(transform.position.x + Random.Range(-0.25f, 0.25f), transform.position.y + Random.Range(-0.25f, 0.25f), transform.position.z - 1f);
             // } 타격 데미지 텍스트 콜
-
-            
-            
 
             // 탄환은 오브젝트 풀로 반환
             BulletObjectPool.instance.CoolObj(gameObject, bulletType);
