@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 몬스터의 타입을 구별하기 위한 Enum
-public enum MonsterPoolObjType { Monster_Lv1, Monster_Lv2, Monster_Lv3 }
+public enum MonsterPoolObjType { Monster_Lv1, Monster_Lv2, Monster_Lv3, DeathBomb }
 
 // 외부 인스펙터창에서 클래스 정보에 접근할 수 있게 해주는 [Serializable]
 [Serializable]

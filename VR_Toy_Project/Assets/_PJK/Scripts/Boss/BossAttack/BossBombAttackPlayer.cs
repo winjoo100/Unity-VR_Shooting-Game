@@ -7,20 +7,24 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
     public int BossBombAttackTurretHp = default;
 
     public float initialAngle = 30f;    // 처음 날라가는 각도
-    private float Shottime;
     private Rigidbody rb;               // Rigidbody
     private int randomX;
     public LayerMask turretLayer;
     public float detectionRadius = 1000f;
-    public GameObject target;
+    private GameObject target;
+    private GameObject startx = default;
+    private GameObject endx = default;
+    private BossManager bm = default;
+    private Boss bs = default;
 
     private void Awake()
     {
+        bm = GameObject.Find("BossManager").GetComponent<BossManager>();
+
         // 체력 셋팅
         BossBombAttackTurretHp = JsonData.Instance.bossSkillDatas.Boss_Skill[0].Hp;
 
         rb = GetComponent<Rigidbody>();
-        Shottime = 0;
 
         // LEGACY:
         //FindTarget();
@@ -33,10 +37,11 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        randomX = Random.Range(-50,50);
+        startx = bm.Startx;
+        endx = bm.Endx;
 
         StartCoroutine(Firsttime());
-
+        bs = GameObject.Find("Boss").GetComponent<Boss>();
     }
 
     private void Update()
@@ -51,8 +56,9 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
     IEnumerator Firsttime()
     {
+        randomX = Random.Range(-10, 10);
         rb.useGravity = false;
-        Vector3 velocity = new Vector3(randomX, 100, 0);
+        Vector3 velocity = new Vector3(randomX, 10, 0);
         rb.velocity = velocity;
 
         yield return new WaitForSeconds(1.5f);
@@ -101,7 +107,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
     public void OnDamage(int damage)
     {
-        BossBombAttackTurretHp-= damage;
+        Destroy(gameObject);
     }
 
     // LEGACY : 

@@ -43,7 +43,6 @@ public class Boss : MonoBehaviour, IDamageable
         StartCoroutine(_BossMove());
 
         // 약점 프리팹 모두 비활성화
-        OffWeakPoint();
         m = GetComponent<Monsters>();
     }
 
@@ -89,15 +88,15 @@ public class Boss : MonoBehaviour, IDamageable
         //    }
         //}
 
-        if (bm.Weaknesstime > 10 || weakActiveCount == 0)
-        {
-            // 기존 약점 비활성화
-            OffWeakPoint();
+        //if (bm.Weaknesstime > 10 || weakActiveCount == 0)
+        //{
+        //    // 기존 약점 비활성화
+        //    //OffWeakPoint();
 
-            // 약점 활성화
-            OnWeakPoint();
-            bm.Weaknesstime = 0;
-        }
+        //    // 약점 활성화
+        //    //OnWeakPoint();
+        //    bm.Weaknesstime = 0;
+        //}
 
         if (CurHP <= 0)
         {
@@ -128,40 +127,36 @@ public class Boss : MonoBehaviour, IDamageable
 
     }
 
-    void OnWeakPoint()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            int onweak = Random.Range(0, 8);
+    //void OnWeakPoint()
+    //{
+    //    for (int i = 0; i < 3; i++)
+    //    {
+    //        int onweak = Random.Range(0, 8);
 
-            weakpoints[onweak].SetActive(true);
+    //        weakpoints[onweak].SetActive(true);
 
-            if (i == 0)
-            {
-                weakpoints[onweak].transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-            }
+    //        if (i == 0)
+    //        {
+    //            weakpoints[onweak].transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+    //        }
 
-            weakActiveCount = 3;
-        }
-    }
+    //        weakActiveCount = 3;
+    //    }
+    //}
 
-    void OffWeakPoint()
-    {
-        // 약점 프리팹 모두 비활성화
-        for (int i = 0; i < weakpoints.Length; i++)
-        {
+           // weakpoints[i].SetActive(false);
+       // }
+      //  weakActiveCount = 0;
+ //   }
 
-            weakpoints[i].SetActive(false);
-        }
-
-        weakActiveCount = 0;
-    }
 
     public void OnDamage(int damage)
     {
         CurHP -= damage;
         CalculateHp();
     }
+
+    // ! 보스 체력 퍼센트 비례로 돈을 얻는 함수
     private void CalculateHp()
     {        
         int rateHp = (int)(MaxHp * 0.1f);
@@ -171,5 +166,5 @@ public class Boss : MonoBehaviour, IDamageable
             GameManager.Instance.GetGold_Boss();
             lastGoldHP = lastGoldHP - rateHp;
         }
-    }
+    }       // alculateHp()
 }

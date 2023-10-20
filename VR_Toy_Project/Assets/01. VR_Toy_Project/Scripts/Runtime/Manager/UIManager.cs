@@ -10,15 +10,20 @@ public class UIManager : MonoBehaviour
     private GameObject StartCanvas = default;
     private GameObject startBtn = default; 
     private GameObject quitBtn = default;
-    private Slider slider = default;
 
+    private Slider slider = default;
     private GameObject timerTxt = default;
     private GameObject goldTxt = default;
+    private GameObject hpTxt = default;
 
-    private Boss Boss = default;
-    // UI에 표시할 타이머 텍스트 
+    private Boss boss = default;
+    private PlayerStatus playerStat = default;
+    
+    // UI에 표시할 텍스트 
     private string timeFormat = default;
+    private string hpFormat = default;
     #endregion
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,18 +39,27 @@ public class UIManager : MonoBehaviour
     // ! UI 요소 캐싱 및 초기화
     public void Init()
     {
+        // { 컴퍼넌트 
+        boss = GFunc.GetRootObj("Boss").GetComponent<Boss>();
+        playerStat = GFunc.GetRootObj("Player").GetComponent<PlayerStatus>();
+        // } 컴퍼넌트 
+        
+        // { HUD Canvas 
         HUDCanvas = GFunc.GetRootObj("PlayerHUDCanvas");
-        StartCanvas = GFunc.GetRootObj("GameStartCanvas");
-        Boss = GFunc.GetRootObj("Boss").GetComponent<Boss>();  
+        StartCanvas = GFunc.GetRootObj("GameStartCanvas");        
+        timerTxt = HUDCanvas.GetChildObj("TimerTxt");
+        slider = HUDCanvas.GetChildObj("BossHPSlider").GetComponent<Slider>();
+        goldTxt = HUDCanvas.GetChildObj("GoldTxt");
+        // } HUD Canvas 
+
+        // { Start Canvas
         startBtn = StartCanvas.GetChildObj("StartButton");
         quitBtn = StartCanvas.GetChildObj("QuitButton");
 
-        slider = HUDCanvas.GetChildObj("BossHPSlider").GetComponent<Slider>();
-        timerTxt = HUDCanvas.GetChildObj("TimerTxt");
-        goldTxt = HUDCanvas.GetChildObj("GoldTxt");
-
         startBtn.GetComponent<Button>().onClick.AddListener(OnStartButton);
         quitBtn.GetComponent<Button>().onClick.AddListener(OnQuitButtion);
+        // } Start Canvas
+
     }       // Init()
 
     // ! Player HUD 업데이트 
@@ -61,10 +75,13 @@ public class UIManager : MonoBehaviour
         timeFormat = string.Format("{0} : {1}", min.ToString("D2"), sec.ToString("D2"));
         timerTxt.SetTmpText(timeFormat);
         goldTxt.SetTmpText(gold_.ToString());
+
+        // TODO : 추후 플레이어 체력 스탯이 추가되면 업데이트 
+        //hpFormat = string.Format("HP " + "{0} / {1}", playerStat.curHp.ToString("D3"), playerStat.maxHp.Tostring("D3"));
+        hpTxt.SetTmpText(hpFormat);
         // } HUD Text 변경
 
-        Debug.LogFormat("{0}, {1}", Boss.MaxHp, Boss.CurHP);
-        slider.value = ((float)Boss.CurHP / (float)Boss.MaxHp);
+        slider.value = ((float)boss.CurHP / (float)boss.MaxHp);
 
     }   // UpdateHUD()
 

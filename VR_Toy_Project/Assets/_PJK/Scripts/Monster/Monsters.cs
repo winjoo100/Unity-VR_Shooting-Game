@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.TextCore.Text;
 
 public class Monsters : MonoBehaviour, IDamageable
 {
@@ -24,43 +25,59 @@ public class Monsters : MonoBehaviour, IDamageable
     //public bool isAttackturret = false;
     //public bool isDied = false;
 
-    //몬스터
+    // 몬스터
     public GameObject monsterLevel = default;
-    //플레이어
-    public GameObject player = default;
-    //터렛
-    public GameObject turret = default;
+
+    // 공격 대상으로 삼을 타겟
+    public GameObject target = default;
+
     // 사정거리
-    public float attackdistance = 20f;
+    public float attackdistance = 3f;
+
     // 터렛과의 거리
     public float distanceToTurret = default;
-    //감지 콜라이더
+
+    // 감지 콜라이더
     public Collider detectCollider = default;
-    // 이동 속도
-    public float moveSpeed = 50.0f;
 
-    public float AttackSpeed = default;
+    // 터렛 레이어
     public LayerMask turretLayer;
-    public float detectionRadius = 100f;
 
-    private Transform target = default;
+    // 불러올 터렛 스크립트
+    public TurretUnit turretUnit = default;
+
+    // 터렛 탐지 거리
+    public float detectionRadius = 10f;
+
     // 터렛을 타겟중인지 체크
     public bool isFindTurret = false;
 
     // 터렛을 공격중인지 체크
     public bool isAttackTurret = false;
+
+    // 이동 속도
     [SerializeField]
-    public float AttackDmg = default;
+    private float moveSpeed = 5f;
+
+    // 몬스터의 공격속도
+    [SerializeField]
+    private float AttackSpeed = default;
+
+    // 몬스터의 체력
     [SerializeField]
     private float hp;
+
+    // 몬스터의 데미지
+    [SerializeField]
     private int dmg;
+
+    // 몬스터 자폭 데미지
+    [SerializeField]
     private float bombdmg;
 
-
+    // 컴포넌트들
     private Rigidbody rb; // 괴수의 Rigidbody를 사용하여 이동 처리
     private BoxCollider boxCollider;
-
-    private TurretUnit tu = default;
 
     public int Lv1hp { get; private set; }
     public int Lv1atk { get; private set; }
@@ -82,9 +99,12 @@ public class Monsters : MonoBehaviour, IDamageable
 
     void Start()
     {
-       
-        tu = GetComponent<TurretUnit>();
-        // 몬스터 초기값 셋팅
+        // tu = GetComponent<TurretUnit>();
+
+        // 처음 타겟은 플레이어
+        target = GameObject.Find("Player");
+
+        // { 몬스터 초기값 셋팅
         Lv1hp = JsonData.Instance.monsterDatas.Monster[0].HP;
         Lv1atk = JsonData.Instance.monsterDatas.Monster[0].Att;
         Lv1BombDmg = JsonData.Instance.monsterDatas.Monster[0].Explosion_Damage;
@@ -118,19 +138,15 @@ public class Monsters : MonoBehaviour, IDamageable
             dmg = Lv3atk;
             bombdmg = Lv3BombDmg;
         }
-        player = GameObject.Find("Player");
-        //data();
+        // } 몬스터 초기값 셋팅
 
-        rb = GetComponent<Rigidbody>(); // Rigidbody 컴포넌트 가져오기
+        rb = GetComponent<Rigidbody>();
         boxCollider = GetComponent<BoxCollider>();
-
-        //몬스터
         anim = GetComponent<Animator>();
 
         // TEST : 
         // HSJ_ 2310119
         meshRender = this.gameObject.GetChildObj("AnkleBiter").GetComponent<SkinnedMeshRenderer>();
-
     }
 
 
@@ -143,32 +159,38 @@ public class Monsters : MonoBehaviour, IDamageable
         //// HSJ_ 231019
         //TestChangeScale();
 
-        if(GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count  > 0)
-        {
-            isFindTurret = true;
-        }
-        else
-        {
-            isFindTurret = false;
-        }
-
-
+        // 현재 맵에 터렛이 있는지 체크
+        //if(GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count  > 0)
+        //{
+        //    isFindTurret = true;
+        //}
+        //else
+        //{
+        //    isFindTurret = false;
+        //}
 
         // 터렛을 추격중이 아니면,
-        if (target == null)
+        if (isFindTurret == false)
         {
             // 플레이어 추격
-            MoveTowardsTarget(player.transform.position);
+            MoveTowardsTarget(target.transform.position);
+
+            // 공격 범위 내에 왔다면 플레이어 공격
+            if (Vector3.Distance(gameObject.transform.position, target.transform.position) <= attackdistance)
+            {
+                AttackUser(bombdmg);
+            }
 
         }
+
         // 터렛을 콜라이더에서 발견하면
-        else if (target == true)
-        {    //터렛을 공격중이 아니라면
+        else if (isFindTurret == true)
+        {    
+            //터렛을 공격중이 아니라면
             if (isAttackTurret == false)
             {
                 // 터렛 추격
-                Vector3 targetPosition = turret.transform.position;
-
+                Vector3 targetPosition = target.transform.position;
 
                 // 현재 위치에서 타겟 방향과 거리 계산
                 Vector3 toTarget = targetPosition - transform.position;
@@ -177,79 +199,90 @@ public class Monsters : MonoBehaviour, IDamageable
                 {
                     // 이동
                     MoveTowardsTarget(targetPosition);
-
                 }
 
-
                 // 터렛과의 거리 비교
-                distanceToTurret = Vector3.Distance(transform.position, turret.transform.position);
+                distanceToTurret = Vector3.Distance(transform.position, target.transform.position);
 
                 // 터렛이 사정거리 안에 들어왔다면,
-                if (distanceToTurret < attackdistance)
+                if (distanceToTurret <= attackdistance)
                 {
                     // 터렛 공격
                     isAttackTurret = true;
                 }
 
             }
+
+            // 터렛을 공격 중이라면
             else if (isAttackTurret == true)
             {
-
+                // 자폭 공격
                 rb.velocity = Vector3.zero;
                 AttackTurret(dmg);
             }
 
         }
-        else if (Vector3.Distance(gameObject.transform.position, player.transform.position) < 20f)
+    }
+
+    //! 몬스터가 데미지를 받는 함수
+    public void OnDamage(int damage)
+    {
+        // 체력을 데미지만큼 뺀다.
+        hp -= damage;
+
+        // 체력이 0 초과일 땐, 
+        if (hp > 0)
         {
-            AttackUser(bombdmg);
+            // 피격 시 색상 변경을 한다.
+            StartCoroutine(ChangeColor());
         }
 
-        if (hp < 0)
+        // 체력이 0 이하이면,
+        if (hp <= 0)
         {
-            Bomb(bombdmg);
+            // 사망한다.
+            Died();
         }
-
-
-
 
     }
-    // 목표 지점으로 괴수를 이동시키는 함수
-    void MoveTowardsTarget(Vector3 targetPosition)
+
+    //! 목표 지점으로 괴수를 이동시키는 함수
+    private void MoveTowardsTarget(Vector3 targetPosition)
     {
         gameObject.transform.forward = (targetPosition - gameObject.transform.position).normalized;
 
         Vector3 moveDirection = (targetPosition - transform.position).normalized;
-        rb.velocity = moveDirection * moveSpeed;
+        //rb.velocity = moveDirection * moveSpeed;
+        rb.velocity = new Vector3(moveDirection.x, 0f, moveDirection.z) * moveSpeed;
     }
 
 
-
+    //! 터렛을 공격하는 함수
     private void AttackTurret(int damage)
     {
         rb.velocity = Vector3.zero;
         anim.SetBool("isAttackturret", true);
-        tu.DamageSelf(damage);
+        turretUnit?.DamageSelf(damage);
         // 멈춤
     }
 
+    //! 플레이어를 공격하는 함수
     private void AttackUser(float damage)
     {
         rb.velocity = Vector3.zero;
         Bomb(damage);
-
     }
 
+    //! 몬스터가 자폭 공격을 하는 함수
     private void Bomb(float damage)
     {
         // TODO : Effect 효과 넣어서 실행시켜야함
         //MonsterBomb.instance.PlayEffect();
 
         Died();
-
-
     }
 
+    //! 몬스터가 사망하는 함수
     private void Died()
     {
         if (hp <= 0)
@@ -257,62 +290,68 @@ public class Monsters : MonoBehaviour, IDamageable
             // TEST : 
             // HSJ_ 231019
             GameManager.Instance.GetGold_Monster();
-            boxCollider.enabled = false;
-            hp = 0;
-            anim.SetTrigger("isDied");
-            // TODO : Effect 효과 넣어서 실행시켜야함
-            //MonsterBomb.instance.PlayEffect();
-            StartCoroutine(inActive());
+
+            // 몬스터 사망 시 이펙트 생성. BSJ_231020
+            GameObject deathEffect = VFXObjectPool.instance.GetPoolObj(VFXPoolObjType.MonsterDeathVFX);
+            deathEffect.SetActive(true);
+            deathEffect.transform.position = transform.position;
+
+            // 폭발 트리거 생성
+            GameObject deathBomb = MonsterObjectPool.instance.GetPoolObj(MonsterPoolObjType.DeathBomb);
+            deathBomb.SetActive(true);
+            deathBomb.transform.position = transform.position;
+            deathBomb.GetComponent<MonsterDeathBomb>()._Damage = bombdmg;
+
+            // 몬스터 사망
+            Destroy(gameObject);
+            // LEGACY: 죽으면 이펙트 생성 후 바로 Destroy 처리하기로 했음. BSJ_231020
+            // StartCoroutine(inActive());
         }
     }
 
+    // 피격시 색상 변경하는 코루틴
     IEnumerator ChangeColor()
     {
-
         meshRender.material.color = Color.red;
 
         yield return new WaitForSeconds(0.2f);
 
         meshRender.material.color = Color.white;
-
     }
 
-    public void OnDamage(int damage)
-    {
-        StartCoroutine(ChangeColor());
-        hp -= damage;
-    }
+    // LEGACY: 자식 오브젝트인 감지 콜라이더에서 타겟을 찾음.
+    // 타겟을 찾는다.
+    //private void FindTarget()
+    //{
+    //    Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, turretLayer);
 
-    private void FindTarget()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, turretLayer);
+    //    if (colliders.Length > 0)
+    //    {
+    //        // 가장 가까운 터렛을 타겟으로 설정
+    //        float closestDistance = float.MaxValue;
 
-        if (colliders.Length > 0)
-        {
-            // 가장 가까운 터렛을 타겟으로 설정
-            float closestDistance = float.MaxValue;
+    //        foreach (Collider collider in colliders)
+    //        {
+    //            float distance = Vector3.Distance(transform.position, collider.transform.position);
+    //            if (distance < closestDistance)
+    //            {
+    //                closestDistance = distance;
+    //                target = collider.transform;
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        target = null;
+    //    }
+    //}
 
-            foreach (Collider collider in colliders)
-            {
-                float distance = Vector3.Distance(transform.position, collider.transform.position);
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    target = collider.transform;
-                }
-            }
-        }
-        else
-        {
-            target = null;
-        }
-    }
-
-    IEnumerator inActive()
-    {
-        yield return new WaitForSeconds(1.5f);
-        Destroy(gameObject);
-    }
+    // LEGACY: 죽으면 바로 사라지게 하기로 하였음. BSJ_231020
+    //IEnumerator inActive()
+    //{
+    //    yield return new WaitForSeconds(1.5f);
+    //    Destroy(gameObject);
+    //}
 
     //// TEST : 기획 분들 Scale 변경 테스트 하기 위한 함수
     //// HSJ_ 231019

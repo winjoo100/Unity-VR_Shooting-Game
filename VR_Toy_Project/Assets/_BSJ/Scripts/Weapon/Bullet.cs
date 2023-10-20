@@ -146,11 +146,19 @@ public class Bullet : MonoBehaviour
             hitVFX.transform.position = other.ClosestPointOnBounds(this.transform.position - new Vector3(0f, 0f, 5f));
 
             // { 실제 데미지를 입히는 로직
-            // 약점
+            // 큰 약점
+            //if (other.CompareTag("BigWeakPoint"))
+            //{
+            //    finalDamage = ((int)(bulletDamage * criticalDamage) * 2);
+
+            //    // TODO: 약점에 접근해서 isLive가 true인지 false인지 확인해서 데미지를 다르게 표시한다.
+
+            //    other.GetComponent<WeakPoint>().OnDamage(finalDamage);
+            //}
             if (other.CompareTag("WeakPoint"))
             {
                 finalDamage = (int)(bulletDamage * criticalDamage);
-                other.GetComponent<WeakPoint>().OnDamage(finalDamage);
+                other.GetComponent<WeakPointBig>().OnDamage(finalDamage);
             }
             else if (other.CompareTag("Monster"))
             {
