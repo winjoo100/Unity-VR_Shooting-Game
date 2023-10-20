@@ -9,7 +9,7 @@ public class EffectCallBack : MonoBehaviour
 
     // 자동으로 반환되는 시간
     [SerializeField]
-    private float bulletReturnTime = 2f;
+    private float effectReturnTime = 2f;
 
     // 생성된 시점부터 더해질 시간
     [SerializeField]
@@ -21,7 +21,7 @@ public class EffectCallBack : MonoBehaviour
         startTime += Time.deltaTime;
 
         // 총알이 반환되는 시간이 되면 반환
-        if (startTime > bulletReturnTime)
+        if (startTime > effectReturnTime)
         {
             // 오브젝트 풀로 반환
             startTime = 0f;

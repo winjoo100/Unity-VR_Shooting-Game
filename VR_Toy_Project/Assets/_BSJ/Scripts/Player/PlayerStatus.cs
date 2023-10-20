@@ -38,7 +38,7 @@ public class PlayerStatus : MonoBehaviour
     // 모드
     public Mode mode = default;
     // } JSH_모드 전환 이식
-    
+
     // { BSJ 231018
     // 대기 시간
     private float f_waitSeconds = 1.5f;
@@ -50,7 +50,7 @@ public class PlayerStatus : MonoBehaviour
         mode = Mode.ShotMode;
         // 모드 적용
         ModeSwap();
-    
+
         // BSJ
         // 대기 시간 캐싱
         waitSeconds = new WaitForSeconds(f_waitSeconds);
@@ -71,30 +71,29 @@ public class PlayerStatus : MonoBehaviour
         // 버튼과 Ray 충돌 검출
         if (Physics.Raycast(ray_, out hitInfo_, 200f, layer_))
         {
-            // 버튼에는 발사하지 않는다
-            mode = Mode.NoShotMode;
-            ModeSwap();
+            // ShotMode면
+            if (mode == Mode.ShotMode)
+            {
+                // 버튼에는 발사하지 않는다
+                mode = Mode.NoShotMode;
+                ModeSwap();
+            }
 
             if (BSJVRInput.GetUp(BSJVRInput.Button.One, BSJVRInput.Controller.LTouch))
             {
                 // 버튼의 기능 실행
                 hitInfo_.collider.gameObject.GetComponent<Button>().onClick.Invoke();
-
-                //if (hitInfo_.collider.gameObject.GetComponent<Upgrade01>() != null)
-                //{
-                //    // 버튼의 기능 실행
-                //    hitInfo_.collider.gameObject.GetComponent<Button>().onClick.Invoke();
-                //}
-                //else if (hitInfo_.collider.gameObject.GetComponent<TurretButton01>() != null)
-                //{
-
-                //    // 배치 모드로 변경
-                //    mode = Mode.PlaceMode;
-                //    ModeSwap();
-
-                //    // 버튼의 기능 실행
-                //    hitInfo_.collider.gameObject.GetComponent<Button>().onClick.Invoke();
-                //}
+            }
+        }
+        // 버튼과 Ray 충돌 X
+        else
+        {
+            // NoShotMode면
+            if (mode == Mode.NoShotMode)
+            {
+                // 버튼에서 벗어나면 발사 모드로 전환
+                mode = Mode.ShotMode;
+                ModeSwap();
             }
         }
     }
@@ -111,7 +110,6 @@ public class PlayerStatus : MonoBehaviour
                 // 활성화
                 weapon.SetActive(true);
             }
-
             // 다른 무기라면,
             else
             {
@@ -129,7 +127,6 @@ public class PlayerStatus : MonoBehaviour
         {
             return;
         }
-
         // 무적 상태가 아니라면
         else
         {
