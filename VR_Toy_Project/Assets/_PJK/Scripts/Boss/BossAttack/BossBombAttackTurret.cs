@@ -15,7 +15,7 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
 
     private Turret01[] turret01;
     private Turret02[] turret02;
-
+    private BossManager bm;
     private float nearDistance;
     private GameObject tempTarget;
     private void Awake()
@@ -41,7 +41,6 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
             // 제일 가까운 터렛 찾기
             for (int i = 0; i < turret01.Length; i++)
             {
-            Debug.Log("t1 : "+i);
                 float findDistance = Vector3.Distance(transform.position, turret01[i].transform.position);
 
                 // 제일 가깝다면 그 타겟을 저장하고,
@@ -55,7 +54,6 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
 
         if (turret02.Length > 0)
         {
-            Debug.Log("t2");
             for (int i = 0; i < turret02.Length ; i++)
             {
                 float findDistance = Vector3.Distance(transform.position, turret02[i].transform.position);
@@ -69,13 +67,12 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
             }
         }
 
-        Debug.Log("끝");
     }
 
 
     private void Start()
     {
-        randomX = Random.Range(-15,15);
+        bm = GameObject.Find("BossManager").GetComponent<BossManager>();
 
         StartCoroutine(Firsttime());
 
@@ -93,19 +90,16 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
 
     IEnumerator Firsttime()
     {
-        Debug.Log("시작");
+        randomX = Random.Range(-10, 10);
         rb.useGravity = false;
         Vector3 velocity = new Vector3(randomX, 10, 0);
         rb.velocity = velocity;
 
-        Debug.Log("이동끝");
         yield return new WaitForSeconds(1.5f);
         rb.velocity = Vector3.zero;
 
-        Debug.Log("발사준비");
         yield return new WaitForSeconds(1.5f);
 
-        Debug.Log("발사");
         rb.useGravity = true;
         // 포물선 운동
         velocity = GetVelocity(transform.position, target.transform.position, initialAngle);

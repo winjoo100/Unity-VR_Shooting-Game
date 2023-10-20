@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7193736265162846116
+--- !u!1 &2520058075537607676
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7193736265162846120}
-  - component: {fileID: 7193736265162846121}
-  - component: {fileID: 7193736265162846122}
-  - component: {fileID: 7193736265162846123}
-  - component: {fileID: -7026061022246738536}
+  - component: {fileID: 2520058075537607664}
+  - component: {fileID: 2520058075537607665}
+  - component: {fileID: 2520058075537607666}
+  - component: {fileID: 2520058075537607667}
+  - component: {fileID: -901097363620505784}
+  - component: {fileID: 183037446}
   m_Layer: 0
-  m_Name: BossAttackTurret
-  m_TagString: Untagged
+  m_Name: BossAttackSpawnMon JK
+  m_TagString: BossAttackSpawnMon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7193736265162846120
+--- !u!4 &2520058075537607664
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7193736265162846116}
+  m_GameObject: {fileID: 2520058075537607676}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.5, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7193736265162846121
+--- !u!33 &2520058075537607665
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7193736265162846116}
+  m_GameObject: {fileID: 2520058075537607676}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &7193736265162846122
+--- !u!23 &2520058075537607666
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7193736265162846116}
+  m_GameObject: {fileID: 2520058075537607676}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 680e8f7dbaa0c1049b4a42b81f6976cc, type: 2}
+  - {fileID: 2100000, guid: af5d73e64622b584bbd0de4513045d10, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,30 +86,51 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7193736265162846123
+--- !u!135 &2520058075537607667
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7193736265162846116}
+  m_GameObject: {fileID: 2520058075537607676}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-7026061022246738536
+--- !u!114 &-901097363620505784
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7193736265162846116}
+  m_GameObject: {fileID: 2520058075537607676}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 064021a2259d28f4384a9faf701bb0e2, type: 3}
+  m_Script: {fileID: 11500000, guid: c0c548c596f11ff4c8acd7d4bc2169c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossBombSpawnMonHp: 400
   initialAngle: 30
-  target: {fileID: 0}
+  targetx: 0
+  targetz: 0
+  Monsterlv1: {fileID: 5585716154177097565, guid: 6e069b84a8d3f814cac3805eb58f4fcd, type: 3}
+  Monsterlv2: {fileID: 5585716154177097565, guid: 6e069b84a8d3f814cac3805eb58f4fcd, type: 3}
+  Monsterlv3: {fileID: 5585716154177097565, guid: 6e069b84a8d3f814cac3805eb58f4fcd, type: 3}
+--- !u!54 &183037446
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2520058075537607676}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

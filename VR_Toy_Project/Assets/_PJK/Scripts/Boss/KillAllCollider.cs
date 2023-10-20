@@ -9,7 +9,6 @@ public class KillAllCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
         if (other.CompareTag("Turret"))
         {
             turret = other.gameObject;

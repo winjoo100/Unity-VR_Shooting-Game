@@ -150,7 +150,7 @@ public class Bullet : MonoBehaviour
             if (other.CompareTag("WeakPoint"))
             {
                 finalDamage = (int)(bulletDamage * criticalDamage);
-                other.GetComponent<WeakPoint>().OnDamage(finalDamage);
+                other.GetComponent<WeakPointBig>().OnDamage(finalDamage);
             }
             else if (other.CompareTag("Monster"))
             {
