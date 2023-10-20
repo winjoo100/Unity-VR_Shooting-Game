@@ -42,42 +42,34 @@ public class JsonData : MonoBehaviour
         // 잘 파싱 되었는지 확인
         foreach (var data in bossDatas.Boss_Data)
         {
-            Debug.Log(data.Description);
         }
 
         foreach (var data in bossSkillDatas.Boss_Skill)
         {
-            Debug.Log(data.Description);
         }
 
         foreach (var data in bulletDatas.Bullet)
         {
-            Debug.Log(data.Description);
         }
 
         foreach (var data in economyDatas.Economy)
         {
-            Debug.Log(data.Description);
         }
 
         foreach (var data in monsterDatas.Monster)
         {
-            Debug.Log(data.Description);
         }
 
         foreach (var data in monsterSpawnDatas.Monster_Spawn)
         {
-            Debug.Log(data.Description);
         }
 
         foreach (var data in unitDatas.Unit)
         {
-            Debug.Log(data.Description);
         }
 
         foreach (var data in weaponDatas.Weapon)
         {
-            Debug.Log(data.Description);
         }
 
     }

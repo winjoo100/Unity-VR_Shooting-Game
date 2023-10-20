@@ -63,15 +63,8 @@ public class TurretUnit : MonoBehaviour
     //! 터렛의 탐지 로직
     protected virtual void DetectTarget()
     {
-        // 탐지할 레이어 설정
-        int monsterLayer_ = 1 << LayerMask.NameToLayer("Monster");
-        //int bossLayer_ = 1 << LayerMask.NameToLayer("Boss");
-
-        //int layerMask_ = monsterLayer_ | bossLayer_;
-        int layerMask_ = monsterLayer_;
-
-        // 영역 안의 목표들
-        Collider[] hitObjects_ = Physics.OverlapSphere(transform.position, range, layerMask_);
+        // 영역 안의 Monster레이어 오브젝트 검출
+        Collider[] hitObjects_ = Physics.OverlapSphere(transform.position, range, 1 << LayerMask.NameToLayer("Monster"));
 
         // 목표가 이미 존재한다면 탐지 실행 X
         foreach (Collider collider in hitObjects_)

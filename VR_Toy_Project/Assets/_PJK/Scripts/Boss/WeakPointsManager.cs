@@ -19,7 +19,7 @@ public class WeakPointsManager : MonoBehaviour
     {
         if (weakpointhp <= 0)
         {
-            for(int i = 0; i < 8; i++)
+            for(int i = 0; i < 3; i++)
             {
                 
                 weakpoints[i].SetActive(false);
@@ -34,7 +34,7 @@ public class WeakPointsManager : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            int onweak = Random.Range(0, 8);
+            int onweak = Random.Range(0, 3);
 
             weakpoints[onweak].SetActive(true);
         
