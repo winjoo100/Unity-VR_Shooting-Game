@@ -153,7 +153,6 @@ public class Boss : MonoBehaviour, IDamageable
 
             weakpoints[i].SetActive(false);
         }
-
         weakActiveCount = 0;
     }
 
@@ -162,6 +161,8 @@ public class Boss : MonoBehaviour, IDamageable
         CurHP -= damage;
         CalculateHp();
     }
+
+    // ! 보스 체력 퍼센트 비례로 돈을 얻는 함수
     private void CalculateHp()
     {        
         int rateHp = (int)(MaxHp * 0.1f);
@@ -171,5 +172,5 @@ public class Boss : MonoBehaviour, IDamageable
             GameManager.Instance.GetGold_Boss();
             lastGoldHP = lastGoldHP - rateHp;
         }
-    }
+    }       // alculateHp()
 }
