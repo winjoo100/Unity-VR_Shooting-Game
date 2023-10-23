@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7141155922286531314}
   - component: {fileID: 3693681355882084591}
   - component: {fileID: -8233716889290439997}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Bullet07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4960,7 +4960,7 @@ GameObject:
   - component: {fileID: 4485841805693622}
   - component: {fileID: 198682728377463958}
   - component: {fileID: 199569994304127986}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Drop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9794,7 +9794,7 @@ GameObject:
   - component: {fileID: 198338959649452208}
   - component: {fileID: 114517909223874910}
   - component: {fileID: 199870305160396900}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}

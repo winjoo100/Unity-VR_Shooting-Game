@@ -16,6 +16,8 @@ public class Monsters : MonoBehaviour, IDamageable
     //public float scaleZ = 10f;
     //// } 기획 Scale 변경용 변수
 
+    public MonsterPoolObjType monsterType;
+
     public bool isTest = false;
 
     //애니메이터 관련
@@ -32,7 +34,7 @@ public class Monsters : MonoBehaviour, IDamageable
     public GameObject target = default;
 
     // 사정거리
-    public float attackdistance = 3f;
+    public float attackdistance = 5f;
 
     // 터렛과의 거리
     public float distanceToTurret = default;
@@ -57,7 +59,7 @@ public class Monsters : MonoBehaviour, IDamageable
 
     // 이동 속도
     [SerializeField]
-    private float moveSpeed = 5f;
+    private float moveSpeed = 3f;
 
     // 몬스터의 공격속도
     [SerializeField]
@@ -97,48 +99,18 @@ public class Monsters : MonoBehaviour, IDamageable
     // HSJ_ 2310119
     private SkinnedMeshRenderer meshRender;
 
+    private void OnEnable()
+    {
+        // 오브젝트 풀에서 반환될때 초기값 재셋팅
+        SetMonsterStat();
+    }
+
     void Start()
     {
         // tu = GetComponent<TurretUnit>();
 
-        // 처음 타겟은 플레이어
-        target = GameObject.Find("Player");
-
-        // { 몬스터 초기값 셋팅
-        Lv1hp = JsonData.Instance.monsterDatas.Monster[0].HP;
-        Lv1atk = JsonData.Instance.monsterDatas.Monster[0].Att;
-        Lv1BombDmg = JsonData.Instance.monsterDatas.Monster[0].Explosion_Damage;
-        Lv1atkspeed = JsonData.Instance.monsterDatas.Monster[0].Att_Speed;
-
-        Lv2hp = JsonData.Instance.monsterDatas.Monster[1].HP;
-        Lv2atk = JsonData.Instance.monsterDatas.Monster[1].Att;
-        Lv2BombDmg = JsonData.Instance.monsterDatas.Monster[1].Explosion_Damage;
-        Lv2atkspeed = JsonData.Instance.monsterDatas.Monster[1].Att_Speed;
-
-        Lv3hp = JsonData.Instance.monsterDatas.Monster[2].HP;
-        Lv3atk = JsonData.Instance.monsterDatas.Monster[2].Att;
-        Lv3BombDmg = JsonData.Instance.monsterDatas.Monster[2].Explosion_Damage;
-        Lv3atkspeed = JsonData.Instance.monsterDatas.Monster[2].Att_Speed;
-
-        if (BossManager.instance.gametime < 300f)
-        {
-            hp = Lv1hp;
-            dmg = Lv1atk;
-            bombdmg = Lv1BombDmg;
-        }
-        else if (BossManager.instance.gametime > 300f && BossManager.instance.gametime < 600f)
-        {
-            hp = Lv2hp;
-            dmg = Lv2atk;
-            bombdmg = Lv2BombDmg;
-        }
-        else if (BossManager.instance.gametime > 600f)
-        {
-            hp = Lv3hp;
-            dmg = Lv3atk;
-            bombdmg = Lv3BombDmg;
-        }
-        // } 몬스터 초기값 셋팅
+        // 초기 몬스터 셋팅 하는 함수
+        SetMonsterStat();
 
         rb = GetComponent<Rigidbody>();
         boxCollider = GetComponent<BoxCollider>();
@@ -148,9 +120,6 @@ public class Monsters : MonoBehaviour, IDamageable
         // HSJ_ 2310119
         meshRender = this.gameObject.GetChildObj("AnkleBiter").GetComponent<SkinnedMeshRenderer>();
     }
-
-
-
 
     private void Update()
     {
@@ -169,6 +138,9 @@ public class Monsters : MonoBehaviour, IDamageable
         //    isFindTurret = false;
         //}
 
+        if(target == null)
+        { target = GameObject.Find("Player"); }
+
         // 터렛을 추격중이 아니면,
         if (isFindTurret == false)
         {
@@ -178,9 +150,10 @@ public class Monsters : MonoBehaviour, IDamageable
             // 공격 범위 내에 왔다면 플레이어 공격
             if (Vector3.Distance(gameObject.transform.position, target.transform.position) <= attackdistance)
             {
-                AttackUser(bombdmg);
+                // 자폭
+                hp = 0;
+                Died();
             }
-
         }
 
         // 터렛을 콜라이더에서 발견하면
@@ -220,8 +193,13 @@ public class Monsters : MonoBehaviour, IDamageable
                 rb.velocity = Vector3.zero;
                 AttackTurret(dmg);
             }
-
         }
+    }
+
+    public void OnDisable()
+    {
+        // 바로 터지는 것 방지
+        hp = 1f;
     }
 
     //! 몬스터가 데미지를 받는 함수
@@ -260,9 +238,11 @@ public class Monsters : MonoBehaviour, IDamageable
     //! 터렛을 공격하는 함수
     private void AttackTurret(int damage)
     {
+        if (turretUnit == null) { return; }
+
         rb.velocity = Vector3.zero;
         anim.SetBool("isAttackturret", true);
-        turretUnit?.DamageSelf(damage);
+        turretUnit.DamageSelf(damage);
         // 멈춤
     }
 
@@ -303,7 +283,9 @@ public class Monsters : MonoBehaviour, IDamageable
             deathBomb.GetComponent<MonsterDeathBomb>()._Damage = bombdmg * 100f;    // 100f는 테스트 용 데미지 업 _BSJ
 
             // 몬스터 사망
-            Destroy(gameObject);
+            MonsterObjectPool.instance.CoolObj(gameObject, monsterType);
+            // LEGACY: 오브젝트 풀로 반환하기로 하였음. BSJ_231023
+            // Destroy(gameObject);
             // LEGACY: 죽으면 이펙트 생성 후 바로 Destroy 처리하기로 했음. BSJ_231020
             // StartCoroutine(inActive());
         }
@@ -317,6 +299,50 @@ public class Monsters : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(0.2f);
 
         meshRender.material.color = Color.white;
+    }
+
+
+    //! 몬스터 셋팅하는 함수
+    public void SetMonsterStat()
+    {
+        // 처음 타겟은 플레이어
+        target = GameObject.Find("Player");
+
+        // { 몬스터 초기값 셋팅
+        Lv1hp = JsonData.Instance.monsterDatas.Monster[0].HP;
+        Lv1atk = JsonData.Instance.monsterDatas.Monster[0].Att;
+        Lv1BombDmg = JsonData.Instance.monsterDatas.Monster[0].Explosion_Damage;
+        Lv1atkspeed = JsonData.Instance.monsterDatas.Monster[0].Att_Speed;
+
+        Lv2hp = JsonData.Instance.monsterDatas.Monster[1].HP;
+        Lv2atk = JsonData.Instance.monsterDatas.Monster[1].Att;
+        Lv2BombDmg = JsonData.Instance.monsterDatas.Monster[1].Explosion_Damage;
+        Lv2atkspeed = JsonData.Instance.monsterDatas.Monster[1].Att_Speed;
+
+        Lv3hp = JsonData.Instance.monsterDatas.Monster[2].HP;
+        Lv3atk = JsonData.Instance.monsterDatas.Monster[2].Att;
+        Lv3BombDmg = JsonData.Instance.monsterDatas.Monster[2].Explosion_Damage;
+        Lv3atkspeed = JsonData.Instance.monsterDatas.Monster[2].Att_Speed;
+
+        if (BossManager.instance.gametime < 300f)
+        {
+            hp = Lv1hp;
+            dmg = Lv1atk;
+            bombdmg = Lv1BombDmg;
+        }
+        else if (BossManager.instance.gametime > 300f && BossManager.instance.gametime < 600f)
+        {
+            hp = Lv2hp;
+            dmg = Lv2atk;
+            bombdmg = Lv2BombDmg;
+        }
+        else if (BossManager.instance.gametime > 600f)
+        {
+            hp = Lv3hp;
+            dmg = Lv3atk;
+            bombdmg = Lv3BombDmg;
+        }
+        // } 몬스터 초기값 셋팅
     }
 
     // LEGACY: 자식 오브젝트인 감지 콜라이더에서 타겟을 찾음.

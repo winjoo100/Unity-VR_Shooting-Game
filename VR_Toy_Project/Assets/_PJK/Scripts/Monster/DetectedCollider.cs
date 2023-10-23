@@ -35,7 +35,7 @@ public class DetectedCollider : MonoBehaviour
         if(other.CompareTag("Turret"))
         {
             // 플레이어를 타겟으로 한다.
-            monsters.turretUnit = default;
+            monsters.turretUnit = null;
             monsters.target = GameObject.Find("Player");
             monsters.isFindTurret = false;
             monsters.isAttackTurret = false;
