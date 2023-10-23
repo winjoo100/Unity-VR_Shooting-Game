@@ -10,11 +10,19 @@ public enum Mode
     PlaceMode,
 }
 
-public class PlayerStatus : MonoBehaviour
+// HSJ_ 231023
+// IDamagebale 인터페이스 추가 
+public class PlayerStatus : MonoBehaviour,IDamageable
 {
     // 플레이어 체력
+    /// <summary> HSJ_ 231023
+    /// playerHp => maxHp로 변수명 변경
+    /// int cutHp 변수 추가 
+    /// 체략 초기화 및 값 할당 시점 Awake로 변경
+    /// </summary>
     [Header("체력")]
-    public int playerHp = 500;
+    public int maxHp = default;
+    public int curHp = default;
 
     // 플레이어의 현재 무기
     [Header("현재 무기")]
@@ -54,6 +62,11 @@ public class PlayerStatus : MonoBehaviour
         // BSJ
         // 대기 시간 캐싱
         waitSeconds = new WaitForSeconds(f_waitSeconds);
+
+        // HSJ_ 2310123
+        // 체력변수 초기화
+        maxHp = 500;
+        curHp = maxHp;
     }
 
     private void Start()
@@ -62,6 +75,12 @@ public class PlayerStatus : MonoBehaviour
     }
 
     private void Update()
+    {
+        ClickButton();
+    }
+
+    //! JSH: 버튼을 인식해서 사용이 가능하도록 해주는 함수
+    private void ClickButton()
     {
         // 왼쪽 컨트롤러를 기준으로 Ray를 만든다
         Ray ray_ = new Ray(BSJVRInput.LHandPosition, BSJVRInput.LHandDirection);
@@ -79,7 +98,8 @@ public class PlayerStatus : MonoBehaviour
                 ModeSwap();
             }
 
-            if (BSJVRInput.GetUp(BSJVRInput.Button.One, BSJVRInput.Controller.LTouch))
+            // 오른쪽 One버튼으로 클릭
+            if (BSJVRInput.GetUp(BSJVRInput.Button.One, BSJVRInput.Controller.RTouch))
             {
                 // 버튼의 기능 실행
                 hitInfo_.collider.gameObject.GetComponent<Button>().onClick.Invoke();
@@ -174,4 +194,10 @@ public class PlayerStatus : MonoBehaviour
                 break;
         }
     }
+
+    public void OnDamage(int damage)
+    {
+        curHp -= damage;
+    }
+
 }

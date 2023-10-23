@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2642892297501344799}
   - component: {fileID: -6416682394027626657}
   - component: {fileID: -7249662565864610601}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Bullet06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4960,7 +4960,7 @@ GameObject:
   - component: {fileID: 4272784787826670}
   - component: {fileID: 198468648650203034}
   - component: {fileID: 199385691493173370}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Flares
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9794,7 +9794,7 @@ GameObject:
   - component: {fileID: 198993377638096586}
   - component: {fileID: 114327962048842084}
   - component: {fileID: 199021857233684606}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Bubbles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

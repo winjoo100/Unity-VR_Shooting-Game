@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7193736265162846123}
   - component: {fileID: -7026061022246738536}
   - component: {fileID: 5901093104146976810}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: BossAttackTurret JK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
