@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Upgrade02 : UpgradeUnit
 {
-    private void Awake()
+    private void Start()
     {
-        Init(1002, 1000, 2);
+        // 무기 ID, Cost, Level
+        Init(
+            JsonData.Instance.weaponDatas.Weapon[2].ID,
+            JsonData.Instance.weaponDatas.Weapon[2].Cost,
+            2
+            );
     }
 
     //! 무기 변경

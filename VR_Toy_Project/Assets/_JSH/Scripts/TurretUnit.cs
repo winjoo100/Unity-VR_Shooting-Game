@@ -15,7 +15,7 @@ public class TurretUnit : MonoBehaviour
     // 터렛 현재 체력
     protected int health = default;
     // 터렛 비용
-    protected int cost = default;
+    public int cost = default;
     // 터렛 상한
     protected int install_Limit = default;
     // 터렛 탐지 범위
@@ -114,7 +114,9 @@ public class TurretUnit : MonoBehaviour
     protected virtual void AttackTarget()
     {
         // 목표가 존재하지 않으면 실행하지 않음
-        if (target == null || target == default)
+        // if (target == null || target == default)
+        // 목표가 비활성화 상태라면 탐지 실행
+        if (target.gameObject.activeSelf == false)
         {
             DetectTarget();
             isReadyDetect = true;
@@ -166,24 +168,4 @@ public class TurretUnit : MonoBehaviour
         // 스스로를 파괴
         Destroy(gameObject);
     }
-
-    ////! 일정 주기로 공격 함수 호출
-    //protected virtual void AttackRoutine()
-    //{
-    //    // 공격 준비
-    //    if (isReadyAttack == false)
-    //    {
-    //        isReadyAttack = true;
-    //    }
-    //}
-
-    ////! 일정 주기로 탐지 함수 호출
-    //protected virtual void DetectRoutine()
-    //{
-    //    // 탐지 준비
-    //    if (isReadyDetect == false)
-    //    {
-    //        isReadyDetect = true;
-    //    }
-    //}
 }
