@@ -8,12 +8,6 @@ public class MonsterDeathBomb : MonoBehaviour
 {
     public float _Damage = default;
 
-    private void Start()
-    {
-        // 테스트 용 데미지 증가
-        _Damage *= 100;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         // { 폭발 데미지 처리

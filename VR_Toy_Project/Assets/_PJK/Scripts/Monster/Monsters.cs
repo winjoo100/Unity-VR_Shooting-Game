@@ -300,7 +300,7 @@ public class Monsters : MonoBehaviour, IDamageable
             GameObject deathBomb = MonsterObjectPool.instance.GetPoolObj(MonsterPoolObjType.DeathBomb);
             deathBomb.SetActive(true);
             deathBomb.transform.position = transform.position;
-            deathBomb.GetComponent<MonsterDeathBomb>()._Damage = bombdmg;
+            deathBomb.GetComponent<MonsterDeathBomb>()._Damage = bombdmg * 100f;    // 100f는 테스트 용 데미지 업 _BSJ
 
             // 몬스터 사망
             Destroy(gameObject);
