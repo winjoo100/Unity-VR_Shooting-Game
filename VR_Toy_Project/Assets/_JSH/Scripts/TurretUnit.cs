@@ -114,7 +114,9 @@ public class TurretUnit : MonoBehaviour
     protected virtual void AttackTarget()
     {
         // 목표가 존재하지 않으면 실행하지 않음
-        if (target == null || target == default)
+        // if (target == null || target == default)
+        // 목표가 비활성화 상태라면 탐지 실행
+        if (target.gameObject.activeSelf == false)
         {
             DetectTarget();
             isReadyDetect = true;
