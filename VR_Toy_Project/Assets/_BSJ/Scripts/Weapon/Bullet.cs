@@ -117,7 +117,7 @@ public class Bullet : MonoBehaviour
         // 치명타 확률 계산하여 치명타 데미지 계산
         float _critCheck = Random.Range(0.0f, 1.0f);
 
-        if(_critCheck < criticalPercent) 
+        if (_critCheck < criticalPercent)
         {
             finalDamage = (int)(bulletDamage * criticalDamage);
         }
@@ -155,30 +155,40 @@ public class Bullet : MonoBehaviour
 
             //    other.GetComponent<WeakPoint>().OnDamage(finalDamage);
             //}
-            if (other.CompareTag("WeakPoint"))
+
+            // JSH: Bullet08일 때만 스플래시 실행
+            if (bulletType == PoolObjType.Bullet08)
             {
-                finalDamage = (int)(bulletDamage * criticalDamage);
-                other.GetComponent<WeakPointBig>().OnDamage(finalDamage);
+                Splash();
             }
-            else if (other.CompareTag("Monster"))
+            // 나머지는 부딪힌 것에만 데미지
+            else
             {
-                other.GetComponent<Monsters>().OnDamage(finalDamage);
-            }
-            else if (other.CompareTag("BossAttackPlayer"))
-            {
-                other.GetComponent<BossBombAttackPlayer>().OnDamage(finalDamage);
-            }
-            else if (other.CompareTag("BossAttackTurret"))
-            {
-                other.GetComponent<BossBombAttackTurret>().OnDamage(finalDamage);
-            }
-            else if (other.CompareTag("BossAttackSpawnMon"))
-            {
-                other.GetComponent<BossBombSpawnMon>().OnDamage(finalDamage);
-            }
-            else if (other.CompareTag("Boss"))
-            {
-                other.GetComponent<Boss>().OnDamage(finalDamage);
+                if (other.CompareTag("WeakPoint"))
+                {
+                    finalDamage = (int)(bulletDamage * criticalDamage);
+                    other.GetComponent<WeakPointBig>().OnDamage(finalDamage);
+                }
+                else if (other.CompareTag("Monster"))
+                {
+                    other.GetComponent<Monsters>().OnDamage(finalDamage);
+                }
+                else if (other.CompareTag("BossAttackPlayer"))
+                {
+                    other.GetComponent<BossBombAttackPlayer>().OnDamage(finalDamage);
+                }
+                else if (other.CompareTag("BossAttackTurret"))
+                {
+                    other.GetComponent<BossBombAttackTurret>().OnDamage(finalDamage);
+                }
+                else if (other.CompareTag("BossAttackSpawnMon"))
+                {
+                    other.GetComponent<BossBombSpawnMon>().OnDamage(finalDamage);
+                }
+                else if (other.CompareTag("Boss"))
+                {
+                    other.GetComponent<Boss>().OnDamage(finalDamage);
+                }
             }
             // } 실제 데미지를 입히는 로직
 
@@ -187,7 +197,7 @@ public class Bullet : MonoBehaviour
 
             // 총알 데미지 텍스트 변경
             damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", finalDamage);
-            
+
             damageText.SetActive(true);
             damageText.transform.position = new Vector3(transform.position.x + Random.Range(-0.25f, 0.25f), transform.position.y + Random.Range(-0.25f, 0.25f), transform.position.z - 1f);
             // } 타격 데미지 텍스트 콜
@@ -222,5 +232,18 @@ public class Bullet : MonoBehaviour
 
         // 다른 곳에 맞으면,
         else { /*Do Nothing*/ }
+    }       // OnTriggerEnter()
+
+    //! 졸개에게 부딪힌 후 사용할 스플래시 공격 기능
+    private void Splash()
+    {
+        // 몬스터 레이어에 속한 오브젝트만 
+        Collider[] hitObjects_ = Physics.OverlapSphere(transform.position, 0.4f, 1 << LayerMask.NameToLayer("Monster"));
+
+        // 검출된 모든 오브젝트에 실행
+        foreach (Collider target_ in hitObjects_)
+        {
+            target_.GetComponent<Monsters>().OnDamage(finalDamage);
+        }
     }
 }
