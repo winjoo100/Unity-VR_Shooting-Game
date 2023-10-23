@@ -29,12 +29,12 @@ public class PlaceUnit : MonoBehaviour
         // 시작할 때 비활성화
         placeUnitUI[0].gameObject.SetActive(false);
         placeUnitUI[1].gameObject.SetActive(false);
-        //placeUnitUI[2].gameObject.SetActive(false);
-        //placeUnitUI[3].gameObject.SetActive(false);
+        placeUnitUI[2].gameObject.SetActive(false);
+        placeUnitUI[3].gameObject.SetActive(false);
 
-        // Material Color값 가져오기
-        canPlace = placeMaterial.color;
-        // 설정된 Color값 넣기
+        // 설정한 Color값
+        canPlace = new Color(127, 127, 127, 127);
+        // 설정한 Color값
         cantPlace = new Color(255, canPlace.g, canPlace.b, canPlace.a);
 
         // 라인 렌더러 컴포넌트 얻어오기
