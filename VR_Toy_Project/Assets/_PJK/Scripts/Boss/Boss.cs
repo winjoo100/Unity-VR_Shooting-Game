@@ -2,10 +2,12 @@ using System.Collections;
 using UnityEngine;
 
 public class Boss : MonoBehaviour, IDamageable
-{    
+{
     public GameObject boss = default;
     public GameObject player = default;
     public GameObject[] Turret = default;
+    public GameObject bossDiePrefab = default;
+    private GameObject bossDie = default;
     // 터렛을 타겟중인지 체크
     public bool isFindTurret = false;
     // 터렛을 공격중인지 체크
@@ -93,60 +95,33 @@ public class Boss : MonoBehaviour, IDamageable
 
     }
 
-    public void FindTurret()
-    {
-
-    }
-
-
     private void AttackedWeakPoint()
     {
         isAttackedWeakPoint = true;
     }
 
 
-    private void Death()
-    {
-        
-        isDead = true;
-        //TODO : 게임종료 승리
 
-    }
-
-    //void OnWeakPoint()
-    //{
-    //    for (int i = 0; i < 3; i++)
-    //    {
-    //        int onweak = Random.Range(0, 8);
-
-    //        weakpoints[onweak].SetActive(true);
-
-    //        if (i == 0)
-    //        {
-    //            weakpoints[onweak].transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-    //        }
-
-    //        weakActiveCount = 3;
-    //    }
-    //}
-
-           // weakpoints[i].SetActive(false);
-       // }
-      //  weakActiveCount = 0;
- //   }
 
 
     public void OnDamage(int damage)
     {
         CurHP -= damage;
         CalculateHp();
+
+        if (CurHP <= 0 || Input.GetKeyDown(KeyCode.X))
+        {
+            bossDie = Instantiate(bossDiePrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+
+        }
     }
 
     // ! 보스 체력 퍼센트를 계산하여 돈을 얻는 함수
     private void CalculateHp()
-    {        
+    {
         int rateHp = (int)(MaxHp * 0.1f);
-        
+
         if (CurHP <= lastGoldHP - rateHp)
         {
             GameManager.Instance.GetGold_Boss();
