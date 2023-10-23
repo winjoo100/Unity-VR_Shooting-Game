@@ -1,57 +1,86 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 {
     // 공격 포탄 Hp
-    public int BossBombAttackTurretHp = default;
-
+    public int BossBombAttackPlayerHp = default;
+    public int BossBombAttackPlayerAtt = default;
     public float initialAngle = 30f;    // 처음 날라가는 각도
     private Rigidbody rb;               // Rigidbody
     private int randomX;
-    public LayerMask turretLayer;
     public float detectionRadius = 1000f;
     private GameObject target;
-    private GameObject startx = default;
-    private GameObject endx = default;
     private BossManager bm = default;
-    private Boss bs = default;
+    private PlayerStatus ps = default;
+    public GameObject diedPrefab = default;
+    public bool isAttackedBullet { get; private set; } = false;
 
     private void Awake()
     {
         bm = GameObject.Find("BossManager").GetComponent<BossManager>();
 
         // 체력 셋팅
-        BossBombAttackTurretHp = JsonData.Instance.bossSkillDatas.Boss_Skill[0].Hp;
-
+        BossBombAttackPlayerHp = JsonData.Instance.bossSkillDatas.Boss_Skill[0].Hp;
+        BossBombAttackPlayerAtt = JsonData.Instance.bossSkillDatas.Boss_Skill[0].Att;
         rb = GetComponent<Rigidbody>();
-
-        // LEGACY:
-        //FindTarget();
         target = GameObject.Find("Player");
     }
 
+
+    public void AttackedByBullet()
+    {
+        isAttackedBullet = true;
+    }
 
 
 
 
     private void Start()
     {
-        startx = bm.Startx;
-        endx = bm.Endx;
-
         StartCoroutine(Firsttime());
-        bs = GameObject.Find("Boss").GetComponent<Boss>();
     }
 
     private void Update()
     {
         // 체력이 0이되면 비활성화
-        if (BossBombAttackTurretHp <= 0 )
+        if (BossBombAttackPlayerHp <= 0)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            ps = other.GetComponent<PlayerStatus>();
+
+            //PlayerStatus의 OnDamage
+
+            isAttackedBullet = false;
+            Destroy(gameObject);
+
         }
     }
+    public void OnDamage(int damage)
+    {
+        BossBombAttackPlayerHp -= damage;
+    }
+
+    private void OnDestroy()
+    {
+        if (isAttackedBullet == true)
+        {
+            GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            GameObject AttakMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
+        }
+    }
+
 
 
     IEnumerator Firsttime()
@@ -105,35 +134,8 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
         return finalVelocity;
     }
 
-    public void OnDamage(int damage)
-    {
-        Destroy(gameObject);
-    }
 
-    // LEGACY : 
-    //private void FindTarget()
-    //{
-    //    Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, turretLayer);
 
-    //    if (colliders.Length > 0)
-    //    {
-    //        // 가장 가까운 터렛을 타겟으로 설정
-    //        float closestDistance = float.MaxValue;
 
-    //        foreach (Collider collider in colliders)
-    //        {
-    //            float distance = Vector3.Distance(transform.position, collider.transform.position);
-    //            if (distance < closestDistance)
-    //            {
-    //                closestDistance = distance;
-    //                target = collider.transform;
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        target = null;
-    //    }
-    //}
 
 }

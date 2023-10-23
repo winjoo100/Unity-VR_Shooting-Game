@@ -19,6 +19,13 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
     public GameObject Monsterlv2 = default;
     public GameObject Monsterlv3 = default;
 
+    // HSJ_ 231023
+    // 게임 종료시간 캐싱할 변수
+    private float endTime = default;
+    private float lv1Time = default;
+    private float lv2Time = default;
+    private float lv3Time = default;
+
     private void Awake()
     {
         // 체력 셋팅
@@ -33,6 +40,13 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         
         startx = bm.Startx;
         endx = bm.Endx;
+        // HSJ_ 231023
+        // { time 캐싱
+        endTime = GameManager.Instance.EndTime;
+        lv1Time = endTime * 0.3f;
+        lv2Time = endTime * 0.6f;
+        // } time 초기화
+
 
         targetx = Random.Range(startx.transform.position.x, endx.transform.position.x);
         targetz = Random.Range(startx.transform.position.z, endx.transform.position.z);
@@ -79,7 +93,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
 
     private void spawnMons()
     {
-        if (BossManager.instance.currentTime < 300f)
+        if (GameManager.Instance.CurTime < lv1Time)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -87,7 +101,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
 
             }
         }
-        else if (300f < BossManager.instance.currentTime && BossManager.instance.currentTime < 600f)
+        else if (lv1Time < GameManager.Instance.CurTime && GameManager.Instance.CurTime < lv2Time)
         {
             for (int i = 0; i < 4; i++)
             {
@@ -95,7 +109,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
 
             }
         }
-        else if (600f < BossManager.instance.currentTime && BossManager.instance.currentTime < 900f)
+        else if (lv2Time < GameManager.Instance.CurTime)
         {
             for (int i = 0; i < 5; i++)
             {
@@ -111,25 +125,40 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         float randomx = Random.Range(targetx - 5, targetx + 5);
         float randomz = Random.Range(targetz - 5, targetz + 5);
 
-        GameObject Mon1 = Instantiate(Monsterlv1, new Vector3(transform.position.x,0,transform.position.z), Quaternion.identity);
+        // 오브젝트 풀에서 Monster_Lv1 생성
+        GameObject Mon1 = MonsterObjectPool.instance.GetPoolObj(MonsterPoolObjType.Monster_Lv1);
+        Mon1.SetActive(true);
         Mon1.transform.position = new Vector3(randomx, 0, randomz);
+
+        // REGACY: 오브젝트 풀에서 생성하기로 하였음 BSJ_231023
+        // GameObject Mon1 = Instantiate(Monsterlv1, new Vector3(transform.position.x,0,transform.position.z), Quaternion.identity);
     }
 
     void SecondWave()
     {
         float randomx = Random.Range(targetx - 5, targetx + 5);
         float randomz = Random.Range(targetz - 5, targetz + 5);
-        
-        GameObject Mon2 = Instantiate(Monsterlv2, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+
+        // 오브젝트 풀에서 Monster_Lv2 생성
+        GameObject Mon2 = MonsterObjectPool.instance.GetPoolObj(MonsterPoolObjType.Monster_Lv2);
+        Mon2.SetActive(true);
         Mon2.transform.position = new Vector3(randomx, 0, randomz);
+
+        // REGACY: 오브젝트 풀에서 생성하기로 하였음 BSJ_231023
+        // GameObject Mon2 = Instantiate(Monsterlv2, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
     }
     void ThirdWave()
     {
         float randomx = Random.Range(targetx - 5, targetx + 5);
         float randomz = Random.Range(targetz - 5, targetz + 5);
 
-        GameObject Mon3 = Instantiate(Monsterlv3, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+        // 오브젝트 풀에서 Monster_Lv3 생성
+        GameObject Mon3 = MonsterObjectPool.instance.GetPoolObj(MonsterPoolObjType.Monster_Lv3);
+        Mon3.SetActive(true);
         Mon3.transform.position = new Vector3(randomx, 0, randomz);
+
+        // REGACY: 오브젝트 풀에서 생성하기로 하였음 BSJ_231023
+        // GameObject Mon3 = Instantiate(Monsterlv3, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
     }
 
 

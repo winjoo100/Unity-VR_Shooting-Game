@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2520058075537607667}
   - component: {fileID: -901097363620505784}
   - component: {fileID: 183037446}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: BossAttackSpawnMon JK
   m_TagString: BossAttackSpawnMon
   m_Icon: {fileID: 0}
