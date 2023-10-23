@@ -71,14 +71,14 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
     private void OnDestroy()
     {
-        if (isAttackedBullet == true)
-        {
-            GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
-        }
-        else
-        {
-            GameObject AttakMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
-        }
+        //if (isAttackedBullet == true)
+        //{
+        //    GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
+        //}
+        //else
+        //{
+        //    GameObject AttakMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
+        //}
     }
 
 
