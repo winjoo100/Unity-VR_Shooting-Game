@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TurretButton04 : MonoBehaviour
 {
-    // TODO: 상속
     // 터렛 인덱스
     private int turretIDX = default;
     // PlaceUnit class

@@ -102,17 +102,19 @@ public class GameManager : MonoBehaviour
 
         // 초기 골드 
         Gold = 500;
+        // JSH: test
+        Gold = 500 * 100;
     }       // Init()
 
     // ! 글로벌로 사용할 타이머, 시간에 따른 골드 수급
     private void Timer()
-    {        
-        if(CurTime >= EndTime)
+    {
+        if (CurTime >= EndTime)
         {
             isEnd = true;
             isStart = false;
         }
-            
+
         CurTime += Time.deltaTime;
         GetGold_Time();
     }       // Timer()
