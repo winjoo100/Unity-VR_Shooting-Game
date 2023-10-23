@@ -6,9 +6,11 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
 {
     // 공격 포탄 Hp
     public int BossBombAttackHp = default;
+    public int BossBombAttackDmg = default;
 
     public float initialAngle = 30f;    // 처음 날라가는 각도
-    public GameObject target;
+    public Vector3 targetPos;           // 저장될 타겟 포지션
+    // public GameObject target;        // 타겟 : 타겟을 찾기 않고 포지션을 저장해 두기로 하였음. BSJ_231023
     private float Shottime;
     private Rigidbody rb;               // Rigidbody
     private int randomX;
@@ -20,8 +22,10 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
     private GameObject tempTarget;
     private void Awake()
     {
-        // 체력 셋팅
-        BossBombAttackHp = JsonData.Instance.bossSkillDatas.Boss_Skill[0].Hp;
+        // 초기 체력 셋팅
+        BossBombAttackHp = JsonData.Instance.bossSkillDatas.Boss_Skill[1].Hp;
+        // 초기 데미지 셋팅
+        BossBombAttackDmg = JsonData.Instance.bossSkillDatas.Boss_Skill[1].Att;
 
         rb = GetComponent<Rigidbody>();
         Shottime = 0;
@@ -29,12 +33,6 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
 
         turret01 = FindObjectsOfType<Turret01>();
         turret02 = FindObjectsOfType<Turret02>();
-        // TODO : turret03, turret04찾기
-        // TODO: if 터렛이 있으면 target은 터렛
-
-
-        // TODO: else 터렛이 없으면 target은 플레이어
-        target = GameObject.Find("Player");
 
         if (turret01.Length > 0)
         {
@@ -47,7 +45,7 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
                 if (nearDistance > findDistance)
                 {
                     nearDistance = findDistance;
-                    target = turret01[i].gameObject;
+                    targetPos = turret01[i].gameObject.transform.position;
                 }
             }
         }
@@ -62,7 +60,7 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
                 if (nearDistance > findDistance)
                 {
                     nearDistance = findDistance;
-                    target = turret02[i].gameObject;
+                    targetPos = turret02[i].gameObject.transform.position;
                 }
             }
         }
@@ -75,7 +73,6 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
         bm = GameObject.Find("BossManager").GetComponent<BossManager>();
 
         StartCoroutine(Firsttime());
-
     }
 
     private void Update()
@@ -84,6 +81,15 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
         if (BossBombAttackHp <= 0 )
         {
             gameObject.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 터렛과 충돌 시 데미지 처리
+        if(other.CompareTag("Turret"))
+        {
+            other.GetComponent<TurretUnit>().DamageSelf(BossBombAttackDmg);
         }
     }
 
@@ -102,7 +108,7 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
 
         rb.useGravity = true;
         // 포물선 운동
-        velocity = GetVelocity(transform.position, target.transform.position, initialAngle);
+        velocity = GetVelocity(transform.position, targetPos, initialAngle);
 
         rb.velocity = velocity;
     }

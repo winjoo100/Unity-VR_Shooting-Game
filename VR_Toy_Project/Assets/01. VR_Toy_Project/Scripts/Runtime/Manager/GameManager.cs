@@ -24,11 +24,11 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Variables
-    // { 초기화를 위한 컴포너트들
+    // { 캐싱을 위한 컴포너트들
     private UIManager uiManager = default;
-    // { 초기화를 위한 컴포너트들
+    // { 캐싱을 위한 컴포너트들
 
-    [Header ("Turret List")]
+    [Header("Turret List")]
     [Space]
     // { 터렛을 관리할 리스트 
     public List<Transform> turretLv1_List = default;
@@ -45,11 +45,10 @@ public class GameManager : MonoBehaviour
     // } 게임 사이클 변수
 
     // { HUD 변수
+    public float EndTime { get; private set; }
     public float CurTime { get; private set; }
     public int Gold { get; private set; }
     private float goldTime = default;
-    private int maxHp = 0;
-    private int curHp = 0;
     // } HUD 변수
     #endregion
 
@@ -62,7 +61,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -88,12 +87,10 @@ public class GameManager : MonoBehaviour
     {
         uiManager = GFunc.GetRootObj("UIManager").GetComponent<UIManager>();
 
-        // LEGACY : JsonManager로 대체 됨 
-        // TODO : 리팩토링 기간에 삭제할 것
-        //ResourceManager.Instance.Init();
-
         isStart = false;
         isEnd = false;
+
+        EndTime = 420f;
         CurTime = 0f;
 
         // { JSH 리스트 할당
@@ -109,7 +106,13 @@ public class GameManager : MonoBehaviour
 
     // ! 글로벌로 사용할 타이머, 시간에 따른 골드 수급
     private void Timer()
-    {
+    {        
+        if(CurTime >= EndTime)
+        {
+            isEnd = true;
+            isStart = false;
+        }
+            
         CurTime += Time.deltaTime;
         GetGold_Time();
     }       // Timer()
@@ -125,15 +128,15 @@ public class GameManager : MonoBehaviour
         }
     }       // GetGold_Time()
 
-    // ! 졸개 처치 시 골드 획득 (고정 10)  
+    // ! 졸개 처치 시 골드 획득   
     public void GetGold_Monster()
     {
         Gold += JsonData.Instance.economyDatas.Economy[3].Gold_Gain;
     }       // GetGold_Monster();
-    
+
     // ! 보스 체력 비율에 따른 골드 획득
     public void GetGold_Boss()
-    {                       
+    {
         Gold += JsonData.Instance.economyDatas.Economy[2].Gold_Gain;
     }       // GetGold_Boss()
 
@@ -143,15 +146,14 @@ public class GameManager : MonoBehaviour
         return isStart;
     }       // GameStart()
 
-    
+
     public void ReStart()
     {
-        
+
         Init();
-        
+        isStart = true;
         // TODO : 게임 재시작 기능 구현을 생각해봐야함
         // 씬을 재로드 할 것인지, 원상복구 시키는 함수를 짤 것인지 전자가 더 쉬울 것 같다.
-        isStart = true;
     }       // ReStart()
 
     public void GameQuit()
@@ -163,4 +165,20 @@ public class GameManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }       // QameQuit()
+
+    //! JSH: 재화 사용 함수
+    public void UseGold(int cost_)
+    {
+        // 보유 재화에서 코스트만큼 차감
+        Gold -= cost_;
+    }
+
+    //! JSH: 재화 사용 가능 여부 반환 함수
+    public bool CanUseGold(int cost_)
+    {
+        // 코스트가 보유 재화와 같거나 작음
+        if (cost_ <= Gold) return true;
+        // 코스트가 보유 재화보다 큼
+        return false;
+    }
 }

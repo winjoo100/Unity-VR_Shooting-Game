@@ -45,7 +45,7 @@ public class BossAttack : MonoBehaviour
         else if (GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count < 1)
         {
             skill = Random.Range(0, 2);
-            skill = 1;
+            skill = 0;
         }
 
 

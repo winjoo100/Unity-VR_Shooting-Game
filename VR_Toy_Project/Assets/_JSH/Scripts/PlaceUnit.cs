@@ -63,11 +63,24 @@ public class PlaceUnit : MonoBehaviour
 
     private void Update()
     {
-        // 왼쪽 컨트롤러의 One 버튼에서 손을 떼면
-        if (BSJVRInput.GetUp(BSJVRInput.Button.Two, BSJVRInput.Controller.LTouch))
+        // 오른쪽 컨트롤러의 One 버튼에서 손을 떼면
+        if (BSJVRInput.GetUp(BSJVRInput.Button.One, BSJVRInput.Controller.RTouch))
         {
             // 라인 렌더러 컴포넌트 비활성화
             lineRenderer.enabled = false;
+
+            // 재화가 충분한지 체크
+            if (GameManager.Instance.Gold >= JsonData.Instance.unitDatas.Unit[turretID].Cost)
+            {
+                // 설치 가능
+                SetUIEnable();
+            }
+            // 충분하지 않음
+            else if (GameManager.Instance.Gold < JsonData.Instance.unitDatas.Unit[turretID].Cost)
+            {
+                // 설치 불가능
+                SetUIDisable();
+            }
 
             // 배치가 가능할 때만 설치
             if (isPlacable)
@@ -88,7 +101,7 @@ public class PlaceUnit : MonoBehaviour
         }
 
         // 왼쪽 컨트롤러를 기준으로 Ray를 만든다
-        Ray ray_ = new Ray(BSJVRInput.LHandPosition, BSJVRInput.LHandDirection);
+        Ray ray_ = new Ray(BSJVRInput.RHandPosition, BSJVRInput.RHandDirection);
         RaycastHit hitInfo_ = default;
         int layer_ = 1 << LayerMask.NameToLayer("Terrain");
 
@@ -127,7 +140,7 @@ public class PlaceUnit : MonoBehaviour
         {
             // Ray 충돌이 발생하지 않으면 선이 Ray 방향으로 그려지도록 처리
             lineRenderer.SetPosition(0, ray_.origin);
-            lineRenderer.SetPosition(1, ray_.origin + BSJVRInput.LHandDirection * 200f);
+            lineRenderer.SetPosition(1, ray_.origin + BSJVRInput.RHandDirection * 200f);
 
             // 유닛 배치 UI의 좌표 맵 아래로 이동
             placeUnitUI[turretID].transform.position = Vector3.up * -100;
@@ -137,7 +150,10 @@ public class PlaceUnit : MonoBehaviour
     //! 터렛 배치 UI 위치에 터렛을 생성하는 함수
     private void SpawnUnit()
     {
-        // TODO: ID에 맞는 프리팹 찾아서 소환해야함
+        // 재화 차감
+        GameManager.Instance.UseGold(JsonData.Instance.unitDatas.Unit[turretID].Cost);
+
+        // ID에 맞는 프리팹 찾아서 소환
         Transform unit_ = Instantiate(turretPrefabs[turretID]).transform;
 
         unit_.position = placeUnitUI[turretID].position;

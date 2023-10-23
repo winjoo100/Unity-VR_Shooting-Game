@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\VR_Toy_Project",
+    "\\VR_Toy_Project\\Assets",
+    "\\VR_Toy_Project\\Assets\\_PJK",
+    "\\VR_Toy_Project\\Assets\\_PJK\\Scripts",
+    "\\VR_Toy_Project\\Assets\\_PJK\\Scripts\\Boss"
   ],
-  "SelectedNode": "\\VR_Toy_Project.sln",
+  "SelectedNode": "\\VR_Toy_Project\\Assets\\_PJK\\Scripts\\Boss\\Boss.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 4699289894634410478}
   - component: {fileID: 4699289894634410477}
   - component: {fileID: 4699289894634410476}
-  - component: {fileID: 7479292071743414512}
   - component: {fileID: 2809388281257856580}
+  - component: {fileID: 2755826634908490477}
+  - component: {fileID: -1955064942267831890}
   m_Layer: 0
   m_Name: BossAttackPlayer JK
   m_TagString: BossAttackPlayer
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2945d0711f6a50c48884056ca8007765, type: 2}
+  - {fileID: 2100000, guid: 18d352c63e1812e4cb080b3aa6d22441, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,21 +100,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7479292071743414512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4699289894634410467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 064021a2259d28f4384a9faf701bb0e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BossBombAttackHp: 400
-  initialAngle: 30
-  target: {fileID: 0}
 --- !u!54 &2809388281257856580
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,3 +116,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2755826634908490477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4699289894634410467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f01dc86de807f4f81ce0c27bb0a4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newMaterial: {fileID: 2100000, guid: 18d352c63e1812e4cb080b3aa6d22441, type: 2}
+--- !u!114 &-1955064942267831890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4699289894634410467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba6c207e1d90734fac5d891c3b35c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BossBombAttackPlayerHp: 0
+  BossBombAttackPlayerAtt: 0
+  initialAngle: 30
+  detectionRadius: 1000
+  diedPrefab: {fileID: 3946140628572098603, guid: 230d5948f7f21664b8286d5fc398b986, type: 3}
