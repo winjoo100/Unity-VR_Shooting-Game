@@ -13,7 +13,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
     private BossManager bm = default;
     private PlayerStatus ps = default;
     public GameObject diedPrefab = default;
-    public bool isAttackedBullet { get; private set; } = false;
+    public GameObject attakPrefab = default;
 
     private void Awake()
     {
@@ -25,15 +25,6 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody>();
         target = GameObject.Find("Player");
     }
-
-
-    public void AttackedByBullet()
-    {
-        isAttackedBullet = true;
-    }
-
-
-
 
     private void Start()
     {
@@ -57,28 +48,30 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
         {
             ps = other.GetComponent<PlayerStatus>();
 
-            //PlayerStatus의 OnDamage
-
-            isAttackedBullet = false;
+            ps.OnDamage(BossBombAttackPlayerAtt);
             Destroy(gameObject);
+            GameObject AttackMotion = Instantiate(attakPrefab,new Vector3(transform.position.x, transform.position.y-2f, transform.position.z), Quaternion.identity);
 
         }
     }
     public void OnDamage(int damage)
     {
         BossBombAttackPlayerHp -= damage;
+
+
+        if (BossBombAttackPlayerHp <= 0)
+        {
+            
+                Destroy(gameObject);
+                GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
+            
+        }
+
     }
 
-    private void OnDestroy()
+    IEnumerator DieMotion()
     {
-        //if (isAttackedBullet == true)
-        //{
-        //    GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
-        //}
-        //else
-        //{
-        //    GameObject AttakMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
-        //}
+        yield return null;    
     }
 
 
@@ -87,7 +80,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
     {
         randomX = Random.Range(-10, 10);
         rb.useGravity = false;
-        Vector3 velocity = new Vector3(randomX, 10, 0);
+        Vector3 velocity = new Vector3(randomX, 5, 0);
         rb.velocity = velocity;
 
         yield return new WaitForSeconds(1.5f);
@@ -96,10 +89,12 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(1.5f);
 
         rb.useGravity = true;
-        // 포물선 운동
+        //포물선 운동
         velocity = GetVelocity(transform.position, target.transform.position, initialAngle);
 
         rb.velocity = velocity;
+
+
     }
 
 
