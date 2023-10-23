@@ -86,9 +86,10 @@ public class Boss : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        if (CurHP <= 0)
+        if(Input.GetKeyDown(KeyCode.X))
         {
-
+            bossDie = Instantiate(bossDiePrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
 
 
@@ -108,7 +109,7 @@ public class Boss : MonoBehaviour, IDamageable
         CurHP -= damage;
         CalculateHp();
 
-        if (CurHP <= 0 || Input.GetKeyDown(KeyCode.X))
+        if (CurHP <= 0)
         {
             bossDie = Instantiate(bossDiePrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
