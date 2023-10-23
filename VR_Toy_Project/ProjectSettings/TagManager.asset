@@ -30,8 +30,8 @@ TagManager:
   - Terrain
   - DetectArea
   - PostProcessing
-  - 
-  - 
+  - TurretBullet
+  - BossAttack
   - 
   - 
   - 
