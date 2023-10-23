@@ -5,13 +5,12 @@ public class BossManager : MonoBehaviour
 {
     public static BossManager instance;
 
-    public float elapsedRate = default;
-    public float currentTime = default;
+ 
     public float gametime = default;
     public float spawn = default;
     public float skillCoolTime = default;
     //게임이 종료되는 시간
-    public float EndGame = 500;
+    public float EndGame = 420;
     public float Weaknesstime = default;
     public float MonsterAttackTime = default;
     public GameObject Startx = default;
