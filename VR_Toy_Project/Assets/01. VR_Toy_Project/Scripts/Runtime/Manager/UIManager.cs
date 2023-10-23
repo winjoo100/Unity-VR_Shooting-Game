@@ -50,6 +50,7 @@ public class UIManager : MonoBehaviour
         timerTxt = HUDCanvas.GetChildObj("TimerTxt");
         slider = HUDCanvas.GetChildObj("BossHPSlider").GetComponent<Slider>();
         goldTxt = HUDCanvas.GetChildObj("GoldTxt");
+        hpTxt = HUDCanvas.GetChildObj("UI_PlayerHP");
         // } HUD Canvas 
 
         // { Start Canvas
@@ -77,7 +78,7 @@ public class UIManager : MonoBehaviour
         goldTxt.SetTmpText(gold_.ToString());
 
         // TODO : 추후 플레이어 체력 스탯이 추가되면 업데이트 
-        //hpFormat = string.Format("HP " + "{0} / {1}", playerStat.curHp.ToString("D3"), playerStat.maxHp.Tostring("D3"));
+        hpFormat = string.Format("HP " + "{0} / {1}", playerStat.curHp.ToString("D3"), playerStat.maxHp.ToString("D3"));
         hpTxt.SetTmpText(hpFormat);
         // } HUD Text 변경
 

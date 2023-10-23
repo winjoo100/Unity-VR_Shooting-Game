@@ -18,11 +18,22 @@ public class MonsterSpawner : MonoBehaviour
     public float testTimeReduce;
 
     private float spawnTime = 5f;
-    
+
+    // HSJ_ 231023
+    // 게임 종료시간 캐싱할 변수
+    private float endTime = default;
+    private float lv1Time = default;
+    private float lv2Time = default;
 
     void Start()
     {
         _monsterSpawner = gameObject;
+        // HSJ_ 231023
+        // { time 캐싱
+        endTime = GameManager.Instance.EndTime;
+        lv1Time = endTime * 0.3f;
+        lv2Time = endTime * 0.6f;
+        // } time 초기화
     }
 
     private void Update()
@@ -35,10 +46,10 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
+    // TODO : TEST 용 testTimeReduce 변수 제거 할 것     
     private void CreateMonster()
     {
-
-            if (BossManager.instance.currentTime < 300f * testTimeReduce)
+            if (GameManager.Instance.CurTime < lv1Time * testTimeReduce)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -46,7 +57,7 @@ public class MonsterSpawner : MonoBehaviour
 
                 }
             }
-            else if (300f * testTimeReduce < BossManager.instance.currentTime && BossManager.instance.currentTime < 600f * testTimeReduce)
+            else if (lv1Time * testTimeReduce < GameManager.Instance.CurTime && GameManager.Instance.CurTime < lv2Time * testTimeReduce)
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -54,7 +65,7 @@ public class MonsterSpawner : MonoBehaviour
 
                 }
             }
-            else if (600f * testTimeReduce < BossManager.instance.currentTime && BossManager.instance.currentTime < 900f * testTimeReduce)
+            else if (lv2Time * testTimeReduce < GameManager.Instance.CurTime )
             {
                 for (int i = 0; i < 5; i++)
                 {

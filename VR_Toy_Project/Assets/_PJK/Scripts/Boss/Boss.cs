@@ -52,23 +52,29 @@ public class Boss : MonoBehaviour, IDamageable
         Vector3 targetLocation = player.transform.position;
 
         float yPosition = startLocation.y;
+
+        // HSJ_ 231023
+        // BossManager에 존재하는 타이머 중 일부를 지역변수로 변경
+        float elapsedRate = default;
+        float currentTime = default;
+
         //시작하는시간
-        BossManager.instance.currentTime = 0f;
+        currentTime = 0f;
         //도착하는데 도달하는 시간(초)
         float finishTime = BossManager.instance.EndGame;
         // 경과율
-        BossManager.instance.elapsedRate = BossManager.instance.currentTime / finishTime;
-        while (BossManager.instance.elapsedRate < 1)
+        elapsedRate = currentTime / finishTime;
+        while (elapsedRate < 1)
         {
-            BossManager.instance.currentTime += Time.deltaTime;
-            BossManager.instance.elapsedRate = BossManager.instance.currentTime / finishTime;
+            currentTime += Time.deltaTime;
+            elapsedRate = currentTime / finishTime;
             // TEST : * 5f
-            boss.transform.position = Vector3.Lerp(startLocation, targetLocation, BossManager.instance.elapsedRate * 5f);
+            boss.transform.position = Vector3.Lerp(startLocation, targetLocation, elapsedRate * 5f);
             // Y 위치를 고정
             Vector3 newPosition = new Vector3(
-                Mathf.Lerp(startLocation.x, targetLocation.x, BossManager.instance.elapsedRate),
+                Mathf.Lerp(startLocation.x, targetLocation.x, elapsedRate),
                 yPosition, // 고정된 Y 위치
-                Mathf.Lerp(startLocation.z, targetLocation.z, BossManager.instance.elapsedRate)
+                Mathf.Lerp(startLocation.z, targetLocation.z, elapsedRate)
             );
             boss.transform.position = newPosition;
             yield return null;
@@ -78,26 +84,6 @@ public class Boss : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        // 정근정근아 작동되는 코드를 넣어라
-        //if (m.isFindTurret == true)
-        //{
-        //    if (m.isAttackTurret == true)
-        //    {
-        //        //AttackTurret();
-        //        rb.velocity = Vector3.zero;
-        //    }
-        //}
-
-        //if (bm.Weaknesstime > 10 || weakActiveCount == 0)
-        //{
-        //    // 기존 약점 비활성화
-        //    //OffWeakPoint();
-
-        //    // 약점 활성화
-        //    //OnWeakPoint();
-        //    bm.Weaknesstime = 0;
-        //}
-
         if (CurHP <= 0)
         {
 
@@ -156,7 +142,7 @@ public class Boss : MonoBehaviour, IDamageable
         CalculateHp();
     }
 
-    // ! 보스 체력 퍼센트 비례로 돈을 얻는 함수
+    // ! 보스 체력 퍼센트를 계산하여 돈을 얻는 함수
     private void CalculateHp()
     {        
         int rateHp = (int)(MaxHp * 0.1f);
