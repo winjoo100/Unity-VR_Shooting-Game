@@ -32,26 +32,6 @@ public class Turret01 : TurretUnit
     {
         DetectTarget();
     }
-
-    private void Update()
-    {
-        //// 탐지
-        //if (isReadyDetect == true)
-        //{
-        //    isReadyDetect = false;
-
-        //    DetectTarget();
-        //}
-
-        //// 공격이 준비되면 공격
-        //if (isReadyAttack == true)
-        //{
-        //    isReadyAttack = false;
-
-        //    AttackTarget();
-        //}
-        //else { /* DoNothing */ }
-    }
 }
 
 

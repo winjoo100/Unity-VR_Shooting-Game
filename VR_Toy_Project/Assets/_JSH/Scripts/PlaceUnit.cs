@@ -63,8 +63,8 @@ public class PlaceUnit : MonoBehaviour
 
     private void Update()
     {
-        // 왼쪽 컨트롤러의 One 버튼에서 손을 떼면
-        if (BSJVRInput.GetUp(BSJVRInput.Button.Two, BSJVRInput.Controller.LTouch))
+        // 오른쪽 컨트롤러의 One 버튼에서 손을 떼면
+        if (BSJVRInput.GetUp(BSJVRInput.Button.One, BSJVRInput.Controller.RTouch))
         {
             // 라인 렌더러 컴포넌트 비활성화
             lineRenderer.enabled = false;
@@ -88,7 +88,7 @@ public class PlaceUnit : MonoBehaviour
         }
 
         // 왼쪽 컨트롤러를 기준으로 Ray를 만든다
-        Ray ray_ = new Ray(BSJVRInput.LHandPosition, BSJVRInput.LHandDirection);
+        Ray ray_ = new Ray(BSJVRInput.RHandPosition, BSJVRInput.RHandDirection);
         RaycastHit hitInfo_ = default;
         int layer_ = 1 << LayerMask.NameToLayer("Terrain");
 
@@ -127,7 +127,7 @@ public class PlaceUnit : MonoBehaviour
         {
             // Ray 충돌이 발생하지 않으면 선이 Ray 방향으로 그려지도록 처리
             lineRenderer.SetPosition(0, ray_.origin);
-            lineRenderer.SetPosition(1, ray_.origin + BSJVRInput.LHandDirection * 200f);
+            lineRenderer.SetPosition(1, ray_.origin + BSJVRInput.RHandDirection * 200f);
 
             // 유닛 배치 UI의 좌표 맵 아래로 이동
             placeUnitUI[turretID].transform.position = Vector3.up * -100;

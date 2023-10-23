@@ -165,24 +165,4 @@ public class TurretUnit : MonoBehaviour
         // 스스로를 파괴
         Destroy(gameObject);
     }
-
-    ////! 일정 주기로 공격 함수 호출
-    //protected virtual void AttackRoutine()
-    //{
-    //    // 공격 준비
-    //    if (isReadyAttack == false)
-    //    {
-    //        isReadyAttack = true;
-    //    }
-    //}
-
-    ////! 일정 주기로 탐지 함수 호출
-    //protected virtual void DetectRoutine()
-    //{
-    //    // 탐지 준비
-    //    if (isReadyDetect == false)
-    //    {
-    //        isReadyDetect = true;
-    //    }
-    //}
 }

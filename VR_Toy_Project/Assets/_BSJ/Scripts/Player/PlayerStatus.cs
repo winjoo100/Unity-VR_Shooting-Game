@@ -79,7 +79,7 @@ public class PlayerStatus : MonoBehaviour
                 ModeSwap();
             }
 
-            if (BSJVRInput.GetUp(BSJVRInput.Button.One, BSJVRInput.Controller.LTouch))
+            if (BSJVRInput.GetUp(BSJVRInput.Button.One, BSJVRInput.Controller.RTouch))
             {
                 // 버튼의 기능 실행
                 hitInfo_.collider.gameObject.GetComponent<Button>().onClick.Invoke();
