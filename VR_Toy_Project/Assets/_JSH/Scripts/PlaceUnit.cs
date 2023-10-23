@@ -142,8 +142,8 @@ public class PlaceUnit : MonoBehaviour
             lineRenderer.SetPosition(0, ray_.origin);
             lineRenderer.SetPosition(1, ray_.origin + BSJVRInput.RHandDirection * 200f);
 
-            // 유닛 배치 UI의 좌표 맵 아래로 이동
-            placeUnitUI[turretID].transform.position = Vector3.up * -100;
+            // 유닛 배치 UI를 맵 아래의 지정된 좌표로 이동
+            placeUnitUI[turretID].transform.position = Vector3.right * 1.2f * turretID + Vector3.up * -100;
         }
     }       // Update()
 
