@@ -19,6 +19,13 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
     public GameObject Monsterlv2 = default;
     public GameObject Monsterlv3 = default;
 
+    // HSJ_ 231023
+    // 게임 종료시간 캐싱할 변수
+    private float endTime = default;
+    private float lv1Time = default;
+    private float lv2Time = default;
+    private float lv3Time = default;
+
     private void Awake()
     {
         // 체력 셋팅
@@ -33,6 +40,13 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         
         startx = bm.Startx;
         endx = bm.Endx;
+        // HSJ_ 231023
+        // { time 캐싱
+        endTime = GameManager.Instance.EndTime;
+        lv1Time = endTime * 0.3f;
+        lv2Time = endTime * 0.6f;
+        // } time 초기화
+
 
         targetx = Random.Range(startx.transform.position.x, endx.transform.position.x);
         targetz = Random.Range(startx.transform.position.z, endx.transform.position.z);
@@ -79,7 +93,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
 
     private void spawnMons()
     {
-        if (BossManager.instance.currentTime < 300f)
+        if (GameManager.Instance.CurTime < lv1Time)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -87,7 +101,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
 
             }
         }
-        else if (300f < BossManager.instance.currentTime && BossManager.instance.currentTime < 600f)
+        else if (lv1Time < GameManager.Instance.CurTime && GameManager.Instance.CurTime < lv2Time)
         {
             for (int i = 0; i < 4; i++)
             {
@@ -95,7 +109,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
 
             }
         }
-        else if (600f < BossManager.instance.currentTime && BossManager.instance.currentTime < 900f)
+        else if (lv2Time < GameManager.Instance.CurTime)
         {
             for (int i = 0; i < 5; i++)
             {

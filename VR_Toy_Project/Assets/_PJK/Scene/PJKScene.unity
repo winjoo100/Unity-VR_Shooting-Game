@@ -1094,8 +1094,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a3522235dd1704697417706c05885e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elapsedRate: 0
-  currentTime: 0
   gametime: 0
   spawn: 0
   skillCoolTime: 0
