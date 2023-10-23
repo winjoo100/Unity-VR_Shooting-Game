@@ -14,14 +14,13 @@ public class MonsterDeathBomb : MonoBehaviour
         // 플레이어
         if(other.CompareTag("Player"))
         {
-            // TODO: 플레이어 스탯에서 OnDamage 함수 받아와서 실행 시켜야함.
-            //other.GetComponent<PlayerStatus>()
+            other.GetComponent<PlayerStatus>().OnDamage((int)_Damage / 100);    // 100은 테스트용 데미지를 원래대로 되돌리기 할 것임.
         }
         // 터렛
         if(other.CompareTag("Turret"))
         {
             // 데미지 처리
-            other.GetComponent<TurretUnit>().DamageSelf((int)_Damage);
+            other.GetComponent<TurretUnit>().DamageSelf((int)_Damage / 100);    // 100은 테스트용 데미지를 원래대로 되돌리기 할 것임.
 
             // 텍스트 콜
             TextCall((int)_Damage, other.transform);

@@ -22,12 +22,12 @@ public class WeakPointBig : MonoBehaviour, IDamageable
         if (isLive == true)
         {
             myMat = weakOut;
-            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
         }
         else 
         {
             myMat = weakOn;
-            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
         }
     }
 
