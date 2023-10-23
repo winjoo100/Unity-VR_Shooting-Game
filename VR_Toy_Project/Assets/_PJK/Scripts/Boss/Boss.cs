@@ -89,7 +89,6 @@ public class Boss : MonoBehaviour, IDamageable
         if (CurHP <= 0)
         {
 
-            Death();
         }
 
 
