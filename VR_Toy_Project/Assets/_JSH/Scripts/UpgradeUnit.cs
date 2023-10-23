@@ -27,11 +27,22 @@ public class UpgradeUnit : MonoBehaviour
         PlayerStatus playerStatus = FindObjectOfType<PlayerStatus>();
         Shot_BSJ shot = FindObjectOfType<Shot_BSJ>();
 
-        // TODO: cost보다 재화가 적으면 return
-        // TODO: cost만큼 재화 감소
+        // 재화가 충분한지 체크
+        if (GameManager.Instance.Gold >= this.cost)
+        {
+            // 재화 차감
+            GameManager.Instance.UseGold(this.cost);
+        }
+        // 충분하지 않음
+        else if (GameManager.Instance.Gold < this.cost)
+        {
+            return;
+        }
 
+        // 무기 변경
         playerStatus.playerWeapon = weaponLevel;
         playerStatus.ChangeWeapon();
+        // 탄환 변경
         shot.ChangeBullet();
     }
 }

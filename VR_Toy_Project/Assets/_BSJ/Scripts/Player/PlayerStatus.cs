@@ -63,6 +63,12 @@ public class PlayerStatus : MonoBehaviour
 
     private void Update()
     {
+        ClickButton();
+    }
+
+    //! JSH: 버튼을 인식해서 사용이 가능하도록 해주는 함수
+    private void ClickButton()
+    {
         // 왼쪽 컨트롤러를 기준으로 Ray를 만든다
         Ray ray_ = new Ray(BSJVRInput.LHandPosition, BSJVRInput.LHandDirection);
         RaycastHit hitInfo_ = default;
@@ -79,6 +85,7 @@ public class PlayerStatus : MonoBehaviour
                 ModeSwap();
             }
 
+            // 오른쪽 One버튼으로 클릭
             if (BSJVRInput.GetUp(BSJVRInput.Button.One, BSJVRInput.Controller.RTouch))
             {
                 // 버튼의 기능 실행

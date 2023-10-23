@@ -15,7 +15,7 @@ public class TurretUnit : MonoBehaviour
     // 터렛 현재 체력
     protected int health = default;
     // 터렛 비용
-    protected int cost = default;
+    public int cost = default;
     // 터렛 상한
     protected int install_Limit = default;
     // 터렛 탐지 범위

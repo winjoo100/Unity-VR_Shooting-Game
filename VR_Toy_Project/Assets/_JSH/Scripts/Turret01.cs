@@ -34,7 +34,8 @@ public class Turret01 : TurretUnit
     }
 }
 
-
+// Inspector 창에서 사용할 수 있도록 해주는 코드
+// 누르면 기능이 작동하는 버튼이 생긴다
 //[CustomEditor(typeof(Turret01))]
 //public class DestroyTurretEditor : Editor
 //{
