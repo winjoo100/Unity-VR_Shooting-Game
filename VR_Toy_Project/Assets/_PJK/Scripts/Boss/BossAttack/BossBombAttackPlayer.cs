@@ -66,6 +66,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
                 GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
             
         }
+
     }
 
     IEnumerator DieMotion()

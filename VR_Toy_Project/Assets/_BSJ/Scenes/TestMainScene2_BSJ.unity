@@ -1319,8 +1319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a3522235dd1704697417706c05885e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elapsedRate: 0
-  currentTime: 0
   gametime: 0
   spawn: 0
   skillCoolTime: 0
@@ -1343,6 +1341,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &185250110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 185250111}
+  m_Layer: 0
+  m_Name: BossAttackSpawnMon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &185250111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185250110}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1605993378}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &189784575 stripped
 GameObject:
@@ -4333,6 +4362,7 @@ Transform:
   - {fileID: 1845721191}
   - {fileID: 937140854}
   - {fileID: 226709331}
+  - {fileID: 879238631}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6392,6 +6422,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 655108150}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &655579483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 655579484}
+  m_Layer: 0
+  m_Name: BossAttackTurret
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &655579484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655579483}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1605993378}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &656663836
 GameObject:
   m_ObjectHideFlags: 0
@@ -7726,6 +7787,7 @@ Transform:
   - {fileID: 75758964}
   - {fileID: 783401941}
   - {fileID: 1970838166}
+  - {fileID: 1605993378}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8728,6 +8790,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864858633}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &879238630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 879238631}
+  - component: {fileID: 879238632}
+  m_Layer: 0
+  m_Name: BossAttackPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &879238631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879238630}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 461020971}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &879238632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879238630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603f0ebd39a2d7842aaff5a97bd73f04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BossAttackPoolList:
+  - Type: 0
+    objAmount: 20
+    prefab: {fileID: 4699289894634410467, guid: aae7aac770984644b8b9e9af2ee28137, type: 3}
+    container: {fileID: 1006094636}
+  - Type: 1
+    objAmount: 20
+    prefab: {fileID: 2520058075537607676, guid: 6c869653396812841b8233b82e97f2ec, type: 3}
+    container: {fileID: 185250110}
+  - Type: 2
+    objAmount: 20
+    prefab: {fileID: 7193736265162846116, guid: ae832afb1d689134597e2a8461c0982b, type: 3}
+    container: {fileID: 655579483}
 --- !u!1 &886778013
 GameObject:
   m_ObjectHideFlags: 0
@@ -10289,6 +10408,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1006094636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1006094637}
+  m_Layer: 0
+  m_Name: BossAttackPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1006094637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006094636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1605993378}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1011664594
 GameObject:
@@ -14114,7 +14264,7 @@ PrefabInstance:
       objectReference: {fileID: 1397957309}
     - target: {fileID: 6036764068900137854, guid: c35709c98aae9294ba666fa0cc3116da, type: 3}
       propertyPath: playerWeapon
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7156563202277209571, guid: c35709c98aae9294ba666fa0cc3116da, type: 3}
       propertyPath: m_LocalPosition.y
@@ -14857,7 +15007,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496039084}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c233b486d4aba34287f2daca6594e0c, type: 3}
   m_Name: 
@@ -15657,7 +15807,7 @@ GameObject:
   - component: {fileID: 1547579302}
   - component: {fileID: 1547579301}
   - component: {fileID: 1547579300}
-  - component: {fileID: 1547579299}
+  - component: {fileID: 1547579304}
   m_Layer: 4
   m_Name: 1004
   m_TagString: Untagged
@@ -15680,18 +15830,6 @@ Transform:
   m_Father: {fileID: 105375949}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1547579299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1547579297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd88341813c45f458079a3d889114db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1547579300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15736,8 +15874,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1547579299}
-        m_TargetAssemblyTypeName: Upgrade01, Assembly-CSharp
+      - m_Target: {fileID: 1547579304}
+        m_TargetAssemblyTypeName: Upgrade04, Assembly-CSharp
         m_MethodName: UpgradeWeapon
         m_Mode: 1
         m_Arguments:
@@ -15811,6 +15949,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547579297}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1547579304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547579297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1728b5c635c96245befa4d987033041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1553944704
 GameObject:
   m_ObjectHideFlags: 0
@@ -16472,6 +16622,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1605993377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1605993378}
+  m_Layer: 0
+  m_Name: BossAttackContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1605993378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605993377}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1006094637}
+  - {fileID: 185250111}
+  - {fileID: 655579484}
+  m_Father: {fileID: 778769284}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1607225201
 GameObject:
   m_ObjectHideFlags: 0
@@ -16772,7 +16956,7 @@ GameObject:
   - component: {fileID: 1638723922}
   - component: {fileID: 1638723921}
   - component: {fileID: 1638723920}
-  - component: {fileID: 1638723919}
+  - component: {fileID: 1638723924}
   m_Layer: 4
   m_Name: 1002
   m_TagString: Untagged
@@ -16795,18 +16979,6 @@ Transform:
   m_Father: {fileID: 105375949}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1638723919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1638723917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd88341813c45f458079a3d889114db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1638723920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16851,8 +17023,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1638723919}
-        m_TargetAssemblyTypeName: Upgrade01, Assembly-CSharp
+      - m_Target: {fileID: 1638723924}
+        m_TargetAssemblyTypeName: Upgrade02, Assembly-CSharp
         m_MethodName: UpgradeWeapon
         m_Mode: 1
         m_Arguments:
@@ -16926,6 +17098,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1638723917}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1638723924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638723917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a780402aec108c489c1940341704de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1642309146
 GameObject:
   m_ObjectHideFlags: 0
@@ -19147,6 +19331,7 @@ MonoBehaviour:
   player: {fileID: 1397957301}
   Turret:
   - {fileID: 0}
+  bossDiePrefab: {fileID: 0}
   isFindTurret: 0
   isAttackTurret: 0
   isAttackedWeakPoint: 0
@@ -19543,7 +19728,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876134000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.005, z: 0}
   m_LocalScale: {x: 6, y: 0.01, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21026,7 +21211,7 @@ GameObject:
   - component: {fileID: 2111065875}
   - component: {fileID: 2111065874}
   - component: {fileID: 2111065873}
-  - component: {fileID: 2111065872}
+  - component: {fileID: 2111065877}
   m_Layer: 4
   m_Name: 1003
   m_TagString: Untagged
@@ -21049,18 +21234,6 @@ Transform:
   m_Father: {fileID: 105375949}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2111065872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111065870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd88341813c45f458079a3d889114db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2111065873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21105,8 +21278,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2111065872}
-        m_TargetAssemblyTypeName: Upgrade01, Assembly-CSharp
+      - m_Target: {fileID: 2111065877}
+        m_TargetAssemblyTypeName: Upgrade03, Assembly-CSharp
         m_MethodName: UpgradeWeapon
         m_Mode: 1
         m_Arguments:
@@ -21180,6 +21353,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2111065870}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2111065877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111065870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1fd57ba3aa12a49b9efc0eee3eeb62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2113831412
 GameObject:
   m_ObjectHideFlags: 0
