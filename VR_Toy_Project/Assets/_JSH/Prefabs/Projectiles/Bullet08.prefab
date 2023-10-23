@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -7011728253734117107}
   - component: {fileID: 9204571764897887917}
   - component: {fileID: 208887173287189743}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Bullet08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4965,7 +4965,7 @@ GameObject:
   - component: {fileID: 4897720586424920}
   - component: {fileID: 198845742366310156}
   - component: {fileID: 199781326565099244}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Spiral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9907,7 +9907,7 @@ GameObject:
   - component: {fileID: 198171711457794734}
   - component: {fileID: 114360154637727276}
   - component: {fileID: 199184393257718206}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: SubSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14744,7 +14744,7 @@ GameObject:
   - component: {fileID: 4573346287034178}
   - component: {fileID: 198083571886404190}
   - component: {fileID: 199589543043407528}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CoreDark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19635,7 +19635,7 @@ GameObject:
   - component: {fileID: 4786728946380360}
   - component: {fileID: 198294218177215630}
   - component: {fileID: 199600026535611734}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: SubSparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24459,7 +24459,7 @@ GameObject:
   - component: {fileID: 4765530861781418}
   - component: {fileID: 198677481183020998}
   - component: {fileID: 199521385448564036}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Darkness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29287,7 +29287,7 @@ GameObject:
   - component: {fileID: 4001238168945230}
   - component: {fileID: 198356887557969714}
   - component: {fileID: 199300207276527226}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34175,7 +34175,7 @@ GameObject:
   - component: {fileID: 4684422259612398}
   - component: {fileID: 198499213466691328}
   - component: {fileID: 199456008872644078}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CenterGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
