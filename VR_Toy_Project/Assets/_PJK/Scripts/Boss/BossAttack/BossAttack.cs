@@ -27,7 +27,7 @@ public class BossAttack : MonoBehaviour
 
         
 
-        if (bm.skillCoolTime > 20f)
+        if (bm.skillCoolTime > 3f)
         {
             attack();
             bm.skillCoolTime = 0;
@@ -42,10 +42,12 @@ public class BossAttack : MonoBehaviour
         if (GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count > 0)
         {
             skill = Random.Range(0, 3);
+            skill = 0;
         }
         else if (GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count < 1)
         {
             skill = Random.Range(0, 2);
+            skill = 0;
         }
 
 

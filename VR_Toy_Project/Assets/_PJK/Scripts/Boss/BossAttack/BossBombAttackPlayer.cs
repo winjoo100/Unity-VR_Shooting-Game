@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text;
 using UnityEngine;
 public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 {
@@ -14,6 +15,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
     private PlayerStatus ps = default;
     public GameObject diedPrefab = default;
     public GameObject attakPrefab = default;
+    public GameObject effect = default;
 
     private void Awake()
     {
@@ -51,7 +53,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
             ps.OnDamage(BossBombAttackPlayerAtt);
             Destroy(gameObject);
-            GameObject AttackMotion = Instantiate(attakPrefab,new Vector3(transform.position.x, transform.position.y-2f, transform.position.z), Quaternion.identity);
+            GameObject AttackMotion = Instantiate(attakPrefab, new Vector3(transform.position.x, transform.position.y - 2f, transform.position.z), Quaternion.identity);
 
         }
     }
@@ -62,17 +64,17 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
         if (BossBombAttackPlayerHp <= 0)
         {
-            
-                Destroy(gameObject);
-                GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
-            
+
+            Destroy(gameObject);
+            GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
+
         }
 
     }
 
     IEnumerator DieMotion()
     {
-        yield return null;    
+        yield return null;
     }
 
 
@@ -85,10 +87,13 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
         rb.velocity = velocity;
 
         yield return new WaitForSeconds(1.5f);
+
         rb.velocity = Vector3.zero;
+        GameObject attackeffect = Instantiate(effect, transform.position, Quaternion.identity);
 
-        yield return new WaitForSeconds(1.5f);
 
+        yield return new WaitForSeconds(3f);
+        Destroy(attackeffect);
         rb.useGravity = true;
         //포물선 운동
         velocity = GetVelocity(transform.position, target.transform.position, initialAngle);

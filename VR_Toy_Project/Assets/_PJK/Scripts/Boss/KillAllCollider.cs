@@ -7,7 +7,7 @@ public class KillAllCollider : MonoBehaviour
     private GameObject turret;
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Turret"))
         {
