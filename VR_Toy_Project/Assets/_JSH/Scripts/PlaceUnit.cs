@@ -33,9 +33,9 @@ public class PlaceUnit : MonoBehaviour
         placeUnitUI[3].gameObject.SetActive(false);
 
         // 설정한 Color값
-        canPlace = new Color(127, 127, 127, 127);
+        canPlace = new Color(191 / 255f, 191 / 255f, 191 / 255f, 127 / 255f);
         // 설정한 Color값
-        cantPlace = new Color(255, canPlace.g, canPlace.b, canPlace.a);
+        cantPlace = new Color(1.0f, 127 / 255f, 127 / 255f, 127 / 255f);
 
         // 라인 렌더러 컴포넌트 얻어오기
         lineRenderer = GetComponent<LineRenderer>();
@@ -69,8 +69,8 @@ public class PlaceUnit : MonoBehaviour
             // 라인 렌더러 컴포넌트 비활성화
             lineRenderer.enabled = false;
 
-            // 재화가 충분한지 체크
-            if (GameManager.Instance.Gold >= JsonData.Instance.unitDatas.Unit[turretID].Cost)
+            // 재화가 충분한지 체크, 배치 가능한 장소인지 체크
+            if (GameManager.Instance.Gold >= JsonData.Instance.unitDatas.Unit[turretID].Cost && isPlacable == true)
             {
                 // 설치 가능
                 SetUIEnable();
