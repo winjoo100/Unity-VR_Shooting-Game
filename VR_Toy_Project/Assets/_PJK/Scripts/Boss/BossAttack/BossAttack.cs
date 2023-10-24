@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BossAttack : MonoBehaviour
 {
-    private GameObject boss;
+    private Boss boss;
     public BossManager bm;
     public GameObject player = default;
     public GameObject playerAttack = default;
@@ -16,7 +16,7 @@ public class BossAttack : MonoBehaviour
     private void Awake()
     {
         m = GetComponent<Monsters>();
-        boss = this.gameObject;
+        boss = GetComponent<Boss>();
 
     }
 
@@ -26,7 +26,7 @@ public class BossAttack : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(boss.transform.position, 100f, Turret);
 
         
-        if (bm.skillCoolTime > 3)
+        if (bm.skillCoolTime > 3 && boss.CurHP > 0)
         {
             attack();
             bm.skillCoolTime = 0;
