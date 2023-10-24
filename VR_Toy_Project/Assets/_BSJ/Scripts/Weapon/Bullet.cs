@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -130,7 +128,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         // 총알이 계속 앞으로 날아감.
-        transform.Translate(Vector3.forward * (bulletSpeed / 5f) * Time.deltaTime);
+        transform.Translate(Vector3.forward * (bulletSpeed) * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -144,18 +142,7 @@ public class Bullet : MonoBehaviour
             // LEGACY : 
             //hitVFX.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
             hitVFX.transform.position = other.ClosestPointOnBounds(this.transform.position - new Vector3(0f, 0f, 5f));
-
-            // { 실제 데미지를 입히는 로직
-            // 큰 약점
-            //if (other.CompareTag("BigWeakPoint"))
-            //{
-            //    finalDamage = ((int)(bulletDamage * criticalDamage) * 2);
-
-            //    // TODO: 약점에 접근해서 isLive가 true인지 false인지 확인해서 데미지를 다르게 표시한다.
-
-            //    other.GetComponent<WeakPoint>().OnDamage(finalDamage);
-            //}
-
+            
             // JSH: Bullet08일 때만 스플래시 실행
             if (bulletType == PoolObjType.Bullet08)
             {
@@ -164,31 +151,63 @@ public class Bullet : MonoBehaviour
             // 나머지는 부딪힌 것에만 데미지
             else
             {
-                if (other.CompareTag("WeakPoint"))
+                if (other.CompareTag("BigWeakPoint"))
                 {
-                    finalDamage = (int)(bulletDamage * criticalDamage);
+                    bool isLive = other.GetComponent<WeakPointBig>().isLive;
+                    if (isLive == true)
+                    {
+
+                        finalDamage = (int)(bulletDamage * criticalDamage * 1.3f);
+                    }
+                    else
+                    {
+                        finalDamage = (int)(bulletDamage * criticalDamage);
+                    }
+                    Debug.Log("공격하였나?");
                     other.GetComponent<WeakPointBig>().OnDamage(finalDamage);
                 }
+                
+                else if (other.CompareTag("WeakPoint"))
+                {
+                    bool isLive = other.GetComponent<WeakPointSmall>().isLive;
+                    if (isLive == true)
+                    {
+                        finalDamage = (int)(bulletDamage * criticalDamage * 2f);
+                    }
+                    else
+                    {
+                        finalDamage = (int)(bulletDamage * criticalDamage);
+                    }
+
+                    other.GetComponent<WeakPointSmall>().OnDamage(finalDamage);
+                }
+                
                 else if (other.CompareTag("Monster"))
                 {
                     other.GetComponent<Monsters>().OnDamage(finalDamage);
                 }
+                
                 else if (other.CompareTag("BossAttackPlayer"))
                 {
                     other.GetComponent<BossBombAttackPlayer>().OnDamage(finalDamage);
                 }
-                else if (other.CompareTag("BossAttackTurret"))
+                
+               else if (other.CompareTag("BossAttackTurret"))
                 {
                     other.GetComponent<BossBombAttackTurret>().OnDamage(finalDamage);
                 }
+                
                 else if (other.CompareTag("BossAttackSpawnMon"))
                 {
                     other.GetComponent<BossBombSpawnMon>().OnDamage(finalDamage);
                 }
+                
                 else if (other.CompareTag("Boss"))
                 {
                     other.GetComponent<Boss>().OnDamage(finalDamage);
                 }
+                
+                other.attachedRigidbody.GetComponent<Boss>().OnDamage(finalDamage);
             }
             // } 실제 데미지를 입히는 로직
 
