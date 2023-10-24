@@ -41,7 +41,7 @@ public class Boss : MonoBehaviour, IDamageable
         lastGoldHP = MaxHp;
         CurHP = MaxHp;
 
-        StartCoroutine(_BossMove());
+        StartCoroutine(BossMove());
 
         // 약점 프리팹 모두 비활성화
         m = GetComponent<Monsters>();
@@ -52,7 +52,7 @@ public class Boss : MonoBehaviour, IDamageable
         ba = GetComponent<Animator>();
     }
 
-    private IEnumerator _BossMove()
+    private IEnumerator BossMove()
     {
         Vector3 startLocation = transform.position;
         Vector3 targetLocation = player.transform.position;

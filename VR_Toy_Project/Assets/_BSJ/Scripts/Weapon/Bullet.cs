@@ -128,13 +128,13 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         // 총알이 계속 앞으로 날아감.
-        transform.Translate(Vector3.forward * (bulletSpeed) * Time.deltaTime);
+        transform.Translate(Vector3.forward * (bulletSpeed / 5f) * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         // 약점 || 졸개 || 보스 공격 투사체 || 보스 스폰 알
-        if (other.CompareTag("WeakPoint") || other.CompareTag("Monster") || other.CompareTag("BossAttackPlayer") || other.CompareTag("BossAttackSpawnMon") || other.CompareTag("Boss"))
+        if (other.CompareTag("BigWeakPoint") || other.CompareTag("WeakPoint") || other.CompareTag("Monster") || other.CompareTag("BossAttackPlayer") || other.CompareTag("BossAttackSpawnMon") || other.CompareTag("Boss"))
         {
             // 타격 이펙트 콜
             GameObject hitVFX = VFXObjectPool.instance.GetPoolObj(vfxType);
@@ -163,7 +163,6 @@ public class Bullet : MonoBehaviour
                     {
                         finalDamage = (int)(bulletDamage * criticalDamage);
                     }
-                    Debug.Log("공격하였나?");
                     other.GetComponent<WeakPointBig>().OnDamage(finalDamage);
                 }
                 
@@ -192,7 +191,7 @@ public class Bullet : MonoBehaviour
                     other.GetComponent<BossBombAttackPlayer>().OnDamage(finalDamage);
                 }
                 
-               else if (other.CompareTag("BossAttackTurret"))
+                else if (other.CompareTag("BossAttackTurret"))
                 {
                     other.GetComponent<BossBombAttackTurret>().OnDamage(finalDamage);
                 }
@@ -204,10 +203,8 @@ public class Bullet : MonoBehaviour
                 
                 else if (other.CompareTag("Boss"))
                 {
-                    other.GetComponent<Boss>().OnDamage(finalDamage);
+                    other.attachedRigidbody.GetComponent<Boss>().OnDamage(finalDamage);
                 }
-                
-                other.attachedRigidbody.GetComponent<Boss>().OnDamage(finalDamage);
             }
             // } 실제 데미지를 입히는 로직
 
