@@ -10,6 +10,8 @@ public class PlaceUnit : MonoBehaviour
     public GameObject[] turretPrefabs = default;
     // 유닛 배치 UI
     public Transform[] placeUnitUI = default;
+    // 유닛 콜링 UI
+    public Transform castUnit = default;
     // 선을 그릴 라인 렌더러
     private LineRenderer lineRenderer = default;
     // 버튼 클릭용 클래스
@@ -19,6 +21,9 @@ public class PlaceUnit : MonoBehaviour
     public bool isPlacable = true;
     // UI 마테리얼
     public Material placeMaterial = default;
+    // cast 마테리얼
+    public Material canCastMaterial = default;
+    public Material cantCastMaterial = default;
     // 배치 가능 RGB
     private Color canPlace = default;
     // 배치 불가능 RGB
@@ -31,6 +36,7 @@ public class PlaceUnit : MonoBehaviour
         placeUnitUI[1].gameObject.SetActive(false);
         placeUnitUI[2].gameObject.SetActive(false);
         placeUnitUI[3].gameObject.SetActive(false);
+        castUnit.gameObject.SetActive(false);
 
         // 설정한 Color값
         canPlace = new Color(191 / 255f, 191 / 255f, 191 / 255f, 127 / 255f);
@@ -49,6 +55,10 @@ public class PlaceUnit : MonoBehaviour
 
     private void OnEnable()
     {
+        // 유닛 배치 UI를 맵 아래의 지정된 좌표로 이동
+        placeUnitUI[turretID].position = Vector3.right * 1.2f * turretID + Vector3.up * -100;
+        castUnit.position = Vector3.up * -100 + Vector3.left * 1.2f;
+
         // 라인 렌더러 컴포넌트 활성화
         lineRenderer.enabled = true;
 
@@ -57,8 +67,16 @@ public class PlaceUnit : MonoBehaviour
         SetUIEnable();
         // 유닛 배치 UI 활성화
         placeUnitUI[turretID].gameObject.SetActive(true);
+        castUnit.gameObject.SetActive(true);
 
         Debug.Log("켜졌나");
+    }
+
+    private void OnDisable()
+    {
+        // 유닛 배치 UI 비활성화
+        placeUnitUI[turretID].gameObject.SetActive(false);
+        castUnit.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -89,12 +107,6 @@ public class PlaceUnit : MonoBehaviour
                 SpawnUnit();
             }
 
-            // 유닛 배치 UI의 좌표 맵 아래로 이동
-            placeUnitUI[turretID].transform.position = Vector3.up * -100;
-
-            // 유닛 배치 UI 비활성화
-            placeUnitUI[turretID].gameObject.SetActive(false);
-
             // 배치가 끝났으니 모드 전환
             playerStatus.mode = Mode.ShotMode;
             playerStatus.ModeSwap();
@@ -114,14 +126,14 @@ public class PlaceUnit : MonoBehaviour
 
             // Ray가 부딪힌 지점에 유닛 배치 UI 표시
             placeUnitUI[turretID].position = hitInfo_.point;
+            castUnit.position = hitInfo_.point;
             // 유닛 배치 UI의 Head가 위로 향하도록 방향 설정
             placeUnitUI[turretID].up = hitInfo_.normal;
             // 유닛 배치 UI가 앞을 보도록 설정
             placeUnitUI[turretID].right = hitInfo_.transform.forward;
 
-
             // 영역 안의 Turret레이어 오브젝트들
-            Collider[] hitObjects_ = Physics.OverlapSphere(placeUnitUI[turretID].transform.position, 0.4f, 1 << LayerMask.NameToLayer("Turret"));
+            Collider[] hitObjects_ = Physics.OverlapSphere(placeUnitUI[turretID].position, 0.4f, 1 << LayerMask.NameToLayer("Turret"));
 
             // 영역 안에 탐지된 것이 존재
             if (hitObjects_.Length > 0)
@@ -141,9 +153,6 @@ public class PlaceUnit : MonoBehaviour
             // Ray 충돌이 발생하지 않으면 선이 Ray 방향으로 그려지도록 처리
             lineRenderer.SetPosition(0, ray_.origin);
             lineRenderer.SetPosition(1, ray_.origin + BSJVRInput.RHandDirection * 200f);
-
-            // 유닛 배치 UI를 맵 아래의 지정된 좌표로 이동
-            placeUnitUI[turretID].transform.position = Vector3.right * 1.2f * turretID + Vector3.up * -100;
         }
     }       // Update()
 
@@ -173,6 +182,13 @@ public class PlaceUnit : MonoBehaviour
         // 배치 불가능 상태로 설정
         isPlacable = false;
         placeMaterial.color = cantPlace;
+        // 렌더들 받아오기
+        MeshRenderer[] renders = castUnit.GetComponentsInChildren<MeshRenderer>();
+        // 렌더 하나하나의 마테리얼 교체
+        foreach (MeshRenderer render in renders)
+        {
+            render.material = cantCastMaterial;
+        }
     }
 
     //! 터렛 배치 UI를 가능상태로 변경하는 함수
@@ -181,5 +197,12 @@ public class PlaceUnit : MonoBehaviour
         // 배치 가능 상태로 설정
         isPlacable = true;
         placeMaterial.color = canPlace;
+        // 렌더들 받아오기
+        MeshRenderer[] renders = castUnit.GetComponentsInChildren<MeshRenderer>();
+        // 렌더 하나하나의 마테리얼 교체
+        foreach (MeshRenderer render in renders)
+        {
+            render.material = canCastMaterial;
+        }
     }
 }
