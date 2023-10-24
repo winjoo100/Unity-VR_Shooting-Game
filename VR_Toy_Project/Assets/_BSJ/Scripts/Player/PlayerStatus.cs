@@ -197,7 +197,14 @@ public class PlayerStatus : MonoBehaviour,IDamageable
 
     public void OnDamage(int damage)
     {
-        curHp -= damage;
+        if(curHp >= damage)
+        {
+            curHp -= damage;
+        }
+        else
+        {
+            curHp = 0;
+        }
     }
 
 }

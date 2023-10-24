@@ -46,6 +46,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
     {
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<SphereCollider>().enabled = false;
             ps = other.GetComponent<PlayerStatus>();
 
             ps.OnDamage(BossBombAttackPlayerAtt);

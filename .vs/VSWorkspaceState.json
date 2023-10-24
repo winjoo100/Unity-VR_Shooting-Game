@@ -5,8 +5,9 @@
     "\\VR_Toy_Project\\Assets",
     "\\VR_Toy_Project\\Assets\\_PJK",
     "\\VR_Toy_Project\\Assets\\_PJK\\Scripts",
-    "\\VR_Toy_Project\\Assets\\_PJK\\Scripts\\Boss"
+    "\\VR_Toy_Project\\Assets\\_PJK\\Scripts\\Boss",
+    "\\VR_Toy_Project\\Assets\\_PJK\\Scripts\\Boss\\BossAttack"
   ],
-  "SelectedNode": "\\VR_Toy_Project\\Assets\\_PJK\\Scripts\\Boss\\Boss.cs",
+  "SelectedNode": "\\VR_Toy_Project\\Assets\\_PJK\\Scripts\\Boss\\BossAttack\\BossBombAttackPlayer.cs",
   "PreviewInSolutionExplorer": false
 }
