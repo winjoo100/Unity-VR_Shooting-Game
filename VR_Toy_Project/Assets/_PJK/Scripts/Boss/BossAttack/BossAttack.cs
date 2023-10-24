@@ -12,12 +12,13 @@ public class BossAttack : MonoBehaviour
     private GameObject target = default;
     private Monsters m = default;
     private int skill = default;
+    //BSJ_231024
+    private Vector3 yOffset = new(0f, 2f, 0f);
 
     private void Awake()
     {
         m = GetComponent<Monsters>();
         boss = GetComponent<Boss>();
-
     }
 
     // Update is called once per frame
@@ -52,10 +53,17 @@ public class BossAttack : MonoBehaviour
         if (skill == 0)
         {
             int howmanyAttack = Random.Range(2, 6);
-            Debug.LogFormat("플레이어공격 몇개? {0}", howmanyAttack);
+
             for (int i = 0; i < howmanyAttack; i++)
             {
-                GameObject atktoplayer = Instantiate(playerAttack,new Vector3(boss.transform.position.x, boss.transform.position.y+2f, boss.transform.position.z),Quaternion.identity);
+                // 플레이어 공격 투사체 생성
+                GameObject atktoplayer = BossAttackObjectPool.instance.GetPoolObj(BossAttackPoolObjType.BossAttackPlayer);
+                atktoplayer.SetActive(true);
+                atktoplayer.transform.position = transform.position + yOffset;
+
+                //LEGACY : 오브젝트 풀에서 생성
+                //GameObject atktoplayer = Instantiate(playerAttack,new Vector3(boss.transform.position.x, boss.transform.position.y+2f, boss.transform.position.z),Quaternion.identity);
+
             }
 
         }
@@ -65,9 +73,13 @@ public class BossAttack : MonoBehaviour
             int howmanyAttack = Random.Range(1, 4);
             for (int i = 0; i < howmanyAttack; i++)
             {
+                // 몬스터 스폰 투사체 생성
+                GameObject spawnmon = BossAttackObjectPool.instance.GetPoolObj(BossAttackPoolObjType.BossAttackSpawnMon);
+                spawnmon.SetActive(true);
+                spawnmon.transform.position = transform.position + yOffset;
 
-                Debug.LogFormat("몬스터소환 몇개? {0}", howmanyAttack);
-                GameObject spawnmon = Instantiate(monsterAttack, new Vector3(boss.transform.position.x, boss.transform.position.y + 2f, boss.transform.position.z), Quaternion.identity);
+                //LEGACY : 오브젝트 풀에서 생성
+                //GameObject spawnmon = Instantiate(monsterAttack, new Vector3(boss.transform.position.x, boss.transform.position.y + 2f, boss.transform.position.z), Quaternion.identity);
             }
         }
 
@@ -76,8 +88,13 @@ public class BossAttack : MonoBehaviour
             int howmanyAttack = Random.Range(1, 4);
             for (int i = 0; i < howmanyAttack; i++)
             {
-                Debug.LogFormat("타워공격 몇개? {0}", howmanyAttack);
-                GameObject atktotower = Instantiate(TowerAttack, new Vector3(boss.transform.position.x, boss.transform.position.y + 2f, boss.transform.position.z), Quaternion.identity);
+                // 터렛 공격 투사체 생성
+                GameObject atktotower = BossAttackObjectPool.instance.GetPoolObj(BossAttackPoolObjType.BossAttackTurret);
+                atktotower.SetActive(true);
+                atktotower.transform.position = transform.position + yOffset;
+
+                //LEGACY : 오브젝트 풀에서 생성
+                //GameObject atktotower = Instantiate(TowerAttack, new Vector3(boss.transform.position.x, boss.transform.position.y + 2f, boss.transform.position.z), Quaternion.identity);
             }
         }
     }

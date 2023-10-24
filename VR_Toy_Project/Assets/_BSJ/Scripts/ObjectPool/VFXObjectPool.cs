@@ -5,8 +5,11 @@ using System.ComponentModel;
 using UnityEngine;
 
 // 이펙트의 타입을 구별하기 위한 Enum
-public enum VFXPoolObjType { Bullet01_HitVFX, Bullet02_HitVFX, Bullet03_HitVFX, Bullet04_HitVFX, Bullet05_HitVFX, 
-    Bullet06_HitVFX, Bullet07_HitVFX, Bullet08_HitVFX, MonsterDeathVFX }
+public enum VFXPoolObjType
+{
+    Bullet01_HitVFX, Bullet02_HitVFX, Bullet03_HitVFX, Bullet04_HitVFX, Bullet05_HitVFX,
+    Bullet06_HitVFX, Bullet07_HitVFX, Bullet08_HitVFX, MonsterDeathVFX, BossAttackdiedVFX, BossAttackPlayerVFX
+}
 
 // 외부 인스펙터창에서 클래스 정보에 접근할 수 있게 해주는 [Serializable]
 [Serializable]

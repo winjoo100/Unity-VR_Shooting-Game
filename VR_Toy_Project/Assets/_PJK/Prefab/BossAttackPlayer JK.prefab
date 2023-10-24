@@ -15,13 +15,13 @@ GameObject:
   - component: {fileID: 2809388281257856580}
   - component: {fileID: 2755826634908490477}
   - component: {fileID: -1955064942267831890}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: BossAttackPlayer JK
   m_TagString: BossAttackPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4699289894634410479
 Transform:
   m_ObjectHideFlags: 0

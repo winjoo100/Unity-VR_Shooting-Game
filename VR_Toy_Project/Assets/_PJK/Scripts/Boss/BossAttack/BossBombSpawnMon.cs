@@ -35,9 +35,11 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         bm = GameObject.Find("BossManager").GetComponent<BossManager>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        
+        // 체력 재 셋팅
+        bossBombSpawnMonHp = JsonData.Instance.bossSkillDatas.Boss_Skill[2].Hp;
+
         startx = bm.Startx;
         endx = bm.Endx;
         // HSJ_ 231023
@@ -60,13 +62,22 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         if (transform.position.y < 0)
         {
             spawnMons();
-            Destroy(gameObject);
+
+            // BSJ_오브젝트 풀로 반환
+            BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackSpawnMon);
+
+            // LEGACY : BSJ_오브젝트 풀로 반환하기 위해 변경
+            // Destroy(gameObject);
         }
 
         // 체력이 0이되면 비활성화
         if (bossBombSpawnMonHp <= 0)
         {
-            Destroy(gameObject);
+            // BSJ_오브젝트 풀로 반환
+            BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackSpawnMon);
+            
+            // LEGACY : BSJ_오브젝트 풀로 반환하기 위해 변경
+            // Destroy(gameObject);
         }
 
 
@@ -83,7 +94,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(1.5f);
         rb.velocity = Vector3.zero;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
         rb.useGravity = true;
         // 포물선 운동
         velocity = GetVelocity(transform.position, RandomTarget, initialAngle);
@@ -126,7 +137,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         float randomx = Random.Range(targetx - 5, targetx + 5);
         float randomz = Random.Range(targetz - 5, targetz + 5);
 
-        // 오브젝트 풀에서 Monster_Lv1 생성
+        // BSJ_오브젝트 풀에서 Monster_Lv1 생성
         GameObject Mon1 = MonsterObjectPool.instance.GetPoolObj(MonsterPoolObjType.Monster_Lv1);
         Mon1.SetActive(true);
         Mon1.transform.position = new Vector3(randomx, 0, randomz);
@@ -140,7 +151,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         float randomx = Random.Range(targetx - 5, targetx + 5);
         float randomz = Random.Range(targetz - 5, targetz + 5);
 
-        // 오브젝트 풀에서 Monster_Lv2 생성
+        // BSJ_오브젝트 풀에서 Monster_Lv2 생성
         GameObject Mon2 = MonsterObjectPool.instance.GetPoolObj(MonsterPoolObjType.Monster_Lv2);
         Mon2.SetActive(true);
         Mon2.transform.position = new Vector3(randomx, 0, randomz);
@@ -153,7 +164,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         float randomx = Random.Range(targetx - 5, targetx + 5);
         float randomz = Random.Range(targetz - 5, targetz + 5);
 
-        // 오브젝트 풀에서 Monster_Lv3 생성
+        // BSJ_오브젝트 풀에서 Monster_Lv3 생성
         GameObject Mon3 = MonsterObjectPool.instance.GetPoolObj(MonsterPoolObjType.Monster_Lv3);
         Mon3.SetActive(true);
         Mon3.transform.position = new Vector3(randomx, 0, randomz);

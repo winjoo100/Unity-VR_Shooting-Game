@@ -15,9 +15,16 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
     public GameObject diedPrefab = default;
     public GameObject attakPrefab = default;
 
+    // HSJ_ 231024
+    private SphereCollider sphereCollider = default;
+    //BSJ_
+    private Vector3 yOffset = new(0f, 2f, 0f);
+
     private void Awake()
     {
         bm = GameObject.Find("BossManager").GetComponent<BossManager>();
+        // HSJ_
+        sphereCollider = GetComponent<SphereCollider>();
 
         // 체력 셋팅
         BossBombAttackPlayerHp = JsonData.Instance.bossSkillDatas.Boss_Skill[0].Hp;
@@ -26,8 +33,11 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
         target = GameObject.Find("Player");
     }
 
-    private void Start()
+    // BSJ_ 오브젝트 풀에서 호출되서 활성화 되면 코루틴 시작
+    private void OnEnable()
     {
+        // 체력 재 셋팅
+        BossBombAttackPlayerHp = JsonData.Instance.bossSkillDatas.Boss_Skill[0].Hp;
         StartCoroutine(Firsttime());
     }
 
@@ -36,23 +46,36 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
         // 체력이 0이되면 비활성화
         if (BossBombAttackPlayerHp <= 0)
         {
-            Destroy(gameObject);
+            // BSJ_오브젝트 풀로 반환
+            BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackPlayer);
+
+            //LEGACY : 오브젝트 풀로 반환
+            //Destroy(gameObject);
         }
-
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<SphereCollider>().enabled = false;
+            sphereCollider.enabled = false;
+
             ps = other.GetComponent<PlayerStatus>();
 
             ps.OnDamage(BossBombAttackPlayerAtt);
-            Destroy(gameObject);
-            GameObject AttackMotion = Instantiate(attakPrefab,new Vector3(transform.position.x, transform.position.y-2f, transform.position.z), Quaternion.identity);
 
+            //LEGACY:오브젝트 풀에서 생성하기 위해 변경
+            //GameObject AttackMotion = Instantiate(attakPrefab, new Vector3(transform.position.x, transform.position.y-2f, transform.position.z), Quaternion.identity);
+
+            // 플레이어 공격 이펙트 오브젝트 풀에서 생성
+            GameObject AttackMotion = VFXObjectPool.instance.GetPoolObj(VFXPoolObjType.BossAttackPlayerVFX);
+            AttackMotion.SetActive(true);
+            AttackMotion.transform.position = other.transform.position;
+
+            // BSJ_오브젝트 풀로 반환
+            BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackPlayer);
+            // HSJ
+            sphereCollider.enabled = true;
         }
     }
     public void OnDamage(int damage)
@@ -62,20 +85,19 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
         if (BossBombAttackPlayerHp <= 0)
         {
-            
-                Destroy(gameObject);
-                GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
-            
+            // 파괴 이펙트 오브젝트 풀에서 생성
+            GameObject DieMotion = VFXObjectPool.instance.GetPoolObj(VFXPoolObjType.BossAttackdiedVFX);
+            DieMotion.SetActive(true);
+            DieMotion.transform.position = transform.position;
+
+            // BSJ_오브젝트 풀로 반환
+            BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackPlayer);
+
+            //LEGACY : 오브젝트 풀로 반환
+            //GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
+            //Destroy(gameObject);
         }
-
     }
-
-    IEnumerator DieMotion()
-    {
-        yield return null;    
-    }
-
-
 
     IEnumerator Firsttime()
     {
@@ -87,7 +109,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(1.5f);
         rb.velocity = Vector3.zero;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
 
         rb.useGravity = true;
         //포물선 운동
@@ -97,7 +119,6 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
 
     }
-
 
     public Vector3 GetVelocity(Vector3 startPos, Vector3 target, float initialAngle)
     {
@@ -129,9 +150,4 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
         return finalVelocity;
     }
-
-
-
-
-
 }
