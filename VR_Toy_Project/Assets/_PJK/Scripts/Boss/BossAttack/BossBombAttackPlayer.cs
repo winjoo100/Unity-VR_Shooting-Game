@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text;
 using UnityEngine;
 public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 {
@@ -14,6 +15,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
     private PlayerStatus ps = default;
     public GameObject diedPrefab = default;
     public GameObject attakPrefab = default;
+    public GameObject effect = default;
 
     // HSJ_ 231024
     private SphereCollider sphereCollider = default;
@@ -107,10 +109,14 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
         rb.velocity = velocity;
 
         yield return new WaitForSeconds(1.5f);
+
         rb.velocity = Vector3.zero;
+        GameObject attackeffect = Instantiate(effect, transform.position, Quaternion.identity);
 
         yield return new WaitForSeconds(3f);
 
+        yield return new WaitForSeconds(3f);
+        Destroy(attackeffect);
         rb.useGravity = true;
         //포물선 운동
         velocity = GetVelocity(transform.position, target.transform.position, initialAngle);
