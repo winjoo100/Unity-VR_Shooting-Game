@@ -28,7 +28,7 @@ public class BossAttack : MonoBehaviour
 
         
 
-        if (bm.skillCoolTime > 3f)
+        if (bm.skillCoolTime > 20f)
         {
             attack();
             bm.skillCoolTime = 0;

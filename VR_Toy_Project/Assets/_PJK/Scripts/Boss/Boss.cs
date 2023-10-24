@@ -134,12 +134,12 @@ public class Boss : MonoBehaviour, IDamageable
 
     IEnumerator Dead()
     {
-        while (transform.localScale.x > 0 || transform.localScale.y > 0 || transform.localScale.z > 0)
+        while (transform.localScale.x > 0.1f || transform.localScale.y > 0.1f || transform.localScale.z > 0.1f)
         {
-            Debug.Log(transform.localScale);
-            transform.localScale -= new Vector3(0.02f, 0.02f, 0.02f);
+            transform.localScale -= new Vector3(0.2f, 0.2f, 0.2f);
             yield return new WaitForSeconds(0.01f);
         }
+        yield return new WaitForSeconds(9.5f);
         GameManager.Instance.WinGame();
 
     }
