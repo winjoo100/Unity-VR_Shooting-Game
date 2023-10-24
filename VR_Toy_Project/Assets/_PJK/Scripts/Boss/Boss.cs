@@ -127,8 +127,6 @@ public class Boss : MonoBehaviour, IDamageable
             {
 
                 Destroy(gameObject);
-                // TEST : HSJ_ 231024
-                GameManager.Instance.WinGame();
             }
 
         }
@@ -142,6 +140,8 @@ public class Boss : MonoBehaviour, IDamageable
             transform.localScale -= new Vector3(0.02f, 0.02f, 0.02f);
             yield return new WaitForSeconds(0.01f);
         }
+        GameManager.Instance.WinGame();
+
     }
 
     // ! 보스 체력 퍼센트를 계산하여 돈을 얻는 함수
