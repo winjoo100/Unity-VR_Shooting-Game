@@ -100,7 +100,7 @@ public class PlaceUnit : MonoBehaviour
             playerStatus.ModeSwap();
         }
 
-        // 왼쪽 컨트롤러를 기준으로 Ray를 만든다
+        // 오른쪽 컨트롤러를 기준으로 Ray를 만든다
         Ray ray_ = new Ray(BSJVRInput.RHandPosition, BSJVRInput.RHandDirection);
         RaycastHit hitInfo_ = default;
         int layer_ = 1 << LayerMask.NameToLayer("Terrain");

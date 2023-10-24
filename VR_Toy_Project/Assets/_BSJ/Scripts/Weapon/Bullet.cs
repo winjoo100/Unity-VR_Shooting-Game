@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -41,7 +39,7 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet01_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[0].Bullet_Speed / 5;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[0].Bullet_Speed;
             bulletDamage = JsonData.Instance.bulletDatas.Bullet[0].Att;
             criticalPercent = JsonData.Instance.bulletDatas.Bullet[0].Cri_Chance;
             criticalDamage = JsonData.Instance.bulletDatas.Bullet[0].Cri_Damege;
@@ -50,7 +48,7 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet02_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[1].Bullet_Speed / 5;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[1].Bullet_Speed;
             bulletDamage = JsonData.Instance.bulletDatas.Bullet[1].Att;
             criticalPercent = JsonData.Instance.bulletDatas.Bullet[1].Cri_Chance;
             criticalDamage = JsonData.Instance.bulletDatas.Bullet[1].Cri_Damege;
@@ -59,7 +57,7 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet03_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[2].Bullet_Speed / 5;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[2].Bullet_Speed;
             bulletDamage = JsonData.Instance.bulletDatas.Bullet[2].Att;
             criticalPercent = JsonData.Instance.bulletDatas.Bullet[2].Cri_Chance;
             criticalDamage = JsonData.Instance.bulletDatas.Bullet[2].Cri_Damege;
@@ -68,7 +66,7 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet04_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[3].Bullet_Speed / 5;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[3].Bullet_Speed;
             bulletDamage = JsonData.Instance.bulletDatas.Bullet[3].Att;
             criticalPercent = JsonData.Instance.bulletDatas.Bullet[3].Cri_Chance;
             criticalDamage = JsonData.Instance.bulletDatas.Bullet[3].Cri_Damege;
@@ -77,7 +75,7 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet05_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[4].Bullet_Speed / 5;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[4].Bullet_Speed;
             bulletDamage = JsonData.Instance.bulletDatas.Bullet[4].Att;
             criticalPercent = JsonData.Instance.bulletDatas.Bullet[4].Cri_Chance;
             criticalDamage = JsonData.Instance.bulletDatas.Bullet[4].Cri_Damege;
@@ -117,7 +115,7 @@ public class Bullet : MonoBehaviour
         // 치명타 확률 계산하여 치명타 데미지 계산
         float _critCheck = Random.Range(0.0f, 1.0f);
 
-        if(_critCheck < criticalPercent) 
+        if (_critCheck < criticalPercent)
         {
             finalDamage = (int)(bulletDamage * criticalDamage);
         }
@@ -130,7 +128,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         // 총알이 계속 앞으로 날아감.
-        transform.Translate(Vector3.forward * (bulletSpeed / 5f) * Time.deltaTime);
+        transform.Translate(Vector3.forward * (bulletSpeed) * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -155,10 +153,39 @@ public class Bullet : MonoBehaviour
 
             //    other.GetComponent<WeakPoint>().OnDamage(finalDamage);
             //}
-            if (other.CompareTag("WeakPoint"))
+            Debug.Log(other.tag);
+            if (other.CompareTag("BigWeakPoint"))
             {
-                finalDamage = (int)(bulletDamage * criticalDamage);
+                
+                Debug.Log("공격하였나?");
+                bool isLive = other.GetComponent<WeakPointBig>().isLive;
+                if (isLive == true)
+                {
+
+                    finalDamage = (int)(bulletDamage * criticalDamage * 1.3f);
+                }
+                else
+                {
+                    finalDamage = (int)(bulletDamage * criticalDamage);
+                }
+                Debug.Log("공격하였나?");
                 other.GetComponent<WeakPointBig>().OnDamage(finalDamage);
+            }
+
+            else if (other.CompareTag("WeakPoint"))
+            {
+                bool isLive = other.GetComponent<WeakPointSmall>().isLive;
+                if (isLive == true)
+                {
+
+                    finalDamage = (int)(bulletDamage * criticalDamage * 2f);
+                }
+                else
+                {
+                    finalDamage = (int)(bulletDamage * criticalDamage);
+                }
+
+                other.GetComponent<WeakPointSmall>().OnDamage(finalDamage);
             }
             else if (other.CompareTag("Monster"))
             {
@@ -178,7 +205,9 @@ public class Bullet : MonoBehaviour
             }
             else if (other.CompareTag("Boss"))
             {
-                other.GetComponent<Boss>().OnDamage(finalDamage);
+                Debug.Log(other.name + " " + other.attachedRigidbody.gameObject
+                    .name);
+                other.attachedRigidbody.GetComponent<Boss>().OnDamage(finalDamage);
             }
             // } 실제 데미지를 입히는 로직
 
@@ -187,7 +216,7 @@ public class Bullet : MonoBehaviour
 
             // 총알 데미지 텍스트 변경
             damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", finalDamage);
-            
+
             damageText.SetActive(true);
             damageText.transform.position = new Vector3(transform.position.x + Random.Range(-0.25f, 0.25f), transform.position.y + Random.Range(-0.25f, 0.25f), transform.position.z - 1f);
             // } 타격 데미지 텍스트 콜
