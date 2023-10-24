@@ -204,6 +204,8 @@ public class PlayerStatus : MonoBehaviour,IDamageable
         else
         {
             curHp = 0;
+            // TEST : HSJ_ 231024
+            GameManager.Instance.LoseGame();
         }
     }
 

@@ -1,15 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Android.Gradle;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     #region Variables
-    private GameObject HUDCanvas = default;
+    private GameObject hudCanvas = default;
     private GameObject StartCanvas = default;
     private GameObject startBtn = default; 
     private GameObject quitBtn = default;
+    private GameObject reStartBtn = default;
+    private GameObject gameOverTxt = default;
+    private GameObject resultTimeTxt = default;
+    private GameObject logoImg = default;
+    private GameObject StartBtnTxt = default;
 
     private Slider slider = default;
     private GameObject timerTxt = default;
@@ -45,18 +49,25 @@ public class UIManager : MonoBehaviour
         // } 컴퍼넌트 
         
         // { HUD Canvas 
-        HUDCanvas = GFunc.GetRootObj("PlayerHUDCanvas");
+        hudCanvas = GFunc.GetRootObj("PlayerHUDCanvas");
         StartCanvas = GFunc.GetRootObj("GameStartCanvas");        
-        timerTxt = HUDCanvas.GetChildObj("TimerTxt");
-        slider = HUDCanvas.GetChildObj("BossHPSlider").GetComponent<Slider>();
-        goldTxt = HUDCanvas.GetChildObj("GoldTxt");
-        hpTxt = HUDCanvas.GetChildObj("UI_PlayerHP");
+        timerTxt = hudCanvas.GetChildObj("TimerTxt");
+        slider = hudCanvas.GetChildObj("BossHPSlider").GetComponent<Slider>();
+        goldTxt = hudCanvas.GetChildObj("GoldTxt");
+        hpTxt = hudCanvas.GetChildObj("UI_PlayerHP");
         // } HUD Canvas 
 
         // { Start Canvas
         startBtn = StartCanvas.GetChildObj("StartButton");
         quitBtn = StartCanvas.GetChildObj("QuitButton");
+        reStartBtn = StartCanvas.GetChildObj("ReStartButton");
+        gameOverTxt = StartCanvas.GetChildObj("GameOver");
+        resultTimeTxt = StartCanvas.GetChildObj("TimeTxt");
+        logoImg = StartCanvas.GetChildObj("LogoImg");
+        StartBtnTxt = StartCanvas.GetChildObj("Text (TMP)");
+        StartBtnTxt.SetTmpText("게임 시작");
 
+        reStartBtn.GetComponent<Button>().onClick.AddListener(OnReStartButton);
         startBtn.GetComponent<Button>().onClick.AddListener(OnStartButton);
         quitBtn.GetComponent<Button>().onClick.AddListener(OnQuitButtion);
         // } Start Canvas
@@ -77,7 +88,6 @@ public class UIManager : MonoBehaviour
         timerTxt.SetTmpText(timeFormat);
         goldTxt.SetTmpText(gold_.ToString());
 
-        // TODO : 추후 플레이어 체력 스탯이 추가되면 업데이트 
         hpFormat = string.Format("HP " + "{0} / {1}", playerStat.curHp.ToString("D3"), playerStat.maxHp.ToString("D3"));
         hpTxt.SetTmpText(hpFormat);
         // } HUD Text 변경
@@ -86,12 +96,39 @@ public class UIManager : MonoBehaviour
 
     }   // UpdateHUD()
 
+    public void ChangeUI_GameOver()
+    {
+        gameOverTxt.SetActive(true);
+        reStartBtn.SetActive(true);
+
+        startBtn.SetActive(false);
+        logoImg.SetActive(false);
+        resultTimeTxt.SetActive(false);
+    }
+
+    public void ChangeUI_GameWin()
+    {
+        resultTimeTxt.SetTmpText(timeFormat);        
+        resultTimeTxt.SetActive(true);
+        reStartBtn.SetActive(true);
+
+        startBtn.SetActive(false);
+        logoImg.SetActive(false);
+        gameOverTxt.SetActive(false);
+    }
+
     // ! 게임 시작 버튼 클릭시 동작
     public void OnStartButton()
     {
         bool isStart_ = GameManager.Instance.GameStart();       
         StartCanvas.SetActive(!isStart_);
     }       // OnStartButton()
+
+    // ! 게임 재시작 버튼 클릭시 동작
+    public void OnReStartButton()
+    {
+        GameManager.Instance.ReStart();
+    }
 
     // ! 게임 종료 버튼 클릭시 동작
     public void OnQuitButtion()

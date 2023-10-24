@@ -21,7 +21,6 @@ public interface IDamageable
     //        // TODO : Die() 관련 함수 실행
     //    }
 
-
     //}
 
 }
