@@ -100,19 +100,19 @@ public class GameManager : MonoBehaviour
         turretLv4_List = new List<Transform>();
         // } JSH 리스트 할당
 
-        // 초기 골드 
-        Gold = 500;
+        // 초기 골드 //BSJ_ 골드 추가하였음.
+        Gold = 50000;
     }       // Init()
 
     // ! 글로벌로 사용할 타이머, 시간에 따른 골드 수급
     private void Timer()
-    {        
-        if(CurTime >= EndTime)
+    {
+        if (CurTime >= EndTime)
         {
             isEnd = true;
             isStart = false;
         }
-            
+
         CurTime += Time.deltaTime;
         GetGold_Time();
     }       // Timer()
