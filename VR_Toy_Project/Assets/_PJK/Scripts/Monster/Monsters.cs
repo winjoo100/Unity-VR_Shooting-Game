@@ -301,6 +301,9 @@ public class Monsters : MonoBehaviour, IDamageable
             deathBomb.transform.position = transform.position;
             deathBomb.GetComponent<MonsterDeathBomb>()._Damage = bombdmg * 100f;    // 100f는 테스트 용 데미지 업 _BSJ
 
+            // 색상 원래대로 변경
+            meshRender.material.color = Color.white;
+
             // 몬스터 사망
             MonsterObjectPool.instance.CoolObj(gameObject, monsterType);
 
