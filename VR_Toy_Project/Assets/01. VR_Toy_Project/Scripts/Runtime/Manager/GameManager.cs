@@ -106,13 +106,13 @@ public class GameManager : MonoBehaviour
 
     // ! 글로벌로 사용할 타이머, 시간에 따른 골드 수급
     private void Timer()
-    {        
-        if(CurTime >= EndTime)
+    {
+        if (CurTime >= EndTime)
         {
             isEnd = true;
             isStart = false;
         }
-            
+
         CurTime += Time.deltaTime;
         GetGold_Time();
     }       // Timer()

@@ -142,71 +142,71 @@ public class Bullet : MonoBehaviour
             // LEGACY : 
             //hitVFX.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
             hitVFX.transform.position = other.ClosestPointOnBounds(this.transform.position - new Vector3(0f, 0f, 5f));
-
-            // { 실제 데미지를 입히는 로직
-            // 큰 약점
-            //if (other.CompareTag("BigWeakPoint"))
-            //{
-            //    finalDamage = ((int)(bulletDamage * criticalDamage) * 2);
-
-            //    // TODO: 약점에 접근해서 isLive가 true인지 false인지 확인해서 데미지를 다르게 표시한다.
-
-            //    other.GetComponent<WeakPoint>().OnDamage(finalDamage);
-            //}
-            Debug.Log(other.tag);
-            if (other.CompareTag("BigWeakPoint"))
+            
+            // JSH: Bullet08일 때만 스플래시 실행
+            if (bulletType == PoolObjType.Bullet08)
             {
+                Splash();
+            }
+            // 나머지는 부딪힌 것에만 데미지
+            else
+            {
+                if (other.CompareTag("BigWeakPoint"))
+                {
+                    bool isLive = other.GetComponent<WeakPointBig>().isLive;
+                    if (isLive == true)
+                    {
+
+                        finalDamage = (int)(bulletDamage * criticalDamage * 1.3f);
+                    }
+                    else
+                    {
+                        finalDamage = (int)(bulletDamage * criticalDamage);
+                    }
+                    Debug.Log("공격하였나?");
+                    other.GetComponent<WeakPointBig>().OnDamage(finalDamage);
+                }
                 
-                Debug.Log("공격하였나?");
-                bool isLive = other.GetComponent<WeakPointBig>().isLive;
-                if (isLive == true)
+                else if (other.CompareTag("WeakPoint"))
                 {
+                    bool isLive = other.GetComponent<WeakPointSmall>().isLive;
+                    if (isLive == true)
+                    {
+                        finalDamage = (int)(bulletDamage * criticalDamage * 2f);
+                    }
+                    else
+                    {
+                        finalDamage = (int)(bulletDamage * criticalDamage);
+                    }
 
-                    finalDamage = (int)(bulletDamage * criticalDamage * 1.3f);
+                    other.GetComponent<WeakPointSmall>().OnDamage(finalDamage);
                 }
-                else
+                
+                else if (other.CompareTag("Monster"))
                 {
-                    finalDamage = (int)(bulletDamage * criticalDamage);
+                    other.GetComponent<Monsters>().OnDamage(finalDamage);
                 }
-                Debug.Log("공격하였나?");
-                other.GetComponent<WeakPointBig>().OnDamage(finalDamage);
-            }
-
-            else if (other.CompareTag("WeakPoint"))
-            {
-                bool isLive = other.GetComponent<WeakPointSmall>().isLive;
-                if (isLive == true)
+                
+                else if (other.CompareTag("BossAttackPlayer"))
                 {
-
-                    finalDamage = (int)(bulletDamage * criticalDamage * 2f);
+                    other.GetComponent<BossBombAttackPlayer>().OnDamage(finalDamage);
                 }
-                else
+                
+               else if (other.CompareTag("BossAttackTurret"))
                 {
-                    finalDamage = (int)(bulletDamage * criticalDamage);
+                    other.GetComponent<BossBombAttackTurret>().OnDamage(finalDamage);
                 }
-
-                other.GetComponent<WeakPointSmall>().OnDamage(finalDamage);
-            }
-            else if (other.CompareTag("Monster"))
-            {
-                other.GetComponent<Monsters>().OnDamage(finalDamage);
-            }
-            else if (other.CompareTag("BossAttackPlayer"))
-            {
-                other.GetComponent<BossBombAttackPlayer>().OnDamage(finalDamage);
-            }
-            else if (other.CompareTag("BossAttackTurret"))
-            {
-                other.GetComponent<BossBombAttackTurret>().OnDamage(finalDamage);
-            }
-            else if (other.CompareTag("BossAttackSpawnMon"))
-            {
-                other.GetComponent<BossBombSpawnMon>().OnDamage(finalDamage);
-            }
-            else if (other.CompareTag("Boss"))
-            {
-                Debug.Log(other.name + " " + other.attachedRigidbody.gameObject
-                    .name);
+                
+                else if (other.CompareTag("BossAttackSpawnMon"))
+                {
+                    other.GetComponent<BossBombSpawnMon>().OnDamage(finalDamage);
+                }
+                
+                else if (other.CompareTag("Boss"))
+                {
+                    other.GetComponent<Boss>().OnDamage(finalDamage);
+                }
+                
                 other.attachedRigidbody.GetComponent<Boss>().OnDamage(finalDamage);
             }
             // } 실제 데미지를 입히는 로직
@@ -251,5 +251,18 @@ public class Bullet : MonoBehaviour
 
         // 다른 곳에 맞으면,
         else { /*Do Nothing*/ }
+    }       // OnTriggerEnter()
+
+    //! 졸개에게 부딪힌 후 사용할 스플래시 공격 기능
+    private void Splash()
+    {
+        // 몬스터 레이어에 속한 오브젝트만 
+        Collider[] hitObjects_ = Physics.OverlapSphere(transform.position, 0.4f, 1 << LayerMask.NameToLayer("Monster"));
+
+        // 검출된 모든 오브젝트에 실행
+        foreach (Collider target_ in hitObjects_)
+        {
+            target_.GetComponent<Monsters>().OnDamage(finalDamage);
+        }
     }
 }

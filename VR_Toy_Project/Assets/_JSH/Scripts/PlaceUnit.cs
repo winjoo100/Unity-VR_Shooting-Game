@@ -29,12 +29,12 @@ public class PlaceUnit : MonoBehaviour
         // 시작할 때 비활성화
         placeUnitUI[0].gameObject.SetActive(false);
         placeUnitUI[1].gameObject.SetActive(false);
-        //placeUnitUI[2].gameObject.SetActive(false);
-        //placeUnitUI[3].gameObject.SetActive(false);
+        placeUnitUI[2].gameObject.SetActive(false);
+        placeUnitUI[3].gameObject.SetActive(false);
 
-        // Material Color값 가져오기
-        canPlace = placeMaterial.color;
-        // 설정된 Color값 넣기
+        // 설정한 Color값
+        canPlace = new Color(127, 127, 127, 127);
+        // 설정한 Color값
         cantPlace = new Color(255, canPlace.g, canPlace.b, canPlace.a);
 
         // 라인 렌더러 컴포넌트 얻어오기
@@ -142,8 +142,8 @@ public class PlaceUnit : MonoBehaviour
             lineRenderer.SetPosition(0, ray_.origin);
             lineRenderer.SetPosition(1, ray_.origin + BSJVRInput.RHandDirection * 200f);
 
-            // 유닛 배치 UI의 좌표 맵 아래로 이동
-            placeUnitUI[turretID].transform.position = Vector3.up * -100;
+            // 유닛 배치 UI를 맵 아래의 지정된 좌표로 이동
+            placeUnitUI[turretID].transform.position = Vector3.right * 1.2f * turretID + Vector3.up * -100;
         }
     }       // Update()
 
