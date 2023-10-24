@@ -68,18 +68,30 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
         }
     }
 
-
-    private void Start()
+    private void OnEnable()
     {
+        // 초기 체력 재셋팅
+        BossBombAttackHp = JsonData.Instance.bossSkillDatas.Boss_Skill[1].Hp;
+
         StartCoroutine(Firsttime());
     }
+
+    //LEGACY: 오브젝트 풀에서 생성되기 떄문에 OnEnable로 변경함
+    //private void Start()
+    //{
+    //    StartCoroutine(Firsttime());
+    //}
 
     private void Update()
     {
         // 체력이 0이되면 비활성화
         if (BossBombAttackHp <= 0 )
         {
-            gameObject.SetActive(false);
+            // 오브젝트 풀로 반환
+            BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackTurret);
+
+            //LEGACY : BSJ_오브젝트 풀로 반환하기 위해 변경
+            //gameObject.SetActive(false);
         }
     }
 
