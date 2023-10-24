@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet01_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[0].Bullet_Speed / 5;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[0].Bullet_Speed;
             bulletDamage = JsonData.Instance.bulletDatas.Bullet[0].Att;
             criticalPercent = JsonData.Instance.bulletDatas.Bullet[0].Cri_Chance;
             criticalDamage = JsonData.Instance.bulletDatas.Bullet[0].Cri_Damege;
@@ -48,7 +48,7 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet02_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[1].Bullet_Speed / 5;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[1].Bullet_Speed;
             bulletDamage = JsonData.Instance.bulletDatas.Bullet[1].Att;
             criticalPercent = JsonData.Instance.bulletDatas.Bullet[1].Cri_Chance;
             criticalDamage = JsonData.Instance.bulletDatas.Bullet[1].Cri_Damege;
@@ -57,7 +57,7 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet03_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[2].Bullet_Speed / 5;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[2].Bullet_Speed;
             bulletDamage = JsonData.Instance.bulletDatas.Bullet[2].Att;
             criticalPercent = JsonData.Instance.bulletDatas.Bullet[2].Cri_Chance;
             criticalDamage = JsonData.Instance.bulletDatas.Bullet[2].Cri_Damege;
@@ -66,7 +66,7 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet04_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[3].Bullet_Speed / 5;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[3].Bullet_Speed;
             bulletDamage = JsonData.Instance.bulletDatas.Bullet[3].Att;
             criticalPercent = JsonData.Instance.bulletDatas.Bullet[3].Cri_Chance;
             criticalDamage = JsonData.Instance.bulletDatas.Bullet[3].Cri_Damege;
@@ -75,7 +75,7 @@ public class Bullet : MonoBehaviour
         {
             vfxType = VFXPoolObjType.Bullet05_HitVFX;
             textType = TextPoolObjType.DamageText01;
-            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[4].Bullet_Speed / 5;
+            bulletSpeed = JsonData.Instance.bulletDatas.Bullet[4].Bullet_Speed;
             bulletDamage = JsonData.Instance.bulletDatas.Bullet[4].Att;
             criticalPercent = JsonData.Instance.bulletDatas.Bullet[4].Cri_Chance;
             criticalDamage = JsonData.Instance.bulletDatas.Bullet[4].Cri_Damege;
