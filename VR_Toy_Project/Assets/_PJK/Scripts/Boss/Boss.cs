@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Boss : MonoBehaviour, IDamageable
@@ -128,6 +127,8 @@ public class Boss : MonoBehaviour, IDamageable
             {
 
                 Destroy(gameObject);
+                // TEST : HSJ_ 231024
+                GameManager.Instance.WinGame();
             }
 
         }

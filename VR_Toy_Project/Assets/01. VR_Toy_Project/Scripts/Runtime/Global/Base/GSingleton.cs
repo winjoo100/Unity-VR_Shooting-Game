@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class GSingleton<T> : GComponent where T : GSingleton<T>
 {

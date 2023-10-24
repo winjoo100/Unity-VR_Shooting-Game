@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -61,7 +59,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        // TEST : 게임 시작 UI클릭 전 까지 멈춤
+        Time.timeScale = 0f;
     }
 
     // Update is called once per frame
@@ -143,17 +142,29 @@ public class GameManager : MonoBehaviour
     public bool GameStart()
     {
         isStart = true;
+        // TEST : 231024
+        Time.timeScale = 1f;
         return isStart;
     }       // GameStart()
 
+    public void WinGame()
+    {
+        uiManager.ChangeUI_GameWin();
+    }
+
+    public void LoseGame()
+    {
+        uiManager.ChangeUI_GameOver();
+    }
 
     public void ReStart()
     {
+        // LEGACY : 
+        //Init();
 
-        Init();
-        isStart = true;
-        // TODO : 게임 재시작 기능 구현을 생각해봐야함
-        // 씬을 재로드 할 것인지, 원상복구 시키는 함수를 짤 것인지 전자가 더 쉬울 것 같다.
+        // HSJ_ 로드 할 씬
+        SceneManager.LoadScene(0);
+        
     }       // ReStart()
 
     public void GameQuit()

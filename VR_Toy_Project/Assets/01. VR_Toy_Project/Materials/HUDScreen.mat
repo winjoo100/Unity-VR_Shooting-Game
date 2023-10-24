@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HUDScreen
-  m_Shader: {fileID: 10760, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 3f032750a244319498ff63757c66cf04, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -111,7 +111,7 @@ Material:
     - _Usedepth: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.050477777, b: 0, a: 1}
+    - _Color: {r: 1, g: 0, b: 0.06537819, a: 1}
     - _DistortionSpeedXYPowerZ: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _RemapXYFresnelZW: {r: -10, g: 10, b: 2, a: 2}
