@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.TextCore.Text;
 using System.Threading;
+using TMPro;
 
 public class Monsters : MonoBehaviour, IDamageable
 {
@@ -249,6 +250,13 @@ public class Monsters : MonoBehaviour, IDamageable
         rb.velocity = Vector3.zero;
         anim.SetBool("isAttackturret", true);
         turretUnit.DamageSelf(damage);
+
+        //BSJ_ 텍스트 콜
+        GameObject damageText = TextObjectPool.instance.GetPoolObj(TextPoolObjType.DamageText02);
+        damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", damage);
+        damageText.SetActive(true);
+        damageText.transform.position = turretUnit.transform.position;
+
         // 멈춤
     }
 

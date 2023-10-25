@@ -14,8 +14,10 @@ public class MonsterDeathBomb : MonoBehaviour
         // 플레이어
         if(other.CompareTag("Player"))
         {
+            // 데미지 처리
             other.GetComponent<PlayerStatus>().OnDamage((int)_Damage / 100);    // 100은 테스트용 데미지를 원래대로 되돌리기 할 것임.
         }
+
         // 터렛
         if(other.CompareTag("Turret"))
         {
@@ -23,7 +25,7 @@ public class MonsterDeathBomb : MonoBehaviour
             other.GetComponent<TurretUnit>().DamageSelf((int)_Damage / 100);    // 100은 테스트용 데미지를 원래대로 되돌리기 할 것임.
 
             // 텍스트 콜
-            TextCall((int)_Damage, other.transform);
+            TextCall((int)_Damage / 100, other.transform);
         }
 
         // 몬스터
@@ -31,9 +33,6 @@ public class MonsterDeathBomb : MonoBehaviour
         {
             // 데미지 처리
             other.GetComponent<Monsters>().OnDamage((int)_Damage);
-
-            // 텍스트 콜
-            TextCall((int)_Damage, other.transform);
         }
         // } 폭발 데미지 처리
     }
