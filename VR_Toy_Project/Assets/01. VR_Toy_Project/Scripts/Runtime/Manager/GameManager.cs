@@ -62,6 +62,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //BSJ_ 메인 BGM 시작
+        SoundManager.instance.PlayBGM("MainBGM");
 
         Time.timeScale = 0f;
     }

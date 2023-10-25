@@ -60,6 +60,9 @@ public class Shot_BSJ : MonoBehaviour
         // 사용자가 IndexTrigger 버튼을 누르면
         if (BSJVRInput.Get(BSJVRInput.Button.IndexTrigger) && isAttack == true)
         {
+            // 사운드 출력
+            SoundManager.instance.PlaySE("GunShot");
+
             // 컨트롤러의 진동 재생
             BSJVRInput.PlayVibration(0.2f, 1f, handAmplitude, BSJVRInput.Controller.RTouch);
 
