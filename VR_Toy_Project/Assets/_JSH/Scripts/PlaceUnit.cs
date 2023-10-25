@@ -69,7 +69,48 @@ public class PlaceUnit : MonoBehaviour
         placeUnitUI[turretID].gameObject.SetActive(true);
         castUnit.gameObject.SetActive(true);
 
-        Debug.Log("켜졌나");
+        // 두번째 배치 조건: 현재 배치 개수가 최대 배치 가능 개수를 넘지 않을 것
+        // 리스트에 저장된 터렛 개수로 체크
+        switch (turretID)
+        {
+            // 배치 초과시 배치 종료
+            case 0:
+                if (GameManager.Instance.turretLv1_List.Count >= JsonData.Instance.unitDatas.Unit[turretID].Install_Limit)
+                {
+                    // 설치 불가능
+                    SetUIDisable();
+                }
+                else { /* DoNothing */ }
+
+                break;
+            case 1:
+                if (GameManager.Instance.turretLv2_List.Count >= JsonData.Instance.unitDatas.Unit[turretID].Install_Limit)
+                {
+                    // 설치 불가능
+                    SetUIDisable();
+                }
+                else { /* DoNothing */ }
+
+                break;
+            case 2:
+                if (GameManager.Instance.turretLv3_List.Count >= JsonData.Instance.unitDatas.Unit[turretID].Install_Limit)
+                {
+                    // 설치 불가능
+                    SetUIDisable();
+                }
+                else { /* DoNothing */ }
+
+                break;
+            case 3:
+                if (GameManager.Instance.turretLv4_List.Count >= JsonData.Instance.unitDatas.Unit[turretID].Install_Limit)
+                {
+                    // 설치 불가능
+                    SetUIDisable();
+                }
+                else { /* DoNothing */ }
+
+                break;
+        }
     }
 
     private void OnDisable()
@@ -100,6 +141,7 @@ public class PlaceUnit : MonoBehaviour
             // 라인 렌더러 컴포넌트 비활성화
             lineRenderer.enabled = false;
 
+            // 세번째 배치 조건: 재화가 가격보다 크거나 같을 것
             // 재화가 충분한지 체크, 배치 가능한 장소인지 체크
             if (GameManager.Instance.Gold >= JsonData.Instance.unitDatas.Unit[turretID].Cost && isPlacable == true)
             {
@@ -151,17 +193,18 @@ public class PlaceUnit : MonoBehaviour
             int turret_ = 1 << LayerMask.NameToLayer("Turret");
             int detect_ = 1 << LayerMask.NameToLayer("Boss");
 
+            // 첫번째 배치 조건: 이미 배치된 터렛과 겹치지 않을 것
             // 영역 안의 Turret레이어 오브젝트들
-            Collider[] hitObjects_ = Physics.OverlapSphere(hitInfo_.point, 2.0f, turret_ | detect_);
+            Collider[] hitObjects_ = Physics.OverlapSphere(hitInfo_.point, 0.4f, turret_ | detect_);
 
             // 영역 안에 탐지된 것이 존재
-            if (hitObjects_.Length > 0)
+            if (hitObjects_.Length <= 0 && isPlacable == true)
             {
                 // 설치 불가능
                 SetUIDisable();
             }
             // 영역 안에 탐지된 것이 존재하지 않음
-            else if (hitObjects_.Length <= 0)
+            else if (hitObjects_.Length > 0)
             {
                 // 설치 가능
                 SetUIEnable();

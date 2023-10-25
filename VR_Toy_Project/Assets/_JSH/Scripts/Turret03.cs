@@ -24,7 +24,7 @@ public class Turret03 : TurretUnit
     private void Start()
     {
         // 터렛의 존재 유무와 갯수를 세기 위해 추가
-        GameManager.Instance.turretLv1_List.Add(transform);
+        GameManager.Instance.turretLv3_List.Add(transform);
     }
 
     private void OnEnable()
