@@ -40,7 +40,7 @@ public class UpgradeConsolUI : MonoBehaviour
         tempTxt = string.Format("구매 불가");
 
         // 이하 레벨 구매 불가
-        for (int i = 1; i <= level_; i++)
+        for (int i = 0; i < level_; i++)
         {
             UpgradeList[i].GetChildObj(costTxt).SetTmpText(tempTxt);
         }
