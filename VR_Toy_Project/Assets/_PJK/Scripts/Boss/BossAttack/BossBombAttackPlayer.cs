@@ -110,12 +110,14 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
         yield return new WaitForSeconds(1.5f);
 
-        rb.velocity = Vector3.zero;
+        rb.velocity = Vector3.zero; 
+
+        yield return new WaitForSeconds(3f);
+
         GameObject attackeffect = Instantiate(effect, transform.position, Quaternion.identity);
 
-        yield return new WaitForSeconds(3f);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         Destroy(attackeffect);
         rb.useGravity = true;
         //포물선 운동
