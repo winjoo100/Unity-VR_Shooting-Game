@@ -25,8 +25,17 @@ public class UpgradeUnit : MonoBehaviour
     public virtual void UpgradeWeapon()
     {
         PlayerStatus playerStatus = FindObjectOfType<PlayerStatus>();
+
+        // 첫번째 구매 조건: 플레이어 현재 무기가 판매 무기보다 작거나 같을 것
+        // 클때는 함수 종료
+        if (playerStatus.playerWeapon > weaponLevel)
+        {
+            return;
+        }
+
         Shot_BSJ shot = FindObjectOfType<Shot_BSJ>();
 
+        // 두번째 구매 조건: 재화가 가격보다 크거나 같을 것
         // 재화가 충분한지 체크
         if (GameManager.Instance.Gold >= this.cost)
         {
