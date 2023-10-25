@@ -9,7 +9,8 @@ public class WeakPointBig : MonoBehaviour, IDamageable
     public Material weakOn;
     public Material weakOut;
     public bool isLive = true;
-   
+    public GameObject effect = default;
+
 
     public void Start()
     {
@@ -45,7 +46,13 @@ public class WeakPointBig : MonoBehaviour, IDamageable
    
     IEnumerator ActiveWeakpoint()
     {
+        GameObject attackeffect = Instantiate(effect, transform.position, Quaternion.identity);
         isLive = false;
+
+
+        yield return new WaitForSeconds(2f);
+        Destroy(attackeffect);
+
         int reviveTime=UnityEngine.Random.Range(3, 7);
 
         yield return new WaitForSeconds(reviveTime);
