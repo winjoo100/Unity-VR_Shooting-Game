@@ -9,7 +9,6 @@ public class UpgradeConsolUI : MonoBehaviour
 
     private string tempTxt = default;
 
-    // Start is called before the first frame update
     void Start()
     {
         Init();
@@ -27,7 +26,7 @@ public class UpgradeConsolUI : MonoBehaviour
             objName++;
         }       // loop : 1000번대 오브젝트들 캐싱해서 리스트에 삽입
 
-        for(int i = 0; i < UpgradeList.Count; i++)
+        for (int i = 0; i < UpgradeList.Count; i++)
         {
             int index = i + 1;
             tempTxt = JsonData.Instance.weaponDatas.Weapon[index].Cost.ToString();
@@ -35,9 +34,15 @@ public class UpgradeConsolUI : MonoBehaviour
         }       // loop : 무기 코스트 정보 텍스트에 삽입
     }       // Init()
 
-    // Update is called once per frame
-    void Update()
+    //! 정보 갱신
+    public void UpdateInfo(int level_)
     {
-        
+        tempTxt = string.Format("구매 불가");
+
+        // 이하 레벨 구매 불가
+        for (int i = 1; i <= level_; i++)
+        {
+            UpgradeList[i].GetChildObj(costTxt).SetTmpText(tempTxt);
+        }
     }
 }
