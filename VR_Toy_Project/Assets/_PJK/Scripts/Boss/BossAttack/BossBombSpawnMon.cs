@@ -75,6 +75,11 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         // 체력이 0이되면 비활성화
         if (bossBombSpawnMonHp <= 0)
         {
+            // 파괴 이펙트 오브젝트 풀에서 생성
+            GameObject DieMotion = VFXObjectPool.instance.GetPoolObj(VFXPoolObjType.BossAttackdiedVFX);
+            DieMotion.SetActive(true);
+            DieMotion.transform.position = transform.position;
+
             // BSJ_오브젝트 풀로 반환
             BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackSpawnMon);
             

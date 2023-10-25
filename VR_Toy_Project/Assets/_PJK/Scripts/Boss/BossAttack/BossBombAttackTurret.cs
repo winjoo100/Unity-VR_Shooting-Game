@@ -89,6 +89,11 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
         // 체력이 0이되면 비활성화
         if (BossBombAttackHp <= 0 )
         {
+            // 파괴 이펙트 오브젝트 풀에서 생성
+            GameObject DieMotion = VFXObjectPool.instance.GetPoolObj(VFXPoolObjType.BossAttackdiedVFX);
+            DieMotion.SetActive(true);
+            DieMotion.transform.position = transform.position;
+
             // 오브젝트 풀로 반환
             BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackTurret);
 
@@ -102,6 +107,11 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
         // 터렛과 충돌 시 데미지 처리
         if(other.CompareTag("Turret"))
         {
+            // 플레이어 공격 이펙트 오브젝트 풀에서 생성
+            GameObject AttackMotion = VFXObjectPool.instance.GetPoolObj(VFXPoolObjType.BossAttackPlayerVFX);
+            AttackMotion.SetActive(true);
+            AttackMotion.transform.position = other.transform.position;
+
             other.GetComponent<TurretUnit>().DamageSelf(BossBombAttackDmg);
         }
     }

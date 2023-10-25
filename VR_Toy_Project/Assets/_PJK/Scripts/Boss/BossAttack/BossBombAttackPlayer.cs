@@ -45,13 +45,18 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        // 체력이 0이되면 비활성화
         if (BossBombAttackPlayerHp <= 0)
         {
+            // 파괴 이펙트 오브젝트 풀에서 생성
+            GameObject DieMotion = VFXObjectPool.instance.GetPoolObj(VFXPoolObjType.BossAttackdiedVFX);
+            DieMotion.SetActive(true);
+            DieMotion.transform.position = transform.position;
+
             // BSJ_오브젝트 풀로 반환
             BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackPlayer);
 
             //LEGACY : 오브젝트 풀로 반환
+            //GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
             //Destroy(gameObject);
         }
     }
@@ -83,22 +88,6 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
     public void OnDamage(int damage)
     {
         BossBombAttackPlayerHp -= damage;
-
-
-        if (BossBombAttackPlayerHp <= 0)
-        {
-            // 파괴 이펙트 오브젝트 풀에서 생성
-            GameObject DieMotion = VFXObjectPool.instance.GetPoolObj(VFXPoolObjType.BossAttackdiedVFX);
-            DieMotion.SetActive(true);
-            DieMotion.transform.position = transform.position;
-
-            // BSJ_오브젝트 풀로 반환
-            BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackPlayer);
-
-            //LEGACY : 오브젝트 풀로 반환
-            //GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
-            //Destroy(gameObject);
-        }
     }
 
     IEnumerator Firsttime()

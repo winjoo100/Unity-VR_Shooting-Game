@@ -1849,7 +1849,7 @@ MonoBehaviour:
     container: {fileID: 135044562}
   - Type: 9
     objAmount: 20
-    prefab: {fileID: 3946140628572098603, guid: 230d5948f7f21664b8286d5fc398b986, type: 3}
+    prefab: {fileID: 5558017356915301551, guid: 8b8efb9e8d2d80944b1da5b9532dbbf1, type: 3}
     container: {fileID: 1453868554}
   - Type: 10
     objAmount: 20
