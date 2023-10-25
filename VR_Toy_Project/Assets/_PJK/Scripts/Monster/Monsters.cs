@@ -99,8 +99,6 @@ public class Monsters : MonoBehaviour, IDamageable
     public float Lv3atkspeed { get; private set; }
     public int Lv3BombDmg { get; private set; }
 
-    // TEST 
-    // HSJ_ 2310119
     private SkinnedMeshRenderer meshRender;
 
     private void OnEnable()
@@ -120,17 +118,12 @@ public class Monsters : MonoBehaviour, IDamageable
         boxCollider = GetComponent<BoxCollider>();
         anim = GetComponent<Animator>();
 
-        // TEST : 
-        // HSJ_ 2310119
+
         meshRender = this.gameObject.GetChildObj("AnkleBiter").GetComponent<SkinnedMeshRenderer>();
     }
 
     private void Update()
     {
-        //// TEST : 
-        //// TODO : 기획 Sclae 확정 후 삭제 예정
-        //// HSJ_ 231019
-        //TestChangeScale();
 
         // 현재 맵에 터렛이 있는지 체크
         //if(GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count  > 0)
@@ -280,8 +273,7 @@ public class Monsters : MonoBehaviour, IDamageable
     {
         if (hp <= 0)
         {
-            // TEST : 
-            // HSJ_ 231019
+
             GameManager.Instance.GetGold_Monster();
 
             // 상태 초기화
@@ -408,19 +400,6 @@ public class Monsters : MonoBehaviour, IDamageable
     //    Destroy(gameObject);
     //}
 
-    //// TEST : 기획 분들 Scale 변경 테스트 하기 위한 함수
-    //// HSJ_ 231019
-    //public void TestChangeScale()
-    //{
-    //    // TEST : 스케일 변경 위하여 
-    //    if(Input.GetMouseButtonDown(1))
-    //    {
-    //        isTest = true;
-    //        moveSpeed = 0f;
-    //    }
-    //    this.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
-
-    //}       // TestChangeScale()
 }
 
 

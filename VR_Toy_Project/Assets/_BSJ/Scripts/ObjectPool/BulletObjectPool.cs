@@ -72,7 +72,6 @@ public class BulletObjectPool : MonoBehaviour
         {
             // 풀링오브젝트를 새로 생성해준다.
             objInstance = Instantiate(select.prefab, select.container.transform);
-            // TEST : SJ_231013 
             pool.Push(objInstance);
         }
 

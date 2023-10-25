@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
     #region Variables
     // { 캐싱을 위한 컴포너트들
     private UIManager uiManager = default;
+    private PostProcessVolume postProcessV = default;
     // { 캐싱을 위한 컴포너트들
 
     [Header("Turret List")]
@@ -59,7 +62,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // TEST : 게임 시작 UI클릭 전 까지 멈춤
+
         Time.timeScale = 0f;
     }
 
@@ -68,12 +71,6 @@ public class GameManager : MonoBehaviour
     {
         if (isStart == default || isStart == false) { return; }
 
-        // { TEST : 버튼에 할당해서 ReStart() 할 것임
-        if (isEnd)
-        {
-            ReStart();
-        }
-        // } TEST : 버튼에 할당해서 ReStart() 할 것임
 
         uiManager.Update_HUD(CurTime, Gold);
 
@@ -85,6 +82,7 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         uiManager = GFunc.GetRootObj("UIManager").GetComponent<UIManager>();
+        postProcessV = Camera.main.GetComponent<PostProcessVolume>();
 
         isStart = false;
         isEnd = false;
@@ -116,6 +114,13 @@ public class GameManager : MonoBehaviour
         GetGold_Time();
     }       // Timer()
 
+    public IEnumerator EffectCamera()
+    {
+        postProcessV.enabled = true;
+        yield return new WaitForSeconds(1f);
+        postProcessV.enabled = false;
+    }
+
     // ! 1초당 획득 골드
     private void GetGold_Time()
     {
@@ -142,18 +147,21 @@ public class GameManager : MonoBehaviour
     public bool GameStart()
     {
         isStart = true;
-        // TEST : 231024
         Time.timeScale = 1f;
         return isStart;
     }       // GameStart()
 
     public void WinGame()
     {
+        BSJVRInput.PlayVibration(0f, 0f, 0, BSJVRInput.Controller.RTouch);
+        Time.timeScale = 0f;
         uiManager.ChangeUI_GameWin();
     }
 
     public void LoseGame()
     {
+        BSJVRInput.PlayVibration(0f, 0f, 0, BSJVRInput.Controller.RTouch);
+        Time.timeScale = 0f;
         uiManager.ChangeUI_GameOver();
     }
 

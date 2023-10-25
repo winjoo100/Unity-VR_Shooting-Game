@@ -65,12 +65,15 @@ public class UIManager : MonoBehaviour
         resultTimeTxt = StartCanvas.GetChildObj("TimeTxt");
         logoImg = StartCanvas.GetChildObj("LogoImg");
         StartBtnTxt = StartCanvas.GetChildObj("Text (TMP)");
-        StartBtnTxt.SetTmpText("게임 시작");
 
         reStartBtn.GetComponent<Button>().onClick.AddListener(OnReStartButton);
         startBtn.GetComponent<Button>().onClick.AddListener(OnStartButton);
         quitBtn.GetComponent<Button>().onClick.AddListener(OnQuitButtion);
         // } Start Canvas
+
+
+        // 초기화
+        StartCanvas.SetActive(true);
 
     }       // Init()
 
@@ -98,6 +101,7 @@ public class UIManager : MonoBehaviour
 
     public void ChangeUI_GameOver()
     {
+        StartCanvas.SetActive(true);    
         gameOverTxt.SetActive(true);
         reStartBtn.SetActive(true);
 
@@ -108,6 +112,7 @@ public class UIManager : MonoBehaviour
 
     public void ChangeUI_GameWin()
     {
+        StartCanvas.SetActive(true);
         resultTimeTxt.SetTmpText(timeFormat);        
         resultTimeTxt.SetActive(true);
         reStartBtn.SetActive(true);

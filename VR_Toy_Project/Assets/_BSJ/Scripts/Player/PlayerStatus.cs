@@ -197,14 +197,16 @@ public class PlayerStatus : MonoBehaviour,IDamageable
 
     public void OnDamage(int damage)
     {
-        if(curHp >= damage)
+        if(curHp > damage)
         {
+
             curHp -= damage;
+            StartCoroutine(GameManager.Instance.EffectCamera());
         }
         else
         {
             curHp = 0;
-            // TEST : HSJ_ 231024
+
             GameManager.Instance.LoseGame();
         }
     }

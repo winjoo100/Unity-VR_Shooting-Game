@@ -29,7 +29,6 @@ public class Destroy : MonoBehaviour
 
                 
                 gameObject.transform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
-                Debug.Log("실행되나?");
                 yield return new WaitForSeconds(0.01f);
             }
 
@@ -39,9 +38,9 @@ public class Destroy : MonoBehaviour
 
             while (transform.localScale.x > -10 || transform.localScale.y > -10 || transform.localScale.z > -10)
             {
-                blackHoleCollider.radius += 0.1f;
+                blackHoleCollider.radius += 0.2f;
                 Debug.LogFormat("블랙홀의Radius: {0}",blackHoleCollider.radius);
-                gameObject.transform.localScale -= new Vector3(0.1f, 0.1f, 0.1f);
+                gameObject.transform.localScale -= new Vector3(0.2f, 0.2f, 0.2f);
                 Debug.LogFormat("게임오브젝트의 localscale: {0}", gameObject.transform.localScale);
 
                 yield return new WaitForSeconds(0.01f);
