@@ -25,6 +25,10 @@ public class Turret04 : TurretUnit
     {
         // 터렛의 존재 유무와 갯수를 세기 위해 추가
         GameManager.Instance.turretLv4_List.Add(transform);
+
+        // 터렛 상점 UI
+        TurretConsolUI turretConsolUI = FindObjectOfType<TurretConsolUI>();
+        turretConsolUI.UpdateCnt(unitID);
     }
 
     private void OnEnable()

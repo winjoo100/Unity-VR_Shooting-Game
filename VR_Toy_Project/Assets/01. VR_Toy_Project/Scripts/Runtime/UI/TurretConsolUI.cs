@@ -1,19 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurretConsolUI : MonoBehaviour
 {
     private List<GameObject> TurretList;
     private const string costTxt = "CostTxt";
-    private const string uniCnttTxt = "UnitCntTxt";
+    private const string uniCntTxt = "UnitCntTxt";
 
     private string tempTxt = default;
 
-    // Start is called before the first frame update
     void Start()
     {
         Init();
+
+        for (int i = 0; i < 4; i++)
+        {
+            UpdateCnt(i);
+        }
     }
 
     // ! 터렛 텍스트 초기화
@@ -36,9 +42,28 @@ public class TurretConsolUI : MonoBehaviour
         }       // loop : 터렛 코스트 정보 텍스트에 삽입
     }       // Init()
 
-    // Update is called once per frame
-    void Update()
+    //! JSH: 갯수 갱신
+    public void UpdateCnt(int name_)
     {
+        switch (name_)
+        {
+            case 1300:
+                tempTxt = string.Format("{0} / {1}", GameManager.Instance.turretLv1_List.Count, JsonData.Instance.unitDatas.Unit[0].Install_Limit.ToString());
+                TurretList[0].GetChildObj(uniCntTxt).SetTmpText(tempTxt);
+                break;
+            case 1301:
+                tempTxt = string.Format("{0} / {1}", GameManager.Instance.turretLv2_List.Count, JsonData.Instance.unitDatas.Unit[1].Install_Limit.ToString());
+                TurretList[1].GetChildObj(uniCntTxt).SetTmpText(tempTxt);
+                break;
+            case 1302:
+                tempTxt = string.Format("{0} / {1}", GameManager.Instance.turretLv3_List.Count, JsonData.Instance.unitDatas.Unit[2].Install_Limit.ToString());
+                TurretList[2].GetChildObj(uniCntTxt).SetTmpText(tempTxt);
+                break;
+            case 1303:
+                tempTxt = string.Format("{0} / {1}", GameManager.Instance.turretLv4_List.Count, JsonData.Instance.unitDatas.Unit[3].Install_Limit.ToString());
+                TurretList[3].GetChildObj(uniCntTxt).SetTmpText(tempTxt);
+                break;
+        }
 
     }
 }
