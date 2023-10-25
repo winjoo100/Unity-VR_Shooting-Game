@@ -34,4 +34,12 @@ public class Turret02 : TurretUnit
     {
         DetectTarget();
     }
+
+    protected override void DestroySelf()
+    {
+        // 배치된 터렛 수 감소
+        GameManager.Instance.turretLv2_List.Remove(transform);
+
+        base.DestroySelf();
+    }
 }

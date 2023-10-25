@@ -19,6 +19,7 @@ public class PlaceUnit : MonoBehaviour
 
     // 배치 불가능 여부
     public bool isPlacable = true;
+    public bool isCapable = true;
     // UI 마테리얼
     public Material placeMaterial = default;
     // cast 마테리얼
@@ -77,7 +78,7 @@ public class PlaceUnit : MonoBehaviour
             case 0:
                 if (GameManager.Instance.turretLv1_List.Count >= JsonData.Instance.unitDatas.Unit[turretID].Install_Limit)
                 {
-                    SetUIDisable();
+                    isCapable = false;
                 }
                 else { /* DoNothing */ }
 
@@ -85,7 +86,7 @@ public class PlaceUnit : MonoBehaviour
             case 1:
                 if (GameManager.Instance.turretLv2_List.Count >= JsonData.Instance.unitDatas.Unit[turretID].Install_Limit)
                 {
-                    SetUIDisable();
+                    isCapable = false;
                 }
                 else { /* DoNothing */ }
 
@@ -93,7 +94,7 @@ public class PlaceUnit : MonoBehaviour
             case 2:
                 if (GameManager.Instance.turretLv3_List.Count >= JsonData.Instance.unitDatas.Unit[turretID].Install_Limit)
                 {
-                    SetUIDisable();
+                    isCapable = false;
                 }
                 else { /* DoNothing */ }
 
@@ -101,7 +102,7 @@ public class PlaceUnit : MonoBehaviour
             case 3:
                 if (GameManager.Instance.turretLv4_List.Count >= JsonData.Instance.unitDatas.Unit[turretID].Install_Limit)
                 {
-                    SetUIDisable();
+                    isCapable = false;
                 }
                 else { /* DoNothing */ }
 
@@ -139,7 +140,7 @@ public class PlaceUnit : MonoBehaviour
 
             // 세번째 배치 조건: 재화가 가격보다 크거나 같을 것
             // 재화가 충분한지 체크, 배치 가능한 장소인지 체크
-            if (GameManager.Instance.Gold >= JsonData.Instance.unitDatas.Unit[turretID].Cost && isPlacable == true)
+            if (GameManager.Instance.Gold >= JsonData.Instance.unitDatas.Unit[turretID].Cost && isCapable == true)
             {
                 // 설치 가능
                 SetUIEnable();
@@ -193,13 +194,13 @@ public class PlaceUnit : MonoBehaviour
             // 영역 안의 Turret레이어 오브젝트들
             Collider[] hitObjects_ = Physics.OverlapSphere(hitInfo_.point, 0.4f, turret_ | detect_);
 
-            // 영역 안에 탐지된 것이 존재
-            if (hitObjects_.Length <= 0 && isPlacable == true)
+            // 영역 안에 탐지된 것이 존재하지 않음
+            if (hitObjects_.Length <= 0 && isCapable == true)
             {
                 // 설치 가능
                 SetUIEnable();
             }
-            // 영역 안에 탐지된 것이 존재하지 않음
+            // 영역 안에 탐지된 것이 존재
             else if (hitObjects_.Length > 0)
             {
                 // 설치 불가능

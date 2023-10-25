@@ -165,8 +165,9 @@ public class TurretUnit : MonoBehaviour
     //! 터렛의 파괴
     protected virtual void DestroySelf()
     {
-        // TODO: 배치된 터렛 수 감소
-        GameManager.Instance.turretLv1_List.Remove(this.transform);
+        // 터렛 상점 UI
+        TurretConsolUI turretConsolUI = FindObjectOfType<TurretConsolUI>();
+        turretConsolUI.UpdateCnt(unitID);
 
         // 스스로를 파괴
         Destroy(gameObject);
