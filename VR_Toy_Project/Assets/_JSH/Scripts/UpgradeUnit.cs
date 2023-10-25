@@ -11,7 +11,14 @@ public class UpgradeUnit : MonoBehaviour
     protected int cost = default;
     // 강화 단계
     protected int weaponLevel = 0;
+    // 강화 상점 UI 
+    protected UpgradeConsolUI upgradeConsolUI = default;
     // } 강화 유닛이 가지고 있어야 하는 변수들
+
+    private void Awake()
+    {
+        upgradeConsolUI = FindObjectOfType<UpgradeConsolUI>();
+    }
 
     //! 강화 유닛의 정보 초기화
     protected virtual void Init(int unitID_, int cost_, int level_)
@@ -53,5 +60,8 @@ public class UpgradeUnit : MonoBehaviour
         playerStatus.ChangeWeapon();
         // 탄환 변경
         shot.ChangeBullet();
+
+        // UI 정보 갱신
+        upgradeConsolUI.UpdateInfo(weaponLevel);
     }
 }
