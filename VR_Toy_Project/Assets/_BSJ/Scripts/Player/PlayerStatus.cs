@@ -207,6 +207,10 @@ public class PlayerStatus : MonoBehaviour,IDamageable
         {
             curHp = 0;
 
+            //BSJ_
+            // 게임 오버 사운드 출력
+            SoundManager.instance.PlaySE("GameOver");
+
             GameManager.Instance.LoseGame();
         }
     }

@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4699289894634410479
 Transform:
   m_ObjectHideFlags: 0
@@ -147,4 +147,4 @@ MonoBehaviour:
   detectionRadius: 1000
   diedPrefab: {fileID: 3946140628572098603, guid: 230d5948f7f21664b8286d5fc398b986, type: 3}
   attakPrefab: {fileID: 3712707503665828137, guid: 1ff94f4e2b924004eb8dd1e85e3997c6, type: 3}
-  effect: {fileID: 163102, guid: 2f51a238df9a99d45af9936c1f6fecda, type: 3}
+  effect: {fileID: 5876274968480928021, guid: ba9c3d785e5c89d4486973eff2db678e, type: 3}

@@ -115,12 +115,13 @@ public class Boss : MonoBehaviour, IDamageable
 
         if (CurHP <= 0)
         {
+            // 죽는 사운드 출력
+            PlayerBossDead();
+
             isDead = true;
             ba.SetTrigger("Dead");
             bossDie = Instantiate(bossDiePrefab, transform.position, Quaternion.identity);
 
-
-            
             StartCoroutine(Dead());
 
             if (transform.localScale.x < 0 && transform.localScale.y < 0 && transform.localScale.z < 0)
@@ -155,4 +156,19 @@ public class Boss : MonoBehaviour, IDamageable
             lastGoldHP = lastGoldHP - rateHp;
         }
     }       // alculateHp()
+
+
+    //BSJ_ 
+    // 보스 움직이는 소리01 (애니메이션 이벤트)
+    private void PlayMove()
+    {
+        SoundManager.instance.PlaySE("BossMove");
+    }
+
+    //BSJ_
+    // 보스 죽는 소리
+    private void PlayerBossDead()
+    {
+        SoundManager.instance.PlaySE("BossDead");
+    }
 }

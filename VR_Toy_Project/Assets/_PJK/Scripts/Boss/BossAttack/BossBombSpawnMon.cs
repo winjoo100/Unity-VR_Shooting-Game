@@ -18,6 +18,8 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
     public GameObject Monsterlv1 = default;
     public GameObject Monsterlv2 = default;
     public GameObject Monsterlv3 = default;
+    public GameObject effect = default;
+
 
     // HSJ_ 231023
     // 게임 종료시간 캐싱할 변수
@@ -92,9 +94,19 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         rb.velocity = velocity;
 
         yield return new WaitForSeconds(1.5f);
+
         rb.velocity = Vector3.zero;
 
         yield return new WaitForSeconds(3f);
+
+        GameObject attackeffect = Instantiate(effect, transform.position, Quaternion.identity);
+
+
+
+        yield return new WaitForSeconds(2f);
+
+        Destroy(attackeffect);
+
         rb.useGravity = true;
         // 포물선 운동
         velocity = GetVelocity(transform.position, RandomTarget, initialAngle);

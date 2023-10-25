@@ -133,6 +133,9 @@ public class TurretUnit : MonoBehaviour
         // 만들어준 방향으로 회전
         head.transform.right = direction.normalized;
 
+        // 사운드 출력
+        SoundManager.instance.PlaySE("GunShot");
+
         // 포구에서 총알 발사
         GameObject bullet = BulletObjectPool.instance.GetPoolObj((PoolObjType)bullet_Table_ID);
         bullet.gameObject.SetActive(true);

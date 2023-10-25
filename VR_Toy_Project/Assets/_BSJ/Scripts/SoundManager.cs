@@ -118,6 +118,20 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    // 효과음 피치 조절
+    public void SetSEPitch(string _name, float _volume)
+    {
+        // 동일한 효과음이 있다면 볼륨 조절
+        for (int i = 0; i < audioSource_MP3Player.Length; i++)
+        {
+            if (playSoundName[i] == _name)
+            {
+                audioSource_MP3Player[i].pitch = _volume;
+                break;
+            }
+        }
+    }
+
     // 배경음 볼륨 조절
     public void SetBGMVolume(float _volume)
     {

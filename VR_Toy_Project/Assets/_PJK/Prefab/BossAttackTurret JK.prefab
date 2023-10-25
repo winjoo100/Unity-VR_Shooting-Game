@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7193736265162846120
 Transform:
   m_ObjectHideFlags: 0
@@ -115,6 +115,7 @@ MonoBehaviour:
   BossBombAttackDmg: 0
   initialAngle: 30
   targetPos: {x: 0, y: 0, z: 0}
+  effect: {fileID: 5876274968480928021, guid: 4d64359f5e1ea2440aa09f922fe79e28, type: 3}
 --- !u!54 &5901093104146976810
 Rigidbody:
   m_ObjectHideFlags: 0

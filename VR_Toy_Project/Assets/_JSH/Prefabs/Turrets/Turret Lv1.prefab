@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 3991966905461290}
   - component: {fileID: 32974384984625380}
   - component: {fileID: 22989903503433586}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 3991967652468948}
   - component: {fileID: 32974383885761090}
   - component: {fileID: 22989903847793978}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: BaseElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 3991969261837112}
   - component: {fileID: 32974385753093602}
   - component: {fileID: 22989904239521004}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 3991968394462504}
   - component: {fileID: 32974387307778096}
   - component: {fileID: 22989904088163116}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: PylonElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 3991967413691222}
   - component: {fileID: 32974374737051440}
   - component: {fileID: 22989905739224482}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 3991972941765936}
   - component: {fileID: 32974384132896714}
   - component: {fileID: 22989906503728488}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Pylon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -592,7 +592,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7606111919662161246}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

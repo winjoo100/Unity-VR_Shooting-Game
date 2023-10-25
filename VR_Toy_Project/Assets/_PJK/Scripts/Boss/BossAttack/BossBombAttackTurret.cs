@@ -22,6 +22,8 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
     private BossManager bm;
     private float nearDistance;
     private GameObject tempTarget;
+    public GameObject effect = default;
+
     private void Awake()
     {
         // 초기 체력 셋팅
@@ -113,9 +115,17 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
         rb.velocity = velocity;
 
         yield return new WaitForSeconds(1.5f);
+
         rb.velocity = Vector3.zero;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
+
+        GameObject attackeffect = Instantiate(effect, transform.position, Quaternion.identity);
+
+
+        yield return new WaitForSeconds(2f);
+        
+        Destroy(attackeffect);
 
         rb.useGravity = true;
         // 포물선 운동

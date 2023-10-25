@@ -43,12 +43,10 @@ public class BossAttack : MonoBehaviour
         if (GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count > 0)
         {
             skill = Random.Range(0, 3);
-            skill = 0;
         }
         else if (GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count < 1)
         {
             skill = Random.Range(0, 2);
-            skill = 0;
         }
 
 
@@ -58,6 +56,9 @@ public class BossAttack : MonoBehaviour
 
             for (int i = 0; i < howmanyAttack; i++)
             {
+                // 사운드 출력
+                SoundManager.instance.PlaySE("BossAttack");
+
                 // 플레이어 공격 투사체 생성
                 GameObject atktoplayer = BossAttackObjectPool.instance.GetPoolObj(BossAttackPoolObjType.BossAttackPlayer);
                 atktoplayer.SetActive(true);
@@ -75,6 +76,9 @@ public class BossAttack : MonoBehaviour
             int howmanyAttack = Random.Range(1, 4);
             for (int i = 0; i < howmanyAttack; i++)
             {
+                // 사운드 출력
+                SoundManager.instance.PlaySE("BossAttack");
+
                 // 몬스터 스폰 투사체 생성
                 GameObject spawnmon = BossAttackObjectPool.instance.GetPoolObj(BossAttackPoolObjType.BossAttackSpawnMon);
                 spawnmon.SetActive(true);
@@ -90,6 +94,9 @@ public class BossAttack : MonoBehaviour
             int howmanyAttack = Random.Range(1, 4);
             for (int i = 0; i < howmanyAttack; i++)
             {
+                // 사운드 출력
+                SoundManager.instance.PlaySE("BossAttack");
+
                 // 터렛 공격 투사체 생성
                 GameObject atktotower = BossAttackObjectPool.instance.GetPoolObj(BossAttackPoolObjType.BossAttackTurret);
                 atktotower.SetActive(true);

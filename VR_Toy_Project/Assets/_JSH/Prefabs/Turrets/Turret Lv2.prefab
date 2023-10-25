@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4088764034636408653}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 6298347078823507408}
   - component: {fileID: 6274413565301999380}
   - component: {fileID: 6284697217781129192}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Pylon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 6298347080816188236}
   - component: {fileID: 6274413574432457898}
   - component: {fileID: 6284697220124453044}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 6298347080127294032}
   - component: {fileID: 6274413563851875918}
   - component: {fileID: 6284697219893396404}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 6298347079515073938}
   - component: {fileID: 6274413575910690622}
   - component: {fileID: 6284697220385606082}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ GameObject:
   - component: {fileID: 6298347079603879918}
   - component: {fileID: 6274413565387733702}
   - component: {fileID: 6284697218781785400}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: BaseElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 6298347080097171390}
   - component: {fileID: 6274413574938902142}
   - component: {fileID: 6284697218844702604}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: PylonElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -626,7 +626,7 @@ GameObject:
   - component: {fileID: 6298347078055011048}
   - component: {fileID: 6274413574428982810}
   - component: {fileID: 6284697219338524610}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Gun 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

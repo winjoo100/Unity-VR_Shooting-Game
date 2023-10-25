@@ -81,7 +81,20 @@ public class PlaceUnit : MonoBehaviour
 
     private void Update()
     {
-        // 오른쪽 컨트롤러의 One 버튼에서 손을 떼면
+        // 오른쪽 컨트롤러의 Two 버튼을 눌렀다 떼면
+        if (BSJVRInput.GetUp(BSJVRInput.Button.Two, BSJVRInput.Controller.RTouch))
+        {
+            // 라인 렌더러 컴포넌트 비활성화
+            lineRenderer.enabled = false;
+
+            // 배치 모드 종료
+            playerStatus.mode = Mode.ShotMode;
+            playerStatus.ModeSwap();
+
+            // 함수 종료
+            return;
+        }
+        // 오른쪽 컨트롤러의 One 버튼을 눌렀다 떼면
         if (BSJVRInput.GetUp(BSJVRInput.Button.One, BSJVRInput.Controller.RTouch))
         {
             // 라인 렌더러 컴포넌트 비활성화
@@ -110,6 +123,9 @@ public class PlaceUnit : MonoBehaviour
             // 배치가 끝났으니 모드 전환
             playerStatus.mode = Mode.ShotMode;
             playerStatus.ModeSwap();
+
+            // 함수 종료
+            return;
         }
 
         // 오른쪽 컨트롤러를 기준으로 Ray를 만든다
@@ -132,8 +148,11 @@ public class PlaceUnit : MonoBehaviour
             // 유닛 배치 UI가 앞을 보도록 설정
             placeUnitUI[turretID].right = hitInfo_.transform.forward;
 
+            int turret_ = 1 << LayerMask.NameToLayer("Turret");
+            int detect_ = 1 << LayerMask.NameToLayer("Boss");
+
             // 영역 안의 Turret레이어 오브젝트들
-            Collider[] hitObjects_ = Physics.OverlapSphere(placeUnitUI[turretID].position, 0.4f, 1 << LayerMask.NameToLayer("Turret"));
+            Collider[] hitObjects_ = Physics.OverlapSphere(hitInfo_.point, 2.0f, turret_ | detect_);
 
             // 영역 안에 탐지된 것이 존재
             if (hitObjects_.Length > 0)
