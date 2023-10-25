@@ -13,7 +13,6 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
     public float initialAngle = 30f;    // 처음 날라가는 각도
     public Vector3 targetPos;           // 저장될 타겟 포지션
     // public GameObject target;        // 타겟 : 타겟을 찾기 않고 포지션을 저장해 두기로 하였음. BSJ_231023
-    private float Shottime;
     private Rigidbody rb;               // Rigidbody
     private int randomX;
 
@@ -23,16 +22,18 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
     private float nearDistance;
     private GameObject tempTarget;
     public GameObject effect = default;
+    private Boss boss = default;
 
     private void Awake()
     {
+        boss = FindObjectOfType<Boss>();
+        
         // 초기 체력 셋팅
         BossBombAttackHp = JsonData.Instance.bossSkillDatas.Boss_Skill[1].Hp;
         // 초기 데미지 셋팅
         BossBombAttackDmg = JsonData.Instance.bossSkillDatas.Boss_Skill[1].Att;
 
         rb = GetComponent<Rigidbody>();
-        Shottime = 0;
         nearDistance = Mathf.Infinity;
 
         turret01 = FindObjectsOfType<Turret01>();
@@ -100,6 +101,16 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
             //LEGACY : BSJ_오브젝트 풀로 반환하기 위해 변경
             //gameObject.SetActive(false);
         }
+        if (boss.CurHP < 0 && gameObject.activeSelf)
+        {
+            GameObject DieMotion = VFXObjectPool.instance.GetPoolObj(VFXPoolObjType.BossAttackdiedVFX);
+            DieMotion.SetActive(true);
+            DieMotion.transform.position = transform.position;
+
+            // 오브젝트 풀로 반환
+            BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackTurret);
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -130,18 +141,24 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
 
         yield return new WaitForSeconds(3f);
 
-        GameObject attackeffect = Instantiate(effect, transform.position, Quaternion.identity);
-
-
-        yield return new WaitForSeconds(2f);
-        
-        Destroy(attackeffect);
+        StartCoroutine(AttackEffect());
 
         rb.useGravity = true;
         // 포물선 운동
         velocity = GetVelocity(transform.position, targetPos, initialAngle);
 
         rb.velocity = velocity;
+    }
+
+    IEnumerator AttackEffect()
+    {
+        GameObject attackeffect = Instantiate(effect, transform.position, Quaternion.identity);
+
+
+
+        yield return new WaitForSeconds(2f);
+
+        Destroy(attackeffect);
     }
 
 

@@ -16,6 +16,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
     public GameObject diedPrefab = default;
     public GameObject attakPrefab = default;
     public GameObject effect = default;
+    private Boss boss = default;
 
     // HSJ_ 231024
     private SphereCollider sphereCollider = default;
@@ -24,6 +25,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
     private void Awake()
     {
+        boss = FindObjectOfType<Boss>();
         bm = GameObject.Find("BossManager").GetComponent<BossManager>();
         // HSJ_
         sphereCollider = GetComponent<SphereCollider>();
@@ -58,6 +60,16 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
             //LEGACY : 오브젝트 풀로 반환
             //GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
             //Destroy(gameObject);
+        }
+        if (boss.CurHP < 0 && gameObject.activeSelf)
+        {
+            GameObject DieMotion = VFXObjectPool.instance.GetPoolObj(VFXPoolObjType.BossAttackdiedVFX);
+            DieMotion.SetActive(true);
+            DieMotion.transform.position = transform.position;
+
+            // BSJ_오브젝트 풀로 반환
+            BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackPlayer);
+            
         }
     }
 
@@ -103,11 +115,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
         yield return new WaitForSeconds(3f);
 
-        GameObject attackeffect = Instantiate(effect, transform.position, Quaternion.identity);
-
-
-        yield return new WaitForSeconds(2f);
-        Destroy(attackeffect);
+        StartCoroutine(AttackEffect());
         rb.useGravity = true;
         //포물선 운동
         velocity = GetVelocity(transform.position, target.transform.position, initialAngle);
@@ -115,6 +123,17 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
         rb.velocity = velocity;
 
 
+    }
+
+    IEnumerator AttackEffect()
+    {
+        GameObject attackeffect = Instantiate(effect, transform.position, Quaternion.identity);
+
+
+
+        yield return new WaitForSeconds(2f);
+
+        Destroy(attackeffect);
     }
 
     public Vector3 GetVelocity(Vector3 startPos, Vector3 target, float initialAngle)

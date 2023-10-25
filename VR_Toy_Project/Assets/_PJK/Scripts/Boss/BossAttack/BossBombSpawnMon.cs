@@ -19,6 +19,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
     public GameObject Monsterlv2 = default;
     public GameObject Monsterlv3 = default;
     public GameObject effect = default;
+    private Boss boss = default;
 
 
     // HSJ_ 231023
@@ -26,10 +27,10 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
     private float endTime = default;
     private float lv1Time = default;
     private float lv2Time = default;
-    private float lv3Time = default;
 
     private void Awake()
     {
+        boss = FindObjectOfType<Boss>();
         // 체력 셋팅
         bossBombSpawnMonHp = JsonData.Instance.bossSkillDatas.Boss_Skill[2].Hp;
 
@@ -87,6 +88,16 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
             // Destroy(gameObject);
         }
 
+        if(boss.CurHP <0 && gameObject.activeSelf)
+        {
+            GameObject DieMotion = VFXObjectPool.instance.GetPoolObj(VFXPoolObjType.BossAttackdiedVFX);
+            DieMotion.SetActive(true);
+            DieMotion.transform.position = transform.position;
+
+            // BSJ_오브젝트 풀로 반환
+            BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackSpawnMon);
+        }
+
 
     }
 
@@ -104,13 +115,7 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
 
         yield return new WaitForSeconds(3f);
 
-        GameObject attackeffect = Instantiate(effect, transform.position, Quaternion.identity);
-
-
-
-        yield return new WaitForSeconds(2f);
-
-        Destroy(attackeffect);
+        StartCoroutine(AttackEffect());
 
         rb.useGravity = true;
         // 포물선 운동
@@ -118,6 +123,17 @@ public class BossBombSpawnMon : MonoBehaviour, IDamageable
         rb.velocity = velocity;
 
 
+    }
+
+    IEnumerator AttackEffect()
+    {
+        GameObject attackeffect = Instantiate(effect, transform.position, Quaternion.identity);
+
+
+
+        yield return new WaitForSeconds(2f);
+
+        Destroy(attackeffect);
     }
 
     private void spawnMons()

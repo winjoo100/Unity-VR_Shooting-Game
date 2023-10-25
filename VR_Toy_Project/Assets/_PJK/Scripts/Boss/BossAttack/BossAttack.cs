@@ -9,7 +9,6 @@ public class BossAttack : MonoBehaviour
     public GameObject TowerAttack = default;
     public GameObject monsterAttack = default;
     public LayerMask Turret = default;
-    private GameObject target = default;
     private Monsters m = default;
     private int skill = default;
     //BSJ_231024
@@ -26,9 +25,9 @@ public class BossAttack : MonoBehaviour
     {
         Collider[] colliders = Physics.OverlapSphere(boss.transform.position, 100f, Turret);
 
-        
 
-        if (bm.skillCoolTime > 20f)
+
+        if (bm.skillCoolTime > 20f && boss.CurHP > 100)
         {
             attack();
             bm.skillCoolTime = 0;
