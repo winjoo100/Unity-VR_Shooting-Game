@@ -18,7 +18,6 @@ public class MonsterSpawner : MonoBehaviour
 
     private float spawnTime = 5f;
 
-    // HSJ_ 231023
     // 게임 종료시간 캐싱할 변수
     private float endTime = default;
     private float lv1Time = default;
@@ -27,12 +26,11 @@ public class MonsterSpawner : MonoBehaviour
     void Start()
     {
         _monsterSpawner = gameObject;
-        // HSJ_ 231023
-        // { time 캐싱
+        // { time 캐싱 및 초기화
         endTime = GameManager.Instance.EndTime;
         lv1Time = endTime * 0.3f;
         lv2Time = endTime * 0.6f;
-        // } time 초기화
+        // } time 캐싱 및 초기화
     }
 
     private void Update()
