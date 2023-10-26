@@ -148,7 +148,7 @@ Material:
     - _xTexcoordMove: 0
     - _yTexcoordMove: 0
     m_Colors:
-    - _Color: {r: 0.33682105, g: 0.9339623, b: 0.25111243, a: 0.3137255}
+    - _Color: {r: 0, g: 0, b: 0, a: 0.28627452}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _NoiseValue: {r: 1, g: 1, b: 1, a: 0}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}

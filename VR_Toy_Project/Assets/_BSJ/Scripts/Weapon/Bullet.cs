@@ -217,8 +217,21 @@ public class Bullet : MonoBehaviour
             // 총알 데미지 텍스트 변경
             damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", finalDamage);
 
+
+            float dist = (this.transform.position - Vector3.zero).magnitude;
+            
             damageText.SetActive(true);
+
+             
             damageText.transform.position = new Vector3(transform.position.x + Random.Range(-0.25f, 0.25f), transform.position.y + Random.Range(-0.25f, 0.25f), transform.position.z - 1f);
+
+
+            // TEST :
+            float ratio = 10f;
+
+            ratio = dist > 5f ?  10f : 5f;
+            damageText.GetComponentInParent<RectTransform>().localScale = new Vector3( dist / ratio, dist / ratio, 1f);
+
             // } 타격 데미지 텍스트 콜
 
             // 탄환은 오브젝트 풀로 반환

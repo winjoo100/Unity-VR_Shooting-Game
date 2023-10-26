@@ -4,7 +4,7 @@
       "ID": "1400",
       "Description": "일반 공격 투사체",
       "Image": "Model_Boss_Projectile_B",
-      "Hp": "400",
+      "Hp": "100",
       "Att": "50",
       "Speed": "100",
       "Amount_Min": "2",
@@ -17,7 +17,7 @@
       "Hp": "400",
       "Att": "1000",
       "Speed": "100",
-      "Amount_Min": "1",
+      "Amount_Min": "2",
       "Amount_max": "3"
     },
     {

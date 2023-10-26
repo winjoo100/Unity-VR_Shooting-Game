@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     // { 캐싱을 위한 컴포너트들
     private UIManager uiManager = default;
     private PostProcessVolume postProcessV = default;
+    private GameObject objectPoolContainer = default;
     // { 캐싱을 위한 컴포너트들
 
     [Header("Turret List")]
@@ -85,7 +86,7 @@ public class GameManager : MonoBehaviour
     {
         uiManager = GFunc.GetRootObj("UIManager").GetComponent<UIManager>();
         postProcessV = Camera.main.GetComponent<PostProcessVolume>();
-
+        objectPoolContainer = GFunc.GetRootObj("ObjPoolContainer");
         isStart = false;
         isEnd = false;
 
@@ -99,8 +100,8 @@ public class GameManager : MonoBehaviour
         turretLv4_List = new List<Transform>();
         // } JSH 리스트 할당
 
-        // 초기 골드 //BSJ_ 골드 추가하였음.
-        Gold = 50000;
+        // 초기 골드 
+        Gold = 500;
     }       // Init()
 
     // ! 글로벌로 사용할 타이머, 시간에 따른 골드 수급
@@ -163,6 +164,7 @@ public class GameManager : MonoBehaviour
     public void LoseGame()
     {
         BSJVRInput.PlayVibration(0f, 0f, 0, BSJVRInput.Controller.RTouch);
+        objectPoolContainer.SetActive(false);
         Time.timeScale = 0f;
         uiManager.ChangeUI_GameOver();
     }

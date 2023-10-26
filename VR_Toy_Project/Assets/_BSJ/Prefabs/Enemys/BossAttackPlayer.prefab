@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2945d0711f6a50c48884056ca8007765, type: 2}
+  - {fileID: 2100000, guid: ea5626fdd50a54691bc705dc43cfa2db, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,10 +127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba6c207e1d90734fac5d891c3b35c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossBombAttackTurretHp: 0
+  BossBombAttackPlayerHp: 0
+  BossBombAttackPlayerAtt: 0
   initialAngle: 30
-  turretLayer:
-    serializedVersion: 2
-    m_Bits: 2048
   detectionRadius: 1000
-  target: {fileID: 0}
+  diedPrefab: {fileID: 0}
+  attakPrefab: {fileID: 0}
+  effect: {fileID: 0}

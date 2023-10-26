@@ -11,6 +11,7 @@ public class BossAttack : MonoBehaviour
     public LayerMask Turret = default;
     private Monsters m = default;
     private int skill = default;
+    private PlayerStatus ps = default;
     //BSJ_231024
     private Vector3 yOffset = new(0f, 2f, 0f);
 
@@ -18,6 +19,7 @@ public class BossAttack : MonoBehaviour
     {
         m = GetComponent<Monsters>();
         boss = GetComponent<Boss>();
+        ps = FindObjectOfType<PlayerStatus>();
     }
 
     // Update is called once per frame
@@ -41,11 +43,11 @@ public class BossAttack : MonoBehaviour
 
         if (GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count > 0)
         {
-            skill = Random.Range(0, 3);
+            skill = Random.Range(0, 3);            
         }
         else if (GameManager.Instance.turretLv1_List.Count + GameManager.Instance.turretLv2_List.Count + GameManager.Instance.turretLv3_List.Count + GameManager.Instance.turretLv4_List.Count < 1)
         {
-            skill = Random.Range(0, 2);
+            skill = Random.Range(0, 2);            
         }
 
 

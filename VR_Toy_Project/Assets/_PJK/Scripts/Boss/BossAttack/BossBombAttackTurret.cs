@@ -1,6 +1,5 @@
 using System.Collections;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -18,6 +17,8 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
 
     private Turret01[] turret01;
     private Turret02[] turret02;
+    private Turret03[] turret03;
+    private Turret04[] turret04;
     private BossManager bm;
     private float nearDistance;
     private GameObject tempTarget;
@@ -34,11 +35,23 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
         BossBombAttackDmg = JsonData.Instance.bossSkillDatas.Boss_Skill[1].Att;
 
         rb = GetComponent<Rigidbody>();
-        nearDistance = Mathf.Infinity;
+    }
 
+    private void OnEnable()
+    {
+        // 터렛 찾아오기
         turret01 = FindObjectsOfType<Turret01>();
         turret02 = FindObjectsOfType<Turret02>();
+        turret03 = FindObjectsOfType<Turret03>();
+        turret04 = FindObjectsOfType<Turret04>();
 
+        // 초기 값 무한
+        nearDistance = 0;
+
+        // 초기 체력 재셋팅
+        BossBombAttackHp = JsonData.Instance.bossSkillDatas.Boss_Skill[1].Hp;
+
+        // { 제일 가까운 터렛 찾기
         if (turret01.Length > 0)
         {
             // 제일 가까운 터렛 찾기
@@ -47,7 +60,7 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
                 float findDistance = Vector3.Distance(transform.position, turret01[i].transform.position);
 
                 // 제일 가깝다면 그 타겟을 저장하고,
-                if (nearDistance > findDistance)
+                if (nearDistance < findDistance)
                 {
                     nearDistance = findDistance;
                     targetPos = turret01[i].gameObject.transform.position;
@@ -57,25 +70,51 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
 
         if (turret02.Length > 0)
         {
-            for (int i = 0; i < turret02.Length ; i++)
+            for (int i = 0; i < turret02.Length; i++)
             {
                 float findDistance = Vector3.Distance(transform.position, turret02[i].transform.position);
 
                 // 제일 가깝다면 그 타겟을 저장하고,
-                if (nearDistance > findDistance)
+                if (nearDistance < findDistance)
                 {
                     nearDistance = findDistance;
                     targetPos = turret02[i].gameObject.transform.position;
                 }
             }
         }
-    }
 
-    private void OnEnable()
-    {
-        // 초기 체력 재셋팅
-        BossBombAttackHp = JsonData.Instance.bossSkillDatas.Boss_Skill[1].Hp;
+        if (turret03.Length > 0)
+        {
+            for (int i = 0; i < turret03.Length; i++)
+            {
+                float findDistance = Vector3.Distance(transform.position, turret03[i].transform.position);
 
+                // 제일 가깝다면 그 타겟을 저장하고,
+                if (nearDistance < findDistance)
+                {
+                    nearDistance = findDistance;
+                    targetPos = turret03[i].gameObject.transform.position;
+                }
+            }
+        }
+
+        if (turret04.Length > 0)
+        {
+            for (int i = 0; i < turret04.Length; i++)
+            {
+                float findDistance = Vector3.Distance(transform.position, turret04[i].transform.position);
+
+                // 제일 가깝다면 그 타겟을 저장하고,
+                if (nearDistance < findDistance)
+                {
+                    nearDistance = findDistance;
+                    targetPos = turret04[i].gameObject.transform.position;
+                }
+            }
+        }
+        // } 제일 가까운 터렛 찾기
+
+        // 투사체 투척 공격
         StartCoroutine(Firsttime());
     }
 
@@ -144,6 +183,10 @@ public class BossBombAttackTurret : MonoBehaviour, IDamageable
         StartCoroutine(AttackEffect());
 
         rb.useGravity = true;
+
+        //Debug;
+        Debug.Log(targetPos);
+
         // 포물선 운동
         velocity = GetVelocity(transform.position, targetPos, initialAngle);
 

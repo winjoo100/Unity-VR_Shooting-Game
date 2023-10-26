@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Text;
 using UnityEngine;
 public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 {
@@ -51,11 +50,14 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
         {
             // 파괴 이펙트 오브젝트 풀에서 생성
             GameObject DieMotion = VFXObjectPool.instance.GetPoolObj(VFXPoolObjType.BossAttackdiedVFX);
+
             DieMotion.SetActive(true);
             DieMotion.transform.position = transform.position;
 
             // BSJ_오브젝트 풀로 반환
             BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackPlayer);
+
+
 
             //LEGACY : 오브젝트 풀로 반환
             //GameObject DieMotion = Instantiate(diedPrefab, transform.position, Quaternion.identity);
@@ -69,7 +71,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
             // BSJ_오브젝트 풀로 반환
             BossAttackObjectPool.instance.CoolObj(gameObject, BossAttackPoolObjType.BossAttackPlayer);
-            
+
         }
     }
 
@@ -111,7 +113,7 @@ public class BossBombAttackPlayer : MonoBehaviour, IDamageable
 
         yield return new WaitForSeconds(1.5f);
 
-        rb.velocity = Vector3.zero; 
+        rb.velocity = Vector3.zero;
 
         yield return new WaitForSeconds(3f);
 
