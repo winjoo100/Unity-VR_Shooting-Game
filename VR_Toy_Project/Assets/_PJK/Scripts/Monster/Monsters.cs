@@ -244,18 +244,26 @@ public class Monsters : MonoBehaviour, IDamageable
     //! 터렛을 공격하는 함수
     private void AttackTurret(int damage)
     {
-        if (turretUnit == null) { return; }
+        if (turretUnit == null) 
+        {
+            isAttackTurret = false;
+            isFindTurret = false;
+            target = GameObject.Find("Player");
+            anim.SetBool("isAttackturret", false);
+        }
 
-        rb.velocity = Vector3.zero;
-        anim.SetBool("isAttackturret", true);
-        turretUnit.DamageSelf(damage);
+        else
+        {
+            rb.velocity = Vector3.zero;
+            anim.SetBool("isAttackturret", true);
+            turretUnit.DamageSelf(damage);
 
-        //BSJ_ 텍스트 콜
-        GameObject damageText = TextObjectPool.instance.GetPoolObj(TextPoolObjType.DamageText02);
-        damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", damage);
-        damageText.SetActive(true);
-        damageText.transform.position = turretUnit.transform.position;
-
+            //BSJ_ 텍스트 콜
+            GameObject damageText = TextObjectPool.instance.GetPoolObj(TextPoolObjType.DamageText02);
+            damageText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}", damage);
+            damageText.SetActive(true);
+            damageText.transform.position = turretUnit.transform.position;
+        }
         // 멈춤
     }
 

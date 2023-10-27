@@ -124,12 +124,17 @@ public class Bullet : MonoBehaviour
             finalDamage = bulletDamage;
         }
     }
-
-    void Update()
+    private void FixedUpdate()
     {
         // 총알이 계속 앞으로 날아감.
         transform.Translate(Vector3.forward * (bulletSpeed / 5f) * Time.deltaTime);
     }
+
+    //void Update()
+    //{
+    //    // 총알이 계속 앞으로 날아감.
+    //    transform.Translate(Vector3.forward * (bulletSpeed / 5f) * Time.deltaTime);
+    //}
 
     private void OnTriggerEnter(Collider other)
     {

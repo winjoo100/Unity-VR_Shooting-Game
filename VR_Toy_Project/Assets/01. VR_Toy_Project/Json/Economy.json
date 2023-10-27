@@ -28,7 +28,7 @@
       "ID": "3003",
       "Description": "몬스터 처치 시 획득",
       "Method": "4",
-      "Gold_Gain": "10",
+      "Gold_Gain": "20",
       "Gold_Time": "0",
       "Boss_Hp": "0"
     }

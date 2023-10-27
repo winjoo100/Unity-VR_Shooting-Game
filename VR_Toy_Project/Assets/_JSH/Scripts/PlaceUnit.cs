@@ -140,7 +140,7 @@ public class PlaceUnit : MonoBehaviour
 
             // 세번째 배치 조건: 재화가 가격보다 크거나 같을 것
             // 재화가 충분한지 체크, 배치 가능한 장소인지 체크
-            if (GameManager.Instance.Gold >= JsonData.Instance.unitDatas.Unit[turretID].Cost && isCapable == true)
+            if (GameManager.Instance.Gold >= JsonData.Instance.unitDatas.Unit[turretID].Cost && (isCapable == true || isPlacable == true))
             {
                 // 설치 가능
                 SetUIEnable();
@@ -195,7 +195,7 @@ public class PlaceUnit : MonoBehaviour
             Collider[] hitObjects_ = Physics.OverlapSphere(hitInfo_.point, 0.4f, turret_ | detect_);
 
             // 영역 안에 탐지된 것이 존재하지 않음
-            if (hitObjects_.Length <= 0 && isCapable == true)
+            if (hitObjects_.Length <= 0)
             {
                 // 설치 가능
                 SetUIEnable();

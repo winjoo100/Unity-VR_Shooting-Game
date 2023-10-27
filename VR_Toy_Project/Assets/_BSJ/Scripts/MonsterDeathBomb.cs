@@ -28,12 +28,12 @@ public class MonsterDeathBomb : MonoBehaviour
             TextCall((int)_Damage / 100, other.transform);
         }
 
-        // 몬스터
-        if(other.CompareTag("Monster"))
-        {
-            // 데미지 처리
-            other.GetComponent<Monsters>().OnDamage((int)_Damage);
-        }
+        //// 몬스터
+        //if(other.CompareTag("Monster"))
+        //{
+        //    // 데미지 처리
+        //    other.GetComponent<Monsters>().OnDamage((int)_Damage);
+        //}
         // } 폭발 데미지 처리
     }
 
