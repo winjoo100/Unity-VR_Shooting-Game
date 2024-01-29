@@ -1,2 +1,15 @@
-# VR_Toy_Project
-VR Cooperation Project
+# Fairy Story
+
+## 🖥️ 프로젝트 소개
+VR 퍼즐 게임 [정령 이야기] 입니다.
+기업의 요구사항에 맞춰 기획 + 플밍 합쳐서 프로젝트를 진행했습니다.
+<br>
+
+## 🕰️ 개발 기간
+* 23.11.20(월) - 24.01.25(목)
+
+### ⚙️ 개발 환경
+- Unity   : 2021.3.27f1
+- IDE     : Visual Studio 2022
+- 목표 Deivece : Meta Quest 2
+
